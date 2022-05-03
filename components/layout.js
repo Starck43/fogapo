@@ -1,16 +1,14 @@
-import Alert from '../components/alert'
-import Footer from '../components/footer'
-import Meta from '../components/meta'
+import {Fragment} from 'react'
+import Meta from './meta'
+import Copyright from "./copyright"
 
-export default function Layout({ preview, children }) {
-  return (
-    <>
-      <Meta />
-      <div className="min-h-screen">
-        <Alert preview={preview} />
-        <main>{children}</main>
-      </div>
-      <Footer />
-    </>
-  )
+
+export default function Layout({preview, children}) {
+	return (
+		<Fragment>
+			<Meta/>
+			{children}
+			<Copyright/>
+		</Fragment>
+	)
 }

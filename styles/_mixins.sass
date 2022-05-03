@@ -1,0 +1,271 @@
+@use "sass:math"
+
+// Source mixin
+@mixin make-container($padding-x: 0)
+  width: 100%
+  @if ($padding-x != 0)
+    padding-right: $padding-x
+    padding-left: $padding-x
+
+  margin-right: auto
+  margin-left: auto
+
+@mixin font($f-name, $f-style, $f-weight, $local-url, $url:none, $display:swap)
+  @font-face
+    font-family: $f-name
+    font-display: $display
+    font-style: $f-style
+    @if $f-weight != 0
+      font-weight: $f-weight
+    src: url($local-url) if($url != none, #{','} $url format('woff2'), format('woff2'))
+    @content
+
+@mixin font-settings($font:false, $colour:false, $size:false, $case:false, $weight:false, $lh:false)
+  @if $font
+    font-family: "#{$font}",#{$default-fonts}
+  @else
+    font-family: #{$default-fonts}
+  @if $size
+    font-size: $size
+  @if $colour
+    color: $colour
+  @if $case
+    text-transform: $case
+  @if $weight
+    font-weight: $weight
+  @if $lh
+    line-height: $lh
+
+//Убираем единицы измерения у чисел
+@function strip-units($size)
+  $number: $size / ($size * 0 + 1)
+  @return $number
+
+@function em($pixels, $fontsize: $base-font-size)
+  $fontsize: $fontsize + 0px
+  @return ($pixels/$fontsize)*1em
+
+@function px($em, $fontsize: $base-font-size)
+  @return round(strip-units($em) * strip-units($fontsize))*1px
+
+//Автоматическое центрирование
+@mixin push--auto
+  margin:
+    left: auto
+    right: auto
+
+//Абсолютное позиционирование в размер родителя
+@mixin push--absolute($t: 0, $r: none, $b: none, $l: none)
+  position: absolute
+  top: $t
+  left: $t
+  @if $t == 0 and $l == none and $b == none and $r == none
+    width: 100%
+    height: 100%
+  @else if $t != 0 and $l == none and $b == none and $r == none
+    right: $t
+    bottom: $t
+  @else
+    top: $t
+    left: $l
+    right: $r
+    bottom: $b
+
+@mixin blur-background($blur:10, $color:white, $transparentize:0.8)
+  background-color: transparentize($color, $transparentize)
+  @supports (backdrop-filter: blur(0))
+    backdrop-filter: blur(#{$blur}px)
+
+// Вычисляем высоту блока за вычетом видимых в области экрана
+// например: height: calc-height($header-height, $nav-height, $top-bar-height)
+@function calc-height($h1, $h2:0, $h3:0, $h4:0)
+  $h: strip-units($h1) + strip-units($h2) + strip-units($h3)
+  @if $h4 != 0
+    @return calc(100vh - #{$h}px - #{$h4})
+  @else
+    @return calc(100vh - #{$h}px)
+
+
+@mixin animation($name, $animation, $fade:no-fade, $x:0, $y:0, $x1:0, $y1:0)
+  animation: animation-#{$name} $animation
+  @content
+
+  @keyframes animation-#{$name}
+    0%
+      @if $fade != no-fade
+        opacity: if($fade == Out, 1, 0)
+      @if strip-units($x)+strip-units($y) != 0
+        transform: translate($x, $y)
+    50%
+      @if $fade != no-fade
+        opacity: if($fade == In, 0, 0.5)
+
+    100%
+      @if $fade != no-fade
+        opacity: if($fade == Out, 0, 1)
+      @if strip-units($x1)+strip-units($y1) != 0
+        transform: translate($x1, $y1)
+
+@mixin animation-delays($items, $start-delay:0ms, $between-delay:50ms)
+  @for $i from 0 through $items
+    &:nth-child(#{$i+1})
+      animation-delay: $start-delay+($between-delay*($i))
+
+
+// End of magic parallax mixins
+@mixin transition-delays($items, $start-delay:0ms, $between-delay:50ms)
+  @for $i from 0 through $items
+    &:nth-child(#{$i+1})
+      transition-delay: $start-delay+($between-delay*($i))
+
+
+// Magic parallax mixins
+$parallax-perspective: 1 !default
+$parallax-element: "body" !default
+$parallax-ios: true !default
+
+@mixin parallax-init($perspective: $parallax-perspective, $element: $parallax-element, $parallax-ios: $parallax-ios)
+  @if $element == "body"
+    html, body
+      width: 100%
+      height: 100%
+      margin: 0
+      padding: 0
+      overflow: hidden
+
+  #{$element}
+    overflow-x: hidden
+    overflow-y: auto
+    perspective: $perspective * 1px
+    transform-style: preserve-3d
+    // Allows for smooth scrolling but disables parallax effects.
+    @if $parallax-ios == false
+      -webkit-overflow-scrolling: touch
+    // Preserve 3D
+    &, *
+      transform-style: preserve-3d
+
+@mixin parallax($distance: 0, $perspective: $parallax-perspective)
+  transform: translateZ($distance * $perspective * 1px) scale(abs($distance - 1))
+//z-index: $distance * 1000
+
+
+@function shadows($max: 5, $color: white)
+  $out: null
+
+  @for $i from 0 through $max
+    $pos: #{$i}px
+    $pos-n: -$pos
+    $shadow-t-l: $pos-n $pos-n 0 $color
+    $out: append($out, $shadow-t-l, comma)
+    $shadow-t-r: $pos $pos-n 0 $color
+    $out: append($out, $shadow-t-r, comma)
+    $shadow-b-r: $pos $pos 0 $color
+    $out: append($out, $shadow-b-r, comma)
+    $shadow-b-l: $pos-n $pos 0 $color
+    $out: append($out, $shadow-b-l, comma)
+
+  $shadow-back: 0 5px 10px rgba(0, 0, 0, .8)
+  $out: append($out, $shadow-back, comma)
+
+  @return $out
+
+@mixin pseudo($pos:relative, $content:'')
+  content: $content
+  display: table
+  @if $pos == absolute
+    +push--absolute
+  @else
+    position: $pos
+
+
+// Миксин для создания масштабируемыхэлементов(обычно изображения/картинки заднего фона),
+// чтобы поддерживать соотношение. Пример: @include responsive-ratio(16,9)
+@mixin responsive-ratio($x:1, $y:1, $h:0, $pseudo:false,$pos:relative)
+  $padding: unquote(math.div($y, $x)*100+'%')
+  @if $pseudo
+    position: $pos
+    &::before
+      @include pseudo($pos)
+      width: 100%
+      padding-bottom: $padding
+  @else
+    position: $pos
+    width: 100%
+    height: $h
+    padding-bottom: $padding
+  img
+    +push--absolute
+
+//миксин создает треугольники. Задаются цвет, размер и направление
+@mixin css-triangle($color, $direction, $size: 6px, $position: absolute, $round: false)
+  @include pseudo($pos: $position)
+  width: 0
+  height: 0
+  @if $round
+    border-radius: 3px
+  @if $direction == down
+    border-left: $size solid transparent
+    border-right: $size solid transparent
+    border-top: $size solid $color
+    margin-top: (0 - round( $size / 2.5 ))
+  @else if $direction == up
+    border-left: $size solid transparent
+    border-right: $size solid transparent
+    border-bottom: $size solid $color
+    margin-bottom: 0 - round( $size / 2.5 )
+  @else if $direction == right
+    border-top: $size solid transparent
+    border-bottom: $size solid transparent
+    border-left: $size solid $color
+    margin-right: -$size
+  @else if $direction == left
+    border-top: $size solid transparent
+    border-bottom: $size solid transparent
+    border-right: $size solid $color
+    margin-left: -$size
+
+// Responsive image
+// Keep images from scaling beyond the width of their parents.
+@mixin img-responsive
+  img
+    width: 100%
+    height: auto
+
+// Retina image
+// Short retina mixin for setting background-image and -size.
+@mixin img-retina($file-1x, $file-2x, $width-1x, $height-1x)
+  background-image: url($file-1x)
+
+  // Autoprefixer takes care of adding -webkit-min-device-pixel-ratio and -o-min-device-pixel-ratio,
+  // but doesn't convert dppx=>dpi.
+  // There's no such thing as unprefixed min-device-pixel-ratio since it's nonstandard.
+  // Compatibility info: https://caniuse.com/#feat=css-media-resolution
+  @media only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx)
+    background-image: url($file-2x)
+    background-size: $width-1x $height-1x
+
+
+@mixin placeholder($color)
+  ::-webkit-input-placeholder
+    color: $color
+  :-moz-placeholder
+    color: $color
+  ::-moz-placeholder
+    color: $color
+  :-ms-input-placeholder
+    color: $color
+
+@function calcFluidFontSize($f-min, $f-max, $w-min, $w-max, $units: px)
+  $f-min: strip-units($f-min)
+  $f-max: strip-units($f-max)
+  $w-min: strip-units($w-min)
+  $w-max: strip-units($w-max)
+
+  $k: ($f-max - $f-min)/($w-max - $w-min)
+  $b: $f-min - $k * $w-min
+
+  $b: $b + $units
+
+  @return calc(#{$k} * 100vw + #{$b})
+

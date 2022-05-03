@@ -1,0 +1,207 @@
+@import "/node_modules/bootstrap/scss/bootstrap-reboot.scss"
+@import vars.module
+@import utils.module
+@import mixins
+@import fonts
+
+html
+	background-color: $bg-color
+
+\:root
+	--bs-font-sans-serif: #{$font-family-sans-serif}
+	--bs-body-color: #{$text-color}
+	--bs-body-bg: #{$bg-color}
+
+body
+	font-size: 14px
+	min-height: 100vh
+	+media-breakpoint-up(md)
+		font-size: 16px
+	+media-breakpoint-up(lg)
+		font-size: 18px
+
+#__next
+	display: flex
+	flex-direction: column
+	min-height: 100vh
+	height: 100%
+
+main
+	flex: 1
+	section
+		flex: 100%
+
+ul
+	margin: 0
+	padding: 0
+	list-style-type: none
+
+h1
+	color: $title-color
+	font-size: 2.4em
+	letter-spacing: 1px
+	text-transform: uppercase
+
+h2
+	color: $title-color
+	font-size: 2.4em
+	//letter-spacing: 2px
+
+h3
+	color: $title-color
+	font-size: 2.0em
+	//letter-spacing: 1px
+	text-transform: uppercase
+
+h4
+	font-size: 1.25em
+	text-transform: uppercase
+
+header
+	height: 100vh
+	.container
+		display: flex
+	.logo
+		min-width: 80px
+		margin-right: 2em
+
+	.header-title
+		flex: 0 1 50%
+		text-transform: uppercase
+		line-height: 1.2
+		h1
+			word-spacing: 100vw
+			color: $header-title-color
+		.subtitle
+			margin-top: 0.5em
+			color: $brand-color
+			font-size: 2em
+			text-transform: lowercase
+
+	.activities
+		position: relative
+		flex: auto
+		background-color: transparentize(white, 0.1)
+
+.partners-forum
+	margin-top: auto
+	h3
+		color: $brand-color
+
+	.partners
+		font-size: 1.8em
+		color: #fff
+
+.partners
+	&.partner-logos
+		display: flex
+		justify-content: center
+	.partner-logo
+		position: relative
+
+.contacts-forum
+	text-align: right
+	margin-top: auto
+	flex: 1
+	p, .location
+		font-size: 1.2em
+	.get-in-touch
+		padding: 1rem 1.5rem
+		margin-right: -1.5rem
+		color: #000
+		background-color: transparentize(white, 0.3)
+		p
+			margin: 0
+
+	div:last-child
+		color: #fff
+		font-weight: bold
+		margin-top: 2rem
+
+
+.date-forum
+	justify-content: space-between
+	flex: 0 1 50%
+
+.date-block
+	font-size: 4rem
+	line-height: 1
+	font-weight: bold
+	color: #000
+	.at-time
+		margin-top: 0.5rem
+		text-align: right
+		font-size: 0.6em
+		font-weight: normal
+		text-transform: uppercase
+
+.countdown-block
+	display: inline-flex
+	.two-digit
+		position: relative
+		width: 3em
+		height: 3em
+		font-size: 1.4em
+		color: #fff
+		border-color: white
+		background: $brand-color radial-gradient(circle at 50% 0, rgba(255,255,255,.55), rgba(255,255,255,.25))
+	.number-wrapper
+		margin: 0.2em
+		&:first-child
+			margin-left: 0
+		&:last-child
+			margin-right: 0
+
+		span
+			margin-top: 0.5em
+			font-size: 0.6rem
+			text-transform: uppercase
+
+			font-weight: bold
+
+
+article
+	margin-bottom: 2em
+
+.event-content
+	position: relative
+	display: flex
+	flex-direction: column
+	align-items: center
+	max-width: 100%
+	font-size: 1.4em
+	+media-breakpoint-up(sm)
+		display: inline-block
+		max-width: calc(100% - 300px)
+		img
+			position: absolute
+			left: 100%
+			margin-left: 1rem
+			max-width: 150px
+
+	img
+		max-width: 300px
+		height: auto !important
+
+.copyright
+	border-top: 1px solid $bg-color
+	text-align: center
+	padding: 3px
+	a
+		color: $brand-color
+
+footer
+	.container
+		padding-top: 2em
+		padding-bottom: 2em
+
+	.partner-block
+		display: flex
+		flex: 0 1 auto
+		max-height: 100px
+		max-width: 300px
+		line-height: 0
+		margin: 0 2vw
+		overflow: hidden
+
+
