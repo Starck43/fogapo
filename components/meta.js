@@ -8,7 +8,7 @@ const Meta = () => (
 			<link
 				href="/fonts/exo2_0_regular.woff2"
 				rel="stylesheet"
-				crossOrigin
+				crossOrigin="true"
 			/>
 			<link
 				href="/fonts/exo2_0_regular.woff2"

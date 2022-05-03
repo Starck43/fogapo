@@ -3,7 +3,7 @@
 
 export async function getPost(slug) {
 	//const post = DATA.posts[0]
-	const res = await fetch(process.env.API_SERVER+process.env.API_ENDPOINTS.post+`/${slug}/`)
+	const res = await fetch(process.env.API_SERVER+process.env.API_ENDPOINTS.posts+`/${slug}/`)
 	return await res.json()
 }
 
