@@ -1,14 +1,15 @@
 import Image from 'next/image'
 
-export default function CoverImage({src, height, width}) {
+export default function Icon({src, height, width}) {
 	return (
 		<Image
 			src={src}
 			//loader={remoteLoader}
-			placeholder={blur}
+			//placeholder={blur}
 			alt=""
-			className=""
-			layout="responsive"
+			className="icon"
+			layout="fixed"
+			objectFit="contain"
 			width={width}
 			height={height}
 		/>

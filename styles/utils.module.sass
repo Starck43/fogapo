@@ -19,9 +19,23 @@
   padding-top: 4vh
   padding-bottom: 4vh
 
+.p-4
+  @extend .px-4
+  @extend .py-4
+
+
+.px-2
+  padding-left: 2vw
+  padding-right: 2vw
+
 .py-2
-  padding-top: 4vh
-  padding-bottom: 4vh
+  padding-top: 2vh
+  padding-bottom: 2vh
+
+.p-2
+  @extend .px-2
+  @extend .py-2
+
 
 .bg-white
   background-color: #fff !important
@@ -38,6 +52,8 @@
   &.space-between
     justify-content: space-between
 
+.cell-4
+  flex: 1 1 33.3%
 .col-12
   flex: 100%
 .cell-6
@@ -74,3 +90,27 @@
 
 .shadow4
   box-shadow: 0 10px 15px -3px rgba(0,0,0,.07),0 4px 6px -2px rgba(0,0,0,.05)
+
+.link
+  user-select: none
+  cursor: pointer
+  color: $brand-color
+
+.highlight
+  color: $brand-color !important
+
+.button
+  @extend .centered
+  padding: 0.75em 1.25em
+  color: $button-text-color
+  background-color: $button-bg-color
+  text-align: center
+  border-radius: 8px
+  line-height: 1
+  text-transform: uppercase
+  font-weight: bold
+  @extend .shadow3
+  cursor: pointer
+
+.large-text
+  font-size: 1.2em

@@ -50,7 +50,6 @@ venv/
 
 # src
 /src
-public/**
 
 # Database #
 *.sqlite3

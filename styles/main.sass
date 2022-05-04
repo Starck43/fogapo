@@ -44,29 +44,36 @@ h1
 
 h2
 	color: $title-color
-	font-size: 2.4em
-	//letter-spacing: 2px
+	font-size: 2.0em
+	font-weight: 500
+//letter-spacing: 2px
 
 h3
 	color: $title-color
 	font-size: 2.0em
+	font-weight: 500
 	//letter-spacing: 1px
 	text-transform: uppercase
 
 h4
-	font-size: 1.25em
+	font-size: 1.2em
 	text-transform: uppercase
+	font-weight: 500
 
 header
-	height: 100vh
+	min-height: 100vh
 	.container
 		display: flex
+		+media-breakpoint-down(lg)
+			min-height: 100vh
+
 	.logo
 		min-width: 80px
-		margin-right: 2em
+		user-select: none
 
 	.header-title
 		flex: 0 1 50%
+		margin-left: 2em
 		text-transform: uppercase
 		line-height: 1.2
 		h1
@@ -74,14 +81,136 @@ header
 			color: $header-title-color
 		.subtitle
 			margin-top: 0.5em
-			color: $brand-color
-			font-size: 2em
 			text-transform: lowercase
+			@extend h2
 
-	.activities
+
+	.date-forum
+		justify-content: space-between
+		flex: 1 1 50%
+
+	.date-block
+		font-size: 4em
+		line-height: 1
+		font-weight: bold
+		color: #000
+		.at-time
+			margin-top: 0.5em
+			text-align: right
+			font-size: 0.5em
+			font-weight: normal
+			text-transform: uppercase
+
+	.countdown-block
+		display: inline-flex
+		.two-digit
+			position: relative
+			width: 2.4em
+			height: 2.4em
+			padding: 0
+			font-size: 1.6em
+			font-weight: 500
+			color: #fff
+			border-color: $brand-color
+			background: $brand-color radial-gradient(circle at 50% 0, rgba(255,255,255,.55), rgba(255,255,255,.25))
+			&::after
+				position: absolute
+				content: ":"
+				top: 0
+				bottom: 0
+				left: 100%
+				font-size: 2em
+				line-height: 0.9
+				margin-left: .08em
+
+		.number-wrapper
+			margin: $countdown-number-offset
+			&:first-child
+				margin-left: 0
+				.two-digit::after
+					content: none
+			&:last-child
+				margin-right: 0
+				.two-digit::after
+					content: none
+			span
+				margin-top: 0.5em
+				font-size: 0.6rem
+				text-transform: uppercase
+				color: $brand-color
+				font-weight: bold
+
+
+	.appeals-container
 		position: relative
 		flex: auto
+		justify-content: center
 		background-color: transparentize(white, 0.1)
+
+		ul.appeals-block
+			display: flex
+			justify-content: space-between
+			li
+				position: relative
+				display: flex
+				max-width: calc(33.33% - 2vw)
+				border: 3px solid $brand-color
+				>span
+					max-width: 50px
+					margin-right: 5% !important
+				.text
+					margin-bottom: auto
+
+		.appeal-footer
+			display: flex
+
+		+media-breakpoint-down(md)
+			ul.appeals-block
+				flex-direction: column
+				li
+					max-width: 100%
+					margin-top: 4vh
+
+			.appeal-footer
+				flex-direction: column
+				.button
+					margin-top: 4vh
+
+
+	+media-breakpoint-down(xl)
+		.date-forum
+			.date-block
+				font-size: 3.2em
+
+	+media-breakpoint-down(sm)
+		.header-title
+			margin-left: 0
+			font-size: 0.9em
+
+		.date-forum
+			.date-block
+				font-size: 3em
+
+	+media-breakpoint-down(lg)
+		.container
+			flex-wrap: wrap
+			justify-content: center
+
+		.logo-link
+			flex: 1 1 10%
+
+		.header-title
+			flex: 1 1 75%
+
+		.date-forum
+			flex: 100%
+			align-items: center !important
+			margin-top: 2rem
+			.date-block
+				margin-bottom: 0.5em
+			.countdown-block
+				justify-content: center
+				text-align: center
 
 .partners-forum
 	margin-top: auto
@@ -89,8 +218,11 @@ header
 		color: $brand-color
 
 	.partners
-		font-size: 1.8em
 		color: #fff
+		@extend h4
+
+	+media-breakpoint-up(md)
+		flex: 1
 
 .partners
 	&.partner-logos
@@ -100,11 +232,10 @@ header
 		position: relative
 
 .contacts-forum
-	text-align: right
-	margin-top: auto
 	flex: 1
-	p, .location
-		font-size: 1.2em
+	margin-top: auto
+	text-align: right
+	font-weight: 500
 	.get-in-touch
 		padding: 1rem 1.5rem
 		margin-right: -1.5rem
@@ -115,64 +246,20 @@ header
 
 	div:last-child
 		color: #fff
-		font-weight: bold
 		margin-top: 2rem
-
-
-.date-forum
-	justify-content: space-between
-	flex: 0 1 50%
-
-.date-block
-	font-size: 4rem
-	line-height: 1
-	font-weight: bold
-	color: #000
-	.at-time
-		margin-top: 0.5rem
-		text-align: right
-		font-size: 0.6em
-		font-weight: normal
-		text-transform: uppercase
-
-.countdown-block
-	display: inline-flex
-	.two-digit
-		position: relative
-		width: 3em
-		height: 3em
-		font-size: 1.4em
-		color: #fff
-		border-color: white
-		background: $brand-color radial-gradient(circle at 50% 0, rgba(255,255,255,.55), rgba(255,255,255,.25))
-	.number-wrapper
-		margin: 0.2em
-		&:first-child
-			margin-left: 0
-		&:last-child
-			margin-right: 0
-
-		span
-			margin-top: 0.5em
-			font-size: 0.6rem
-			text-transform: uppercase
-
-			font-weight: bold
 
 
 article
 	margin-bottom: 2em
 
 .event-content
-	position: relative
-	display: flex
-	flex-direction: column
-	align-items: center
 	max-width: 100%
-	font-size: 1.4em
+	position: relative
+
 	+media-breakpoint-up(sm)
 		display: inline-block
 		max-width: calc(100% - 300px)
+		text-align: center
 		img
 			position: absolute
 			left: 100%
@@ -196,6 +283,7 @@ footer
 		line-height: 0
 		margin: 0 2vw
 		overflow: hidden
+
 
 .copyright
 	border-top: 1px solid $bg-color
