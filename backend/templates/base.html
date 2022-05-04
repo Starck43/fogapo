@@ -1,0 +1,31 @@
+{% load static %}
+{% load custom_tags %}
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="ru" class="{{ html_classes|to_string }}">
+<head>
+	<meta charset="UTF-8">
+
+	<!-- CSS only -->
+	<link href="{% md5url 'css/vendors.min.css' %}" rel="stylesheet" type="text/css" media="screen"/>
+	<link href="{% md5url 'css/base.min.css' %}" rel="stylesheet" type="text/css" media="screen"/>
+
+	{% block styles %}{% endblock %}
+
+	<title>{% block title %}{{ main_title }}{% endblock %}</title>
+</head>
+
+<body>
+	<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" style="display:none"></svg>
+
+	<div class="container">
+		{% block content %}{% endblock content %}
+	</div>
+
+	<script src="{% md5url 'js/base.min.js' %}"></script>
+	<script src="{% md5url 'js/vendors.min.js' %}"></script>
+
+	{% block script %}{% endblock script %}
+</body>
+</html>

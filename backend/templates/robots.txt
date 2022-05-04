@@ -1,0 +1,15 @@
+User-agent: *
+Disallow: /site.wsgi
+Disallow: /admin
+Disallow: /account
+Disallow: /accounts
+Disallow: */None
+Disallow: */?
+Disallow: /search/?q=
+
+Allow: /media
+Disallow: /media/cache
+Disallow: /assets
+Disallow: /static
+
+Sitemap: http://backend/sitemap.xml
