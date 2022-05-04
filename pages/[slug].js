@@ -25,7 +25,7 @@ export default function Page({post, preview}) {
 }
 
 export async function getStaticProps({params}) {
-	const post = await getPost(params.slug)
+	const post = await getPost(params.slug) || null
 
 	return {
 		props: {
@@ -36,7 +36,7 @@ export async function getStaticProps({params}) {
 
 export async function getStaticPaths() {
 	// fetching all posts only with a 'slug' field
-	const posts = await getAllPosts(['slug'])
+	const posts = await getAllPosts(['slug']) || []
 
 	return {
 		paths: posts.map((post) => {

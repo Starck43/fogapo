@@ -26,7 +26,7 @@ export const Logo = ({className = 'logo', name = '', src}) => {
 				layout="intrinsic"
 				width={imageSize.naturalWidth}
 				height={imageSize.naturalHeight}
-				/*placeholder="blur"*/
+				unoptimized={true}
 				alt={name}
 				onLoadingComplete={loadComplete}
 			/>

@@ -15,6 +15,15 @@
 # production
 /build
 
+# static
+resources/
+static/
+**/media/*
+!**/media/no-image.jpg
+!**/media/no-image.png
+!**/media/no-person.png
+CACHE/
+
 # misc
 .DS_Store
 *.pem
@@ -30,8 +39,39 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# Environment
+.env
+prod.env
+.venv
+venv/
+
 # vercel
 .vercel
 
 # src
 /src
+public/**
+
+# Database #
+*.sqlite3
+
+# Sublime #
+*.sublime-workspace
+*.sublime-project
+sftp-config.json
+package-lock.json
+datadamp.json
+
+# Django #
+__pycache__/
+*.log
+*.pot
+*.pyc
+migrations/
+__init__.py
+wsgi.py
+asgi.py
+
+# misc
+.DS_Store
+.idea
