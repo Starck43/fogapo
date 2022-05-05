@@ -11,6 +11,10 @@
 .mx-auto
   +push--auto
 
+.my-2
+  margin-top: 2vh
+  margin-bottom: 2vh
+
 .px-4
   padding-left: 4vw
   padding-right: 4vw
@@ -101,11 +105,12 @@
 
 .button
   @extend .centered
-  padding: 0.75em 1.25em
+  padding: 1.25em
+  width: max-content
   color: $button-text-color
   background-color: $button-bg-color
   text-align: center
-  border-radius: 8px
+  border-radius: $border-radius
   line-height: 1
   text-transform: uppercase
   font-weight: bold

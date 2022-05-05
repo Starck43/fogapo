@@ -67,7 +67,8 @@ header
 		+media-breakpoint-down(lg)
 			min-height: 100vh
 
-	.logo
+	.logo-link
+		max-width: 4em
 		min-width: 80px
 		user-select: none
 
@@ -103,6 +104,8 @@ header
 
 	.countdown-block
 		display: inline-flex
+		margin-top: 2em
+		margin-bottom: auto
 		.two-digit
 			position: relative
 			width: 2.4em
@@ -141,11 +144,13 @@ header
 				font-weight: bold
 
 
+	.appeals
+		width: 100%
+		flex: auto
+		align-items: center
+		background-color: transparentize(white, 0.1)
 	.appeals-container
 		position: relative
-		flex: auto
-		justify-content: center
-		background-color: transparentize(white, 0.1)
 
 		ul.appeals-block
 			display: flex
@@ -163,6 +168,9 @@ header
 
 		.appeal-footer
 			display: flex
+			.button
+				max-width: 300px
+				min-height: 80px
 
 		+media-breakpoint-down(md)
 			ul.appeals-block
@@ -174,6 +182,7 @@ header
 			.appeal-footer
 				flex-direction: column
 				.button
+					align-items: center
 					margin-top: 4vh
 
 
@@ -195,6 +204,7 @@ header
 		.container
 			flex-wrap: wrap
 			justify-content: center
+			min-height: 100%
 
 		.logo-link
 			flex: 1 1 10%
@@ -221,8 +231,6 @@ header
 		color: #fff
 		@extend h4
 
-	+media-breakpoint-up(md)
-		flex: 1
 
 .partners
 	&.partner-logos
@@ -237,7 +245,6 @@ header
 	user-select: none
 
 .contacts-forum
-	flex: 1
 	margin-top: auto
 	text-align: right
 	font-weight: 500
@@ -246,6 +253,7 @@ header
 		margin-right: -1.5rem
 		color: #000
 		background-color: transparentize(white, 0.3)
+		border-radius: $border-radius
 		p
 			margin: 0
 
@@ -253,8 +261,11 @@ header
 		color: #fff
 		margin-top: 2rem
 
-	+media-breakpoint-down(sm)
-		flex: auto
+	+media-breakpoint-up(lg)
+		max-width:40%
+
+	+media-breakpoint-down(md)
+		flex: 100% !important
 		.get-in-touch
 			margin-right: 0
 			margin-top: 1em
@@ -267,10 +278,13 @@ article
 	position: relative
 	text-align: center
 
+	+media-breakpoint-up(lg)
+		img
+			max-width: 300px !important
 	+media-breakpoint-up(sm)
 		display: inline-block
 		text-align: left
-		max-width: calc(100% - 300px)
+		max-width: calc(100% - 150px)
 		img
 			position: absolute
 			left: 100%

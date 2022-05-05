@@ -13,7 +13,7 @@ export default function PostBody({events, partners, location, info}) {
 					<h3>Организаторы</h3>
 					<Partners className="partner-names" partners={partners} fields={['name']}/>
 				</section>
-				<section className="contacts-forum">
+				<section className="contacts-forum cell-auto">
 					<Contacts className="contacts-block" location={location} info={info}/>
 				</section>
 			</Container>

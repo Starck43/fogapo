@@ -6,6 +6,6 @@ export default function DateFormatter({datetime}) {
 			day: 'numeric',
 			month: 'long',
 			year: 'numeric',
-		}).replace('г.','')}
+		}).replace(' г.','')}
 	</time>
 }
