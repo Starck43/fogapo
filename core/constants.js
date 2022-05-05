@@ -1,5 +1,7 @@
 export const SITE_NAME = 'Fogapo'
 export const HOME_TITLE = 'Форум гарантированных поставщиков'
+export const yandexMetrikaId = '88707408'
+export const googleAnalyticsId = 'G-ZBG8YKXFMZ'
 
 const DATA = {
 	site_logo: '/logo.png',
@@ -36,25 +38,23 @@ const DATA = {
 				{
 					id: 1,
 					icon: '/icons/competence.png',
-					text: 'получить уверенность в поставках материалов, мебели и оборудования для ваших проектов',
+					text: 'уверенность в поставках материалов, мебели и оборудования для ваших проектов',
 				},
 				{
 					id: 2,
 					icon: '/icons/experience.png',
-					text: 'было легко отвечать на вопросы своих клиентов по комплектации',
+					text: 'легко отвечать на вопросы своих клиентов по комплектации',
 				},
 				{
 					id: 3,
 					icon: '/icons/reliability.png',
-					text: 'обменяться опытом работы в новых условиях',
+					text: 'обмен ценным опытом работы в новых реалиях',
 				},
 			],
 			description: 'Мероприятие для дизайнеров интерьера, кто хочет увидеть новые возможности и перспективы работы с надежными поставщиками для своих проектов',
 			keywords: "форму поставщиков, дизайнеры интерьера, надежные поставщики",
 		},
 	],
-	yandexMetrikaId: '00000000',
-	googleAnalyticsId: 'G-000000000',
 }
 
 export default DATA

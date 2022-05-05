@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import {HOME_TITLE} from "../core/constants"
+import {HOME_TITLE, yandexMetrikaId, googleAnalyticsId} from "../core/constants"
 
 const Meta = () => (
 		<Head>
@@ -45,8 +45,51 @@ const Meta = () => (
 			<link rel="alternate" type="application/rss+xml" href="/feed.xml"/>
 
 			<meta property="og:image" content={'/logo.png'}/>
+
 			<meta name="robots" content="follow, index"/>
-			<meta name="googlebot" content="index,follow"/>
+			<meta name="yandex-verification" content="0166bc6b3bf05401" />
+
+			{process.env.NODE_ENV === "production" && googleAnalyticsId &&
+				<>
+					<meta name="googlebot" content="index, follow"/>
+					<script async defer src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}/>
+
+					<script
+						dangerouslySetInnerHTML={{
+							__html: `
+							window.dataLayer = window.dataLayer || [];
+							function gtag(){dataLayer.push(arguments);}
+							gtag('js', new Date());
+
+							gtag('config', '${googleAnalyticsId}');
+							`
+						}}
+					/>
+				</>
+			}
+
+			{process.env.NODE_ENV === "production" && yandexMetrikaId &&
+				<>
+					<script
+						dangerouslySetInnerHTML={{__html: `
+							(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+								m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+							(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+							ym(${yandexMetrikaId}, "init", {
+								clickmap:true,
+								trackLinks:true,
+								accurateTrackBounce:true
+							});
+						`}}
+					/>
+					<noscript
+						dangerouslySetInnerHTML={{__html: `
+							<div><img src="https://mc.yandex.ru/watch/${yandexMetrikaId}" style="position:absolute; left:-9999px;" alt="" /></div>
+						`}}
+					/>
+				</>
+			}
 
 		</Head>
 	)
