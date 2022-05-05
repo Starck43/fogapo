@@ -11,11 +11,11 @@ export default function Partners({className='', partners=null, fields = ['name']
 					<li key={partner.id} className="partner-block">
 						{
 							fields.map((field,index) => (
-								<Fragment key={index}>
+								<a href={partner.link} key={index}>
 									{field === 'logo' &&
 									<Logo className={`partner-${field} centered`} name={partner.name} src={partner.logo}/>}
 									{field === 'name' && <div className={`partner-${field}`}>{partner.name}</div>}
-								</Fragment>
+								</a>
 							))
 
 						}

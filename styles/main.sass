@@ -231,6 +231,11 @@ header
 	.partner-logo
 		position: relative
 
+.partner-block a
+	color: white
+	text-decoration: none
+	user-select: none
+
 .contacts-forum
 	flex: 1
 	margin-top: auto
@@ -248,6 +253,11 @@ header
 		color: #fff
 		margin-top: 2rem
 
+	+media-breakpoint-down(sm)
+		flex: auto
+		.get-in-touch
+			margin-right: 0
+			margin-top: 1em
 
 article
 	margin-bottom: 2em
@@ -255,11 +265,12 @@ article
 .event-content
 	max-width: 100%
 	position: relative
+	text-align: center
 
 	+media-breakpoint-up(sm)
 		display: inline-block
+		text-align: left
 		max-width: calc(100% - 300px)
-		text-align: center
 		img
 			position: absolute
 			left: 100%
