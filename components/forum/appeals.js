@@ -9,8 +9,8 @@ const Appeals = ({post}) => {
 	}
 
 	return (
-		<section className="appeals p-4">
-			<Container className="container appeals-container flex-column my-2 mx-auto">
+		<section className="appeals">
+			<Container className="container appeals-container flex-column p-4 mx-auto">
 				<h2 className="mx-auto">
 					<HtmlContent>{post.appeals_title}</HtmlContent>
 				</h2>

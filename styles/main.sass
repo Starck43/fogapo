@@ -64,6 +64,9 @@ header
 	min-height: 100vh
 	.container
 		display: flex
+		@media (max-width: 767.98px) and (orientation: portrait)
+			min-height: 100vh !important
+
 		+media-breakpoint-down(lg)
 			min-height: 100vh
 
@@ -90,24 +93,23 @@ header
 
 	.date-forum
 		justify-content: space-between
-		flex: 1 1 30%
+		flex: 1 1 42%
 
 	.date-block
 		font-size: 4em
 		line-height: 1
 		font-weight: bold
 		color: #000
+		text-align: right
 		.at-time
 			margin-top: 0.5em
-			text-align: right
 			font-size: 0.5em
 			font-weight: normal
 			text-transform: uppercase
 
 	.countdown-block
 		display: inline-flex
-		margin-top: 2em
-		margin-bottom: auto
+		margin-top: auto
 		.two-digit
 			position: relative
 			width: 2.4em
@@ -198,15 +200,6 @@ header
 			.date-block
 				font-size: 3.2em
 
-	+media-breakpoint-down(sm)
-		.header-title
-			margin-left: 0
-			font-size: 0.9em
-
-		.date-forum
-			.date-block
-				font-size: 3em
-
 	+media-breakpoint-down(lg)
 		.container
 			flex-wrap: wrap
@@ -221,13 +214,30 @@ header
 
 		.date-forum
 			flex: 100%
-			align-items: center !important
+			flex-direction: row
 			margin-top: 2rem
 			.date-block
-				margin-bottom: 0.5em
+				margin-bottom: 10px
+
+	+media-breakpoint-down(md)
+		.date-forum
+			flex-direction: column
+			align-items: center !important
+			.date-block
+				margin-bottom: 2rem
 			.countdown-block
 				justify-content: center
 				text-align: center
+
+	+media-breakpoint-down(sm)
+		.header-title
+			margin-left: 0
+			font-size: 0.9em
+
+		.date-forum
+			.date-block
+				font-size: 3em
+
 
 .partners-forum
 	margin-top: auto
@@ -273,7 +283,7 @@ header
 		margin-top: 2rem
 
 	+media-breakpoint-up(lg)
-		max-width:40%
+		max-width: 40%
 
 	+media-breakpoint-down(sm)
 		flex: 100% !important
@@ -291,6 +301,7 @@ article
 	img
 		max-width: 300px
 		height: auto !important
+		margin-bottom: 1em
 
 	+media-breakpoint-up(sm)
 		display: inline-block
@@ -306,7 +317,6 @@ article
 		max-width: calc(100% - 300px)
 		img
 			max-width: 300px
-
 
 
 footer
