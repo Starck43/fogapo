@@ -70,11 +70,11 @@ header
 	.logo-link
 		max-width: 4em
 		min-width: 80px
+		margin-right: 2vw
 		user-select: none
 
 	.header-title
 		flex: 0 1 50%
-		margin-left: 2em
 		text-transform: uppercase
 		line-height: 1.2
 		h1
@@ -84,11 +84,13 @@ header
 			margin-top: 0.5em
 			text-transform: lowercase
 			@extend h2
+			p
+				margin-bottom: 0
 
 
 	.date-forum
 		justify-content: space-between
-		flex: 1 1 50%
+		flex: 1 1 30%
 
 	.date-block
 		font-size: 4em
@@ -122,9 +124,12 @@ header
 				top: 0
 				bottom: 0
 				left: 100%
-				font-size: 2em
-				line-height: 0.9
-				margin-left: .08em
+				font-size: 1.5em
+				line-height: 1.2
+				margin-left: .11em
+
+		.countdown-title
+			font-weight: bold
 
 		.number-wrapper
 			margin: $countdown-number-offset
@@ -137,7 +142,7 @@ header
 				.two-digit::after
 					content: none
 			span
-				margin-top: 0.5em
+				margin-top: 0.2em
 				font-size: 0.6rem
 				text-transform: uppercase
 				color: $brand-color
@@ -170,7 +175,8 @@ header
 			display: flex
 			.button
 				max-width: 300px
-				min-height: 80px
+				max-height: 75px
+				margin-left: 1em
 
 		+media-breakpoint-down(md)
 			ul.appeals-block
@@ -184,6 +190,7 @@ header
 				.button
 					align-items: center
 					margin-top: 4vh
+					margin-left: 0
 
 
 	+media-breakpoint-down(xl)
@@ -227,9 +234,10 @@ header
 	h3
 		color: $brand-color
 
-	.partners
+	.partners .partner-name
 		color: #fff
 		@extend h4
+		line-height: 1.2
 
 
 .partners
@@ -238,6 +246,7 @@ header
 		justify-content: center
 	.partner-logo
 		position: relative
+		height: 100%
 
 .partner-block a
 	color: white
@@ -248,6 +257,8 @@ header
 	margin-top: auto
 	text-align: right
 	font-weight: 500
+	h4
+		font-weight: 700
 	.get-in-touch
 		padding: 1rem 1.5rem
 		margin-right: -1.5rem
@@ -264,7 +275,7 @@ header
 	+media-breakpoint-up(lg)
 		max-width:40%
 
-	+media-breakpoint-down(md)
+	+media-breakpoint-down(sm)
 		flex: 100% !important
 		.get-in-touch
 			margin-right: 0
@@ -277,10 +288,10 @@ article
 	max-width: 100%
 	position: relative
 	text-align: center
+	img
+		max-width: 300px
+		height: auto !important
 
-	+media-breakpoint-up(lg)
-		img
-			max-width: 300px !important
 	+media-breakpoint-up(sm)
 		display: inline-block
 		text-align: left
@@ -291,9 +302,11 @@ article
 			margin-left: 1rem
 			max-width: 150px
 
-	img
-		max-width: 300px
-		height: auto !important
+	+media-breakpoint-up(md)
+		max-width: calc(100% - 300px)
+		img
+			max-width: 300px
+
 
 
 footer

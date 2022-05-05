@@ -25,7 +25,7 @@ const Appeals = ({post}) => {
 					}
 				</ul>
 				<div className="appeal-footer large-text mx-auto">
-					<HtmlContent>
+					<HtmlContent className="appeal-reg-info">
 						{post.appeals_footer}
 					</HtmlContent>
 					<div className="button" onClick={regHandle}>Зарегистрироваться online</div>

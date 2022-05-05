@@ -37,17 +37,17 @@ const DATA = {
 			appeals: [
 				{
 					id: 1,
-					icon: '/icons/competence.png',
+					icon: '/icons/reliability.png',
 					text: 'уверенность в поставках материалов, мебели и оборудования для ваших проектов',
 				},
 				{
 					id: 2,
-					icon: '/icons/experience.png',
+					icon: '/icons/competence.png',
 					text: 'легко отвечать на вопросы своих клиентов по комплектации',
 				},
 				{
 					id: 3,
-					icon: '/icons/reliability.png',
+					icon: '/icons/experience.png',
 					text: 'обмен ценным опытом работы в новых реалиях',
 				},
 			],
