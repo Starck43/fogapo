@@ -24,7 +24,7 @@ const OnlineRegistration = ({show, handler}) => {
 			let isQuestion = (key.search(/^questions/g) !== -1)
 			if (isQuestion) {
 				let label = form.querySelector(`label[for="${key}"]`)
-				text += `Вопрос ${num}: ${label.innerText}\nОтвет: ${data[key]}\n\n`
+				text += `Вопрос ${num}: ${label?.innerText}\nОтвет: ${data[key]}\n\n`
 				num++
 			} else {
 				json[key] = data[key]
