@@ -9,6 +9,7 @@ module.exports = {
 		API_ENDPOINTS: {
 				posts: '/posts',
 				latest: '/post/latest',
+				saveUser: '/user/add',
 			},
 	},
 	publicRuntimeConfig: {},

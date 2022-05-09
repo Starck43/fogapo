@@ -32,10 +32,6 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', False)
 
-ALLOWED_HOSTS = env('ALLOWED_HOSTS', list, [])
-
-INTERNAL_IPS = ALLOWED_HOSTS
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -56,11 +52,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    #'django.middleware.cache.UpdateCacheMiddleware',
-
+    'corsheaders.middleware.CorsMiddleware', # corsheaders
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware', # corsheaders
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -72,13 +66,30 @@ MIDDLEWARE = [
 
 API_PAGES_RENDER_HOOK = env('API_BUILD_HOOK')
 
+ALLOWED_HOSTS = env('ALLOWED_HOSTS', list, [])
+#CSRF_TRUSTED_ORIGINS = ['http://127.0.0.1', 'http://localhost:3000']
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+INTERNAL_IPS = ALLOWED_HOSTS
+
 CORS_ALLOW_ALL_ORIGINS = True
 
+CORS_ALLOW_METHODS = ['GET','POST', 'OPTIONS']
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "content-type",
+    "origin",
+    "x-csrftoken",
+    "x-requested-with",
+]
+
 CORS_URLS_REGEX = r'^/api/.*$'
-
-CORS_ALLOWED_ORIGINS = []
-
-CORS_ALLOW_METHODS = ['GET']
 
 ROOT_URLCONF = 'crm.urls'
 

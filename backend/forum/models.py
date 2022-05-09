@@ -81,7 +81,7 @@ class Event(models.Model):
 
 
 class Partner(models.Model):
-	forum = models.ForeignKey(Forum, on_delete=models.SET_NULL, null=True, related_name='forum', verbose_name = 'Форум', help_text='')
+	forum = models.ForeignKey(Forum, on_delete=models.SET_NULL, null=True, related_name='partner', verbose_name = 'Форум', help_text='')
 	name = models.CharField('Имя партнера', max_length=150, help_text='')
 	logo = ProcessedImageField(
 		upload_to=ForumUploadTo,
@@ -95,13 +95,11 @@ class Partner(models.Model):
 	link = models.URLField('Сайт', blank=True, help_text='Ссылка на сайт партнера')
 	sort = models.PositiveSmallIntegerField('Индекс сортировки', null=True, blank=True)
 
-
 	class Meta:
 		verbose_name = 'Партнер'
 		verbose_name_plural = 'Список партнеров'
 		ordering = ['-forum__date_forum', Coalesce("sort", F('id') + 100)]
 		db_table = 'partners'
-
 
 	def __str__(self):
 		return self.name
@@ -113,3 +111,26 @@ class Partner(models.Model):
 	def delete(self, *args, **kwargs):
 		super().delete(*args, **kwargs)
 		remove_images(self.logo)
+
+
+
+class Visitor(models.Model):
+	CHOICES = ((1,'не подтвержден'),(2,'подтвержден'),)
+
+	forum = models.ForeignKey(Forum, on_delete=models.CASCADE, related_name='visitor', verbose_name = 'Форум', help_text='')
+	user_name = models.CharField('Имя посетителя', max_length=100, null=True, help_text='')
+	organisation = models.CharField('Место работы', max_length=250, blank=True, help_text='')
+	occupation = models.CharField('Род деятельности', max_length=250, blank=True, help_text='')
+	phone = models.CharField('Контактный телефон',  max_length=18, null=True)
+	email = models.EmailField('E-mail', max_length=75, null=True)
+	questionnaire = models.TextField('Анкета', blank=True)
+	status = models.PositiveIntegerField('Статус участника', choices=CHOICES, default=1, help_text='')
+
+	class Meta:
+		verbose_name = 'Заявка на регистрацию'
+		verbose_name_plural = 'Список посетителей'
+		ordering = ['-forum__date_forum']
+		db_table = 'visitors'
+
+	def __str__(self):
+		return self.user_name

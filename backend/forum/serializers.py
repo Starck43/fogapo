@@ -56,7 +56,7 @@ class PostDetailSerializer(serializers.ModelSerializer):
 	# adding custom fields
 	#title = serializers.CharField(write_only=True)
 	events = EventSerializer(source='event', many=True)
-	partners = PartnerSerializer(source='forum', many=True)
+	partners = PartnerSerializer(source='partner', many=True)
 	logo = serializers.ImageField(max_length=None, use_url=True)
 	page_background = serializers.ImageField(max_length=None, use_url=True)
 	location = FixCharCaretSerializer()
@@ -66,6 +66,12 @@ class PostDetailSerializer(serializers.ModelSerializer):
 		model = Forum
 		fields = ('id', 'slug', 'logo', 'page_background', 'title', 'subtitle', 'date_forum', 'events', 'partners', 'location', 'info', 'description', 'keywords')
 
+
+class VisitorSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = Visitor
+		fields = '__all__'
 
 """
 	def to_representation(self, instance):

@@ -54,11 +54,15 @@ class EventAdmin(admin.ModelAdmin):
 	list_filter = ('forum','forum__date_forum',)
 
 
-
 @admin.register(Partner)
 class PartnerAdmin(admin.ModelAdmin):
 	list_display = ('thumb', 'name', 'forum', 'link',)
 	list_display_links = ('thumb', 'name',)
 
+
+@admin.register(Visitor)
+class VisitorAdmin(admin.ModelAdmin):
+	list_display = ('forum', 'user_name', 'organisation', 'occupation',)
+	list_display_links = ('forum', 'user_name',)
 
 

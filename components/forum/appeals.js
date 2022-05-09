@@ -1,11 +1,22 @@
+import {useEffect, useState} from "react"
+
 import Icon from "../UI/Icon"
 import {HtmlContent} from "../UI/html-content"
 import Container from "../UI/container"
+import OnlineRegistration from "../forms/main"
 
 
 const Appeals = ({post}) => {
-	const regHandle = (e) => {
-		console.log(e.target)
+	const [openRegForm, setOpenRegForm] = useState(false)
+
+	useEffect(() => {
+		const link = document.getElementById('registration')
+		link.addEventListener('click', handleClick)
+		return () => link.removeEventListener('click', handleClick)
+	}, [])
+
+	const handleClick = (e) => {
+		setOpenRegForm(!openRegForm)
 	}
 
 	return (
@@ -28,9 +39,12 @@ const Appeals = ({post}) => {
 					<HtmlContent className="appeal-reg-info">
 						{post.appeals_footer}
 					</HtmlContent>
-					<div className="button" onClick={regHandle}>Зарегистрироваться online</div>
+					<div className="button" onClick={handleClick}>Зарегистрироваться online</div>
 				</div>
 			</Container>
+			{
+				openRegForm && <OnlineRegistration show={openRegForm} handler={setOpenRegForm}/>
+			}
 		</section>
 	)
 }

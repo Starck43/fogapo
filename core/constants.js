@@ -57,4 +57,39 @@ const DATA = {
 	],
 }
 
+export const FORM_DATA = {
+	header: 'Заполните анкету для участия в форуме',
+	user_name: {
+		title: 'Как Вас зовут (ФИО)',
+		type: 'input'
+	},
+	occupation: {
+		title: 'Род деятельности',
+		choices: ['дизайнер/декоратор', 'руководитель дизайн студии/арт-директор'],
+		type: 'select',
+	},
+	organisation: {
+		title: 'Место работы',
+	},
+	phone: {
+		title: 'Телефон',
+	},
+	email: {
+		title: 'Ваш E-mail',
+	},
+	questions: [
+		{
+			title: 'Изменилось ли количество Ваших клиентов за последнее время?',
+			choices: ['нет', 'стало меньше', 'стало больше', {input:'другое'}],
+			type: 'radio',
+			inline: false,
+		},
+		{
+			title: 'Сколько объектов у Вас сейчас в работе?',
+			choices: ['0', '1', '2', 'более 2-х'],
+			type: 'select',
+		},
+	],
+}
+
 export default DATA
