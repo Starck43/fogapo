@@ -37,6 +37,7 @@ def new_visitor(request):
 		data['status_message'] = 'новая регистрация'
 
 	data['forum'] = forum.title
+	data['location'] = forum.location
 	data['date'] = forum.date_forum
 
 	print(data)

@@ -5,7 +5,7 @@ import ResponseContent from "./responseContent"
 import {FORM_DATA} from "../../core/constants"
 import {Fetch} from "../../core/Fetch"
 import {AlertDialog, ModalDialog} from "../UI/dialogs"
-import {Button} from "react-bootstrap"
+import {Button, Modal} from "react-bootstrap"
 
 //import style from "~/styles/reg.module.sass"
 
@@ -18,12 +18,13 @@ const OnlineRegistration = ({show, handler}) => {
 		let formData = new FormData(form)
 		let data = Object.fromEntries(formData)
 		let json = {}, text = '', num = 1
-		//console.log('form data:', data)
+		console.log('form data:', data)
 
 		Object.keys(data).forEach(key => {
 			let isQuestion = (key.search(/^questions/g) !== -1)
 			if (isQuestion) {
 				let label = form.querySelector(`label[for="${key}"]`)
+				console.log(num, '. ',label);
 				text += `Вопрос ${num}: ${label?.innerText}\nОтвет: ${data[key]}\n\n`
 				num++
 			} else {
@@ -77,28 +78,55 @@ const OnlineRegistration = ({show, handler}) => {
 			<h4 className="title">Связь с сервером...</h4>
 		</AlertDialog>
 
-	if (respondedData && !respondedData.error)
-		return <AlertDialog title="Регистрация на мероприятие" show={show} closeHandler={handler}
-		                    status={`Заявка ${respondedData.data.status === 0 ? "успешно отправлена" : "уже существует"}!`}>
-			<ResponseContent data={respondedData.data}/>
-		</AlertDialog>
-
-	if (respondedData && respondedData.error)
-		return <AlertDialog title="Регистрация на мероприятие" show={show} closeHandler={handler}
-		                    status={respondedData.data.status}>
+	if (respondedData && respondedData.error) return (
+		<AlertDialog
+			title="Регистрация на мероприятие"
+			show={show}
+			closeHandler={handler}
+			footer={
+				<Modal.Footer>
+					<span className="status-message error centered">
+						{`Код ошибки: ${respondedData.response.status}`}
+					</span>
+				</Modal.Footer>
+			}
+			className="registration-error"
+		>
 			<h4 className="title">Возникла ошибка на сервере!</h4>
 			<ResponseContent data={respondedData.response.text}/>
 		</AlertDialog>
+	)
+
+	if (respondedData?.data && !respondedData.error) return (
+		<AlertDialog
+			title="Регистрация на мероприятие" show={show} closeHandler={handler}
+			footer={
+				<Modal.Footer>
+					<span className="status-message centered">
+						{`Заявка ${respondedData.data?.status === 0 ? "успешно отправлена" : "уже существует"}!`}
+					</span>
+				</Modal.Footer>
+			}
+			className="registration"
+		>
+			<ResponseContent data={respondedData.data}/>
+		</AlertDialog>
+		)
 
 	return (
-		<ModalDialog title="Регистрация нового участника" show={show} submitHandler={handleSubmit}
-		             closeHandler={handleClose} footer={
-						 <>
-							 <Button variant="primary" type="submit" onClick={handleSubmit}>Отправить</Button>
-							 <Button variant="secondary" type="button" onClick={handleClose}>Отменить</Button>
-
-						 </>
-		}>
+		<ModalDialog
+			title="Регистрация нового участника"
+			show={show}
+			submitHandler={handleSubmit}
+			closeHandler={handleClose}
+			footer={
+				<Modal.Footer className="centered gap">
+					<Button variant="primary" type="submit" onClick={handleSubmit}>Отправить</Button>
+					<Button variant="secondary" type="button" onClick={handleClose}>Отменить</Button>
+				</Modal.Footer>
+			}
+			className="registration"
+		>
 			<RegistrationForm data={FORM_DATA} validated={validated}/>
 		</ModalDialog>
 	)

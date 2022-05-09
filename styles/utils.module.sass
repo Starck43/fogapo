@@ -9,10 +9,6 @@
   +media-breakpoint-up(xxl)
     max-width: 1400px
 
-small
-  font-size: 0.7em
-  text-transform: uppercase
-
 .mx-auto
   +push--auto
 
@@ -233,14 +229,14 @@ small
 .modal-body, .modal-footer
   position: relative
   flex: 1 1 auto
-  padding: 1rem
+  padding: 1.5em
 
 .modal-header
   display: flex
   flex-shrink: 0
   align-items: center
   justify-content: space-between
-  padding: 1em 1em
+  padding: 1.5em
   border-bottom: 1px solid #dee2e6
   border-top-left-radius: $border-radius - 1px
   border-top-right-radius: $border-radius - 1px
@@ -274,9 +270,20 @@ small
   border-color: $brand-color
   box-shadow: none
 
-input[type=radio], input[type=checkbox]
+/*input[type=radio], input[type=checkbox]
   &~label
-    margin-left: 5px
+    margin-left: 5px*/
 
 input~label
   color: $brand-color
+
+.alert-container
+  .status
+    font-weight: bold
+    &-0
+      color: darkcyan
+    &-1
+      color: orange
+    &-2
+      color: #178038
+

@@ -5,12 +5,12 @@ const Control = ({title, type, choices, required = false, inline = false, name, 
 
 	const handleClick = (e) => {
 		let parent = e.target.parentNode
-		let siblingInput = parent.querySelector(`input:not([type=${e.target.type}])`) // найдем соседний input
+		let siblingInput = parent.querySelector(`#${e.target.id}:not([type=${e.target.type}])`) // найдем соседний input
 
-		if (e.target.type === 'radio' || e.target.type === 'checkbox') {
-			siblingInput && siblingInput.focus()
-		} else {
-			if (siblingInput) {
+		if (siblingInput) {
+			if (e.target.type === 'radio' || e.target.type === 'checkbox') {
+				siblingInput.focus()
+			} else {
 				siblingInput.checked = true
 				siblingInput.value = e.target.value
 			}
@@ -26,7 +26,6 @@ const Control = ({title, type, choices, required = false, inline = false, name, 
 						<Form.Control
 							as={type}
 							name={`${name}${objIndex}`}
-							placeholder
 							required={required}
 							style={{ height: '100px' }}
 						/>
@@ -35,12 +34,11 @@ const Control = ({title, type, choices, required = false, inline = false, name, 
 							<>
 								<Form.Label>{title}</Form.Label>
 								{choices?.map((obj, i) => (
-									<InputGroup className="mb-2">
+									<InputGroup className="mb-2" key={`${name}${objIndex}-${i}`}>
 										<InputGroup.Text>{obj}</InputGroup.Text>
 										<Form.Control
 											type={type}
 											name={`${name}${objIndex}-${i}`}
-											placeholder
 											required={required}
 										/>
 									</InputGroup>
@@ -58,49 +56,56 @@ const Control = ({title, type, choices, required = false, inline = false, name, 
 						)
 					) : (type === 'select' ? (
 							<FloatingLabel controlId={`${name}${objIndex}`} label={title}>
-								<Form.Select
+								<Form.Control
+									as="select"
 									name={`${name}${objIndex}`}
 									placeholder={title}
 									required={required}
+									defaultValue=""
 								>
-									<option value="" selected="selected" disabled="disabled">{`не указано`}</option>
+									<option value="" disabled>{`не указано`}</option>
 									{choices?.map((option, i) => (
-										<option value={`${name}${objIndex}-${i + 1}`}
-										        key={`${name}${objIndex}-${i}`}>{option}</option>
+										<option value={option} key={`${name}${objIndex}-${i}`}>{option}</option>
 									))}
-								</Form.Select>
+								</Form.Control>
 							</FloatingLabel>
 						) : (type === 'radio' || type === 'checkbox' ? (
-								<div className="mb-3">
+								<>
 									<Form.Label>{title}</Form.Label>
 									{choices?.map((obj, i) => (
 										<Form.Check
 											key={`${type}${objIndex}-${i}`}
 											id={`${name}${objIndex}-${i}`}
 											group={`${name}_${objIndex}_group`}
-											type={type}
 											inline={inline}
+											className="form-check mb-1"
 										>
 											{obj instanceof Object ? (
 												<>
-													<Form.Check.Input type={type} name={`${name}${objIndex}`}
-													                  required={required} value={Object.values(obj)}
-													                  onClick={handleClick}/>
+													<Form.Check.Input
+														type={type}
+														name={`${name}${objIndex}`}
+														required={required}
+														value={Object.values(obj)}
+														onClick={handleClick}
+													/>
 													<Form.Check.Label>{Object.values(obj)}</Form.Check.Label>
 													<Form.Control type={Object.keys(obj)} onClick={handleClick}
 													              onBlur={handleClick}/>
 												</>
 											) : (
 												<>
-													<Form.Check.Input type={type} name={`${name}${objIndex}`}
-													                  value={obj} onClick={handleClick}/>
+													{type === 'textarea'
+														? <Form.Check.Input as={type} name={`${name}${objIndex}`} required={required} value={obj}/>
+														: <Form.Check.Input type={type} name={`${name}${objIndex}`} required={required} value={obj}/>
+													}
 													<Form.Check.Label>{obj}</Form.Check.Label>
 												</>
 											)}
 										</Form.Check>
 									))}
 									{/*<Form.Control type="hidden" name={`${name}${objIndex}`}/>*/}
-								</div>
+								</>
 							) : null
 						)
 					)
