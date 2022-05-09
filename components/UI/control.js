@@ -34,14 +34,19 @@ const Control = ({title, type, choices, required = false, inline = false, name, 
 							<>
 								<Form.Label>{title}</Form.Label>
 								{choices?.map((obj, i) => (
-									<InputGroup className="mb-2" key={`${name}${objIndex}-${i}`}>
-										<InputGroup.Text>{obj}</InputGroup.Text>
+									<FloatingLabel
+										className={`mb-2 max-content ${inline ? "inline" : ""}`}
+										key={`${name}${objIndex}-${i}`}
+										controlId={`${name}${objIndex}-${i}`}
+										label={obj}
+									>
 										<Form.Control
 											type={type}
 											name={`${name}${objIndex}-${i}`}
+											placeholder={obj}
 											required={required}
 										/>
-									</InputGroup>
+									</FloatingLabel>
 								))}
 							</>
 						) : (
@@ -90,8 +95,7 @@ const Control = ({title, type, choices, required = false, inline = false, name, 
 														onClick={handleClick}
 													/>
 													<Form.Check.Label>{Object.values(obj)}</Form.Check.Label>
-													<Form.Control type={Object.keys(obj)} onClick={handleClick}
-													              onBlur={handleClick}/>
+													<Form.Control type={Object.keys(obj)} onClick={handleClick} onBlur={handleClick}/>
 												</>
 											) : (
 												<>

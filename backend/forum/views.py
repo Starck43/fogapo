@@ -40,7 +40,7 @@ def new_visitor(request):
 	data['location'] = forum.location
 	data['date'] = forum.date_forum
 
-	print(data)
+	#print(data)
 
 	return JsonResponse(data, safe=False)
 

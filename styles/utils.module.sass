@@ -77,7 +77,11 @@
   &.center
     align-items: center
 
+.inline
+  display: inline-block
 
+.max-content
+  width: max-content
 
 .centered
   display: flex
@@ -270,9 +274,10 @@
   border-color: $brand-color
   box-shadow: none
 
-/*input[type=radio], input[type=checkbox]
-  &~label
-    margin-left: 5px*/
+
+.form-group >label
+  display: block
+  font-weight: bold
 
 input~label
   color: $brand-color

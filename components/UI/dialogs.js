@@ -12,7 +12,7 @@ export const AlertDialog = ({children, show, closeHandler, title, footer, classN
 			{children}
 		</Modal.Body>
 
-		{status}
+		{footer}
 	</Modal>
 )
 

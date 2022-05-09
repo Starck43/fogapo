@@ -17,16 +17,32 @@ const OnlineRegistration = ({show, handler}) => {
 	const formData2Json = (form) => {
 		let formData = new FormData(form)
 		let data = Object.fromEntries(formData)
-		let json = {}, text = '', num = 1
+		let json = {}, text = '', num = 1, curQuestion, prevQuestion=null
+		const REGEX = /questions[0-9]*/
+
 		console.log('form data:', data)
 
 		Object.keys(data).forEach(key => {
-			let isQuestion = (key.search(/^questions/g) !== -1)
-			if (isQuestion) {
-				let label = form.querySelector(`label[for="${key}"]`)
-				console.log(num, '. ',label);
-				text += `Вопрос ${num}: ${label?.innerText}\nОтвет: ${data[key]}\n\n`
-				num++
+			if (data[key] && key.startsWith("questions")) {
+				curQuestion = key.match(REGEX) // извлечем вопрос из названия вопроса или подвопроса
+				let subQuestionLabel = form.querySelector(`label[for="${key}"]`)?.innerText || ""
+				//console.log(num, '. ',questionLabel);
+
+				if (!prevQuestion || curQuestion[0] !== prevQuestion[0]) {
+					let questionLabel = form.querySelector(`label[for="${curQuestion}"]`)?.innerText || ""
+					text += prevQuestion ? '\n' : ""
+					text += `Вопрос ${num}: ${questionLabel}\nОтвет: `
+					if (questionLabel == subQuestionLabel) {
+						text += `${data[key]}\n`
+						num++
+					} else {
+						text += `[${subQuestionLabel}] - ${data[key]}`
+					}
+				} else {
+					text += `, [${subQuestionLabel}] - ${data[key]}`
+				}
+
+				prevQuestion = curQuestion // сохраним ключ-вопрос
 			} else {
 				json[key] = data[key]
 			}
@@ -99,12 +115,12 @@ const OnlineRegistration = ({show, handler}) => {
 
 	if (respondedData?.data && !respondedData.error) return (
 		<AlertDialog
-			title="Регистрация на мероприятие" show={show} closeHandler={handler}
+			title={`Заявка ${respondedData.data?.status === 0 ? "успешно отправлена" : "уже существует"}!`}
+			show={show}
+			closeHandler={handler}
 			footer={
-				<Modal.Footer>
-					<span className="status-message centered">
-						{`Заявка ${respondedData.data?.status === 0 ? "успешно отправлена" : "уже существует"}!`}
-					</span>
+				<Modal.Footer className="centered">
+					<Button variant="secondary" type="button" onClick={handleClose}>Закрыть</Button>
 				</Modal.Footer>
 			}
 			className="registration"
