@@ -268,3 +268,15 @@ small
     overflow-y: auto
   +media-breakpoint-up(sm)
     height: calc(100% - 3.5em)
+
+
+.form-control:focus
+  border-color: $brand-color
+  box-shadow: none
+
+input[type=radio], input[type=checkbox]
+  &~label
+    margin-left: 5px
+
+input~label
+  color: $brand-color
