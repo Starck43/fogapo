@@ -20,13 +20,13 @@ const OnlineRegistration = ({show, handler}) => {
 		let json = {}, text = '', num = 1, curQuestion, prevQuestion=null
 		const REGEX = /questions[0-9]*/
 
-		console.log('form data:', data)
+		//console.log('form data:', data)
 
 		Object.keys(data).forEach(key => {
 			if (key.startsWith("questions")) {
 				curQuestion = key.match(REGEX) // извлечем вопрос из названия вопроса или подвопроса
+				let type = form.querySelector(`input[name="${key}"]`)?.type //определим тип input
 				let subQuestionLabel = form.querySelector(`label[for="${key}"]`)?.innerText || ""
-				//console.log(num, '. ',questionLabel);
 
 				if (!prevQuestion || curQuestion[0] !== prevQuestion[0]) {
 					let questionLabel = form.querySelector(`label[for="${curQuestion}"]`)?.innerText || ""
@@ -37,10 +37,12 @@ const OnlineRegistration = ({show, handler}) => {
 						text += `${data[key]}\n`
 					} else {
 						num--
-						text += `[${subQuestionLabel}] - ${data[key]}`
+						text += (type == "checkbox") ? `\n✅ ${data[key]}` : `[${subQuestionLabel}] - ${data[key]}`
 					}
 				} else {
-					text += data[key] ? `, [${subQuestionLabel}] - ${data[key]}` : ""
+					text += (data[key])
+					? (type == "checkbox" ? `\n✅ ${data[key]}` : `, [${subQuestionLabel}] - ${data[key]}`)
+					: ""
 				}
 
 				prevQuestion = curQuestion // сохраним ключ-вопрос
@@ -55,7 +57,7 @@ const OnlineRegistration = ({show, handler}) => {
 
 	const uploadData = async (form) => {
 		let data = formData2Json(form) // конвертируем данные формы в json
-
+		//console.log(data)
 		const res = await Fetch(process.env.API_SERVER, process.env.API_ENDPOINTS.saveUser, {}, {
 			method: "post",
 			headers: {
@@ -69,6 +71,7 @@ const OnlineRegistration = ({show, handler}) => {
 		})
 
 		setRespondedData(res)
+
 		//console.log('result:',res)
 		return res
 	}
@@ -77,9 +80,14 @@ const OnlineRegistration = ({show, handler}) => {
 		let form = e.target.parentNode.parentNode.querySelector('form')
 
 		if (form.checkValidity() === false) {
-			e.preventDefault();
-			e.stopPropagation();
+			e.preventDefault()
+			e.stopPropagation()
 			setValidated(true)
+			let invalid = form.querySelector(':invalid')
+			if (invalid) {
+				invalid.scrollIntoView({behavior: "smooth"})
+				invalid.focus()
+			}
 		} else {
 			setRespondedData(uploadData(form))
 		}

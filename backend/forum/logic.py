@@ -1,8 +1,9 @@
 import re
 from os import path, remove
-
+from threading import Thread
 from django.conf import settings
 from django.utils.html import format_html
+from django.core.mail import EmailMessage, BadHeaderError
 from django.core.files.storage import FileSystemStorage
 from os import path, remove, rename
 from glob import glob
@@ -141,3 +142,42 @@ def addDomainToUrl(request, value, pattern, start=False):
 
 		return url
 	return value
+
+
+""" Sending email """
+def SendEmail(subject, template, email_ricipients=settings.EMAIL_RICIPIENTS):
+	email = EmailMessage(
+		subject,
+		template,
+		settings.EMAIL_HOST_USER,
+		email_ricipients,
+	)
+
+	email.content_subtype = "html"
+	email.html_message = True
+	email.fail_silently=False
+
+	try:
+		email.send()
+	except BadHeaderError:
+		return HttpResponse('Ошибка в заголовке письма!')
+
+	return True
+
+
+""" Async email sending class """
+class EmailThread(Thread):
+	def __init__(self, subject, template, email_ricipients):
+		self.subject = subject
+		self.html_content = template
+		self.recipient_list = email_ricipients
+		Thread.__init__(self)
+
+	def run(self):
+		return SendEmail(self.subject, self.html_content, self.recipient_list)
+
+
+""" Sending email to recipients """
+def SendEmailAsync(subject, template, email_ricipients=settings.EMAIL_RICIPIENTS):
+	EmailThread(subject, template, email_ricipients).start()
+

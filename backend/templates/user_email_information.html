@@ -1,0 +1,22 @@
+{% load custom_tags %}
+
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Регистрация на сайте fogapo.ru</title>
+</head>
+<body>
+	<h1>Регистрация на мероприятие на сайте fogapo.ru</h1>
+
+	<p>Вы разместили заявку на мероприятие "{{forum}}"</p>
+	<div class="message-field">Дата мероприятия: {{date}}</b></div>
+	<div class="message-field">Место проведения: {{location}}</b></div>
+	<div class="message-field">Заявка номер: <b>{{reg_id}}</b></div>
+	<div class="message-field">Статус заявки: <b>{{status_message}}</b></div>
+
+	<p><i>Ждите уведомление о подтверждении регистрации или звонок в ближайшее время.<br/>Если уведомление не поступит более суток, то свяжитесь любым удобным способом.</i></p>
+	<div>{{info|safe}}</div>
+</body>
+</html>
+
+

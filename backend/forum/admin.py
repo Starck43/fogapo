@@ -62,7 +62,12 @@ class PartnerAdmin(admin.ModelAdmin):
 
 @admin.register(Visitor)
 class VisitorAdmin(admin.ModelAdmin):
-	list_display = ('forum', 'name', 'organization', 'occupation', 'status', )
+	list_display = ('forum', 'name', 'organization', 'occupation', 'status', 'reg_id')
 	list_display_links = ('forum', 'name',)
 	list_filter = ('name', 'forum', 'occupation', 'status', )
+
+	def reg_id(self, obj):
+		return f'{obj.id:03}-{obj.forum.date_forum.day:02}{obj.forum.date_forum.month:02}{obj.forum.date_forum.year:04}'
+
+	reg_id.short_description = 'Рег №'
 

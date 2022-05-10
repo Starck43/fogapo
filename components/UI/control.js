@@ -6,14 +6,22 @@ const Control = ({title, type='text', choices, required = false, inline = false,
 	const handleClick = (e) => {
 		let parent = e.target.parentNode
 		let siblingInput = parent.querySelector(`#${e.target.id}:not([type=${e.target.type}])`) // найдем соседний input
-
 		if (siblingInput) {
+
 			if (e.target.type === 'radio' || e.target.type === 'checkbox') {
-				siblingInput.focus()
-			} else {
+				if (e.target.checked) {
+					siblingInput.focus()
+					e.target.value = siblingInput.value
+				} else
+				{
+					e.target.value = ''
+				}
+			} else
+			{
 				siblingInput.checked = true
 				siblingInput.value = e.target.value
 			}
+
 		}
 	}
 
@@ -28,7 +36,7 @@ const Control = ({title, type='text', choices, required = false, inline = false,
 							name={`${name}${objIndex}`}
 							required={required}
 							placeholder={placeholder}
-							autocomplete={autocomplete}
+							autoComplete={autocomplete}
 							style={{ height: '100px' }}
 						/>
 					</>
@@ -46,7 +54,7 @@ const Control = ({title, type='text', choices, required = false, inline = false,
 											type={type}
 											name={`${name}${objIndex}-${i}`}
 											placeholder={placeholder ? placeholder : obj}
-											autocomplete={autocomplete}
+											autoComplete={autocomplete}
 											required={required}
 										/>
 									</FloatingLabel>
@@ -58,7 +66,7 @@ const Control = ({title, type='text', choices, required = false, inline = false,
 									type={type}
 									name={`${name}${objIndex}`}
 									placeholder={placeholder ? placeholder : title}
-									autocomplete={autocomplete}
+									autoComplete={autocomplete}
 									required={required}
 								/>
 							</FloatingLabel>
@@ -87,29 +95,23 @@ const Control = ({title, type='text', choices, required = false, inline = false,
 											id={`${name}${objIndex}-${i}`}
 											group={`${name}_${objIndex}_group`}
 											inline={inline}
+											value={obj}
+											label={obj}
+											type={type}
+											name={type === 'radio' ?  `${name}${objIndex}` : `${name}${objIndex}-${i}`}
+											required={type === 'radio' ? required : false}
 											className="form-check mb-1"
 										>
 											{obj instanceof Object ? (
 												<>
-													<Form.Check.Input
-														type={type}
-														name={`${name}${objIndex}`}
-														required={required}
-														value={Object.values(obj)}
-														onClick={handleClick}
-													/>
+													<Form.Check.Input type={type} name={type === 'radio' ?  `${name}${objIndex}` : `${name}${objIndex}-${i}`} onClick={handleClick}/>
 													<Form.Check.Label>{Object.values(obj)}</Form.Check.Label>
-													<Form.Control type={Object.keys(obj)} onClick={handleClick} onBlur={handleClick}/>
-												</>
-											) : (
-												<>
 													{type === 'textarea'
-														? <Form.Check.Input as={type} name={`${name}${objIndex}`} required={required} value={obj}/>
-														: <Form.Check.Input type={type} name={`${name}${objIndex}`} required={required} value={obj}/>
+														? <Form.Control as={Object.keys(obj)} onClick={handleClick} onBlur={handleClick}/>
+														: <Form.Control type={Object.keys(obj)} onClick={handleClick} onBlur={handleClick}/>
 													}
-													<Form.Check.Label>{obj}</Form.Check.Label>
 												</>
-											)}
+											) : null}
 										</Form.Check>
 									))}
 									{/*<Form.Control type="hidden" name={`${name}${objIndex}`}/>*/}

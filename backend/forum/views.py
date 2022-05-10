@@ -1,10 +1,12 @@
 from urllib import parse
 from django.conf import settings
-from django.db.models import Q, F
 
+from django.db.models import Q, F
 from django.shortcuts import render, redirect
+from django.template.loader	import render_to_string
 from django.http import JsonResponse, HttpResponse
 from django.utils.decorators import method_decorator
+from django.forms.models import model_to_dict
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework import views, viewsets, generics, permissions #, filters
@@ -14,7 +16,8 @@ from rest_framework.parsers import JSONParser
 
 from .models import *
 from .serializers import *
-from django.forms.models import model_to_dict
+
+from .logic import SendEmail, SendEmailAsync
 
 
 #@method_decorator(csrf_exempt, name='dispatch')
@@ -39,6 +42,16 @@ def new_visitor(request):
 	data['forum'] = forum.title
 	data['location'] = forum.location
 	data['date'] = forum.date_forum
+	data['reg_id'] = f'{visitor.id:03}-{forum.date_forum.day:02}{forum.date_forum.month:02}{forum.date_forum.year:04}'
+
+	if data['status'] == 0:
+		# Отправка уведомления администратору сервиса
+		template = render_to_string('admin_email_information.html', data)
+		SendEmailAsync('Уведомление о регистрации участника на сайте fogapo.ru!',template)
+
+		# Отправка уведомления участнику
+		template = render_to_string('user_email_information.html', data)
+		SendEmailAsync('Уведомление о регистрации на мероприятие',template)
 
 	#print(data)
 
