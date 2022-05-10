@@ -90,7 +90,7 @@ class Partner(models.Model):
 		options={'quality': 80},
 		storage=MediaFileStorage(),
 		verbose_name='Логотип',
-		help_text='Логотип в формате png'
+		help_text='Логотип в формате PNG'
 	)
 	link = models.URLField('Сайт', blank=True, help_text='Ссылка на сайт партнера')
 	sort = models.PositiveSmallIntegerField('Индекс сортировки', null=True, blank=True)
@@ -118,8 +118,8 @@ class Visitor(models.Model):
 	CHOICES = ((1,'не подтвержден'),(2,'подтвержден'),)
 
 	forum = models.ForeignKey(Forum, on_delete=models.CASCADE, related_name='visitor', verbose_name = 'Форум', help_text='')
-	user_name = models.CharField('Имя посетителя', max_length=100, null=True, help_text='')
-	organisation = models.CharField('Место работы', max_length=250, blank=True, help_text='')
+	name = models.CharField('Имя посетителя', max_length=100, null=True, help_text='')
+	organization = models.CharField('Место работы', max_length=250, blank=True, help_text='')
 	occupation = models.CharField('Род деятельности', max_length=250, blank=True, help_text='')
 	phone = models.CharField('Контактный телефон',  max_length=18, null=True)
 	email = models.EmailField('E-mail', max_length=75, null=True)
@@ -133,4 +133,4 @@ class Visitor(models.Model):
 		db_table = 'visitors'
 
 	def __str__(self):
-		return self.user_name
+		return self.name

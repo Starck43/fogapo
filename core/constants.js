@@ -59,10 +59,15 @@ const DATA = {
 
 export const FORM_DATA = {
 	header: 'Заполните анкету для участия в форуме',
-	user_name: {
+	name: {
 		title: 'Как Вас зовут (ФИО)',
-		type: 'input',
+		type: 'text',
 		required: true,
+	},
+	organization: {
+		title: 'Место работы',
+		required: true,
+		placeholder: 'Название организации/физлицо',
 	},
 	occupation: {
 		title: 'Род деятельности',
@@ -70,22 +75,20 @@ export const FORM_DATA = {
 		type: 'select',
 		required: true,
 	},
-	organisation: {
-		title: 'Место работы',
-		required: true,
-	},
 	phone: {
 		title: 'Телефон',
+		type: 'tel',
 		required: true,
 	},
 	email: {
-		title: 'Ваш E-mail',
+		title: 'E-mail',
+		type: 'email',
 		required: true,
 	},
 	questions: [
 		{
 			title: 'Изменилось ли количество Ваших клиентов за последнее время?',
-			choices: ['нет', 'стало меньше', 'стало больше', {input:'другое'}],
+			choices: ['нет', 'стало меньше', 'стало больше', {text:'другое'}],
 			type: 'radio',
 			inline: false,
 			required: true,
@@ -99,7 +102,7 @@ export const FORM_DATA = {
 		{
 			title: 'Как они распределяются по площади (укажите количество)',
 			choices: ['до 80','80 - 150','от 150'],
-			type: 'input',
+			type: 'number',
 			inline: false,
 		},
 		{
@@ -117,7 +120,7 @@ export const FORM_DATA = {
 				'Больше вторичных ремонтов',
 				'Больше первичных ремонтов',
 				'Есть проекты на часть помещения',
-				{input:'другое'},
+				{text:'другое'},
 			],
 			type: 'radio',
 			required: true,
@@ -127,7 +130,7 @@ export const FORM_DATA = {
 			choices: [
 				'Клиенты пытаются вписаться в прежние цифры и экономят',
 				'Клиенты понимают, что он увеличится и готовы платить',
-				{input:'другое'},
+				{text:'другое'},
 			],
 			type: 'radio',
 			required: true,
@@ -138,7 +141,7 @@ export const FORM_DATA = {
 				'Нет нужного ассортимента',
 				'Клиент не готов к изменениям в бюджете',
 				'Клиент не готов к изменениям в сроках',
-				{input:'другое'},
+				{text:'другое'},
 			],
 			type: 'checkbox',
 		},
@@ -150,7 +153,7 @@ export const FORM_DATA = {
 				'по работе с персоналом',
 				'по повышению экономической грамотности, налогообложению',
 				'другое (например, ведение переговоров, ораторское искусство и тп)',
-				{input:'другое'},
+				{text:'другое'},
 			],
 			type: 'checkbox',
 		},

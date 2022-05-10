@@ -62,7 +62,7 @@ class PartnerAdmin(admin.ModelAdmin):
 
 @admin.register(Visitor)
 class VisitorAdmin(admin.ModelAdmin):
-	list_display = ('forum', 'user_name', 'organisation', 'occupation',)
-	list_display_links = ('forum', 'user_name',)
-
+	list_display = ('forum', 'name', 'organization', 'occupation', 'status', )
+	list_display_links = ('forum', 'name',)
+	list_filter = ('name', 'forum', 'occupation', 'status', )
 

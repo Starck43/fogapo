@@ -23,23 +23,24 @@ const OnlineRegistration = ({show, handler}) => {
 		console.log('form data:', data)
 
 		Object.keys(data).forEach(key => {
-			if (data[key] && key.startsWith("questions")) {
+			if (key.startsWith("questions")) {
 				curQuestion = key.match(REGEX) // извлечем вопрос из названия вопроса или подвопроса
 				let subQuestionLabel = form.querySelector(`label[for="${key}"]`)?.innerText || ""
 				//console.log(num, '. ',questionLabel);
 
 				if (!prevQuestion || curQuestion[0] !== prevQuestion[0]) {
 					let questionLabel = form.querySelector(`label[for="${curQuestion}"]`)?.innerText || ""
-					text += prevQuestion ? '\n' : ""
+					text += prevQuestion ? '\n\n' : ""
 					text += `Вопрос ${num}: ${questionLabel}\nОтвет: `
+					num++
 					if (questionLabel == subQuestionLabel) {
 						text += `${data[key]}\n`
-						num++
 					} else {
+						num--
 						text += `[${subQuestionLabel}] - ${data[key]}`
 					}
 				} else {
-					text += `, [${subQuestionLabel}] - ${data[key]}`
+					text += data[key] ? `, [${subQuestionLabel}] - ${data[key]}` : ""
 				}
 
 				prevQuestion = curQuestion // сохраним ключ-вопрос

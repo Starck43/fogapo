@@ -1,7 +1,7 @@
 import {Form, InputGroup, FloatingLabel} from "react-bootstrap"
 
 
-const Control = ({title, type, choices, required = false, inline = false, name, objIndex = ''}) => {
+const Control = ({title, type='text', choices, required = false, inline = false, placeholder='', autocomplete, name, objIndex = ''}) => {
 
 	const handleClick = (e) => {
 		let parent = e.target.parentNode
@@ -27,10 +27,12 @@ const Control = ({title, type, choices, required = false, inline = false, name, 
 							as={type}
 							name={`${name}${objIndex}`}
 							required={required}
+							placeholder={placeholder}
+							autocomplete={autocomplete}
 							style={{ height: '100px' }}
 						/>
 					</>
-				) : (type === 'input' || !type ? (choices ? (
+				) : (type === 'text' || type === 'number' || type === 'tel' || type === 'email' ? (choices ? (
 							<>
 								<Form.Label>{title}</Form.Label>
 								{choices?.map((obj, i) => (
@@ -43,7 +45,8 @@ const Control = ({title, type, choices, required = false, inline = false, name, 
 										<Form.Control
 											type={type}
 											name={`${name}${objIndex}-${i}`}
-											placeholder={obj}
+											placeholder={placeholder ? placeholder : obj}
+											autocomplete={autocomplete}
 											required={required}
 										/>
 									</FloatingLabel>
@@ -54,7 +57,8 @@ const Control = ({title, type, choices, required = false, inline = false, name, 
 								<Form.Control
 									type={type}
 									name={`${name}${objIndex}`}
-									placeholder={title}
+									placeholder={placeholder ? placeholder : title}
+									autocomplete={autocomplete}
 									required={required}
 								/>
 							</FloatingLabel>
@@ -64,7 +68,7 @@ const Control = ({title, type, choices, required = false, inline = false, name, 
 								<Form.Control
 									as="select"
 									name={`${name}${objIndex}`}
-									placeholder={title}
+									placeholder={placeholder ? placeholder : title}
 									required={required}
 									defaultValue=""
 								>
