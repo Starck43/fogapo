@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react"
-
+import {useRouter} from "next/router"
 import Icon from "../UI/Icon"
 import {HtmlContent} from "../UI/html-content"
 import Container from "../UI/container"
@@ -8,14 +8,18 @@ import OnlineRegistration from "../forms/main"
 
 const Appeals = ({post}) => {
 	const [openRegForm, setOpenRegForm] = useState(false)
+	const router = useRouter()
 
 	useEffect(() => {
+		//console.log(router);
+		(router.asPath.startsWith('/?reg')) && setOpenRegForm(!openRegForm)
 		const link = document.getElementById('registration')
 		link.addEventListener('click', handleClick)
 		return () => link.removeEventListener('click', handleClick)
 	}, [])
 
 	const handleClick = (e) => {
+		e.preventDefault()
 		setOpenRegForm(!openRegForm)
 	}
 
