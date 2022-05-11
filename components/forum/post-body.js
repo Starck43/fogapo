@@ -7,7 +7,7 @@ import Contacts from "./contacts"
 export default function PostBody({events, partners, location, info}) {
 	return (
 		<main className="post">
-			<Container className="py-4 flex-wrap">
+			<Container className="py-4vh flex-wrap">
 				<Events events={events}/>
 				<section className="partners-forum cell-auto">
 					<h3>Организаторы</h3>

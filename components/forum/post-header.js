@@ -12,7 +12,7 @@ import DATA from "../../core/constants"
 export default function PostHeader({src, title, subtitle, datetime, extra_logo, appeals}) {
 	return (
 		<header className="post-header flex-column">
-			<Container className="py-2">
+			<Container className="py-2vh">
 				<div className="header-logos flex-wrap">
 					<Link href="/">
 						<a className="logo-link"><Logo name={title} src={src}/></a>

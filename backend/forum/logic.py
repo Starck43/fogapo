@@ -181,3 +181,8 @@ class EmailThread(Thread):
 def SendEmailAsync(subject, template, email_ricipients=settings.EMAIL_RICIPIENTS):
 	EmailThread(subject, template, email_ricipients).start()
 
+
+def get_site_url(request):
+	scheme = request.is_secure() and "https" or "http"
+	site_url = '%s://%s' % (scheme, request.META['HTTP_HOST'])
+	return site_url

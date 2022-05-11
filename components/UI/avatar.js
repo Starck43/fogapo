@@ -1,6 +1,6 @@
 import {useState} from "react"
 import Image from 'next/image'
-
+import placeholder from "~/public/placeholder.png"
 
 
 export const Logo = ({className = 'logo', name = '', src}) => {
@@ -14,7 +14,7 @@ export const Logo = ({className = 'logo', name = '', src}) => {
 	})
 
 	const loadComplete = function (imageDimension) {
-		console.log(imageDimension)
+		//console.log(imageDimension)
 		setImageSize(imageDimension)
 	}
 
@@ -23,6 +23,8 @@ export const Logo = ({className = 'logo', name = '', src}) => {
 			<Image
 				src={src}
 				loader={remoteLoader}
+				placeholder={placeholder}
+				//placeholder="blur"
 				layout="intrinsic"
 				width={imageSize.naturalWidth}
 				height={imageSize.naturalHeight}

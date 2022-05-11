@@ -17,7 +17,7 @@ from rest_framework.parsers import JSONParser
 from .models import *
 from .serializers import *
 
-from .logic import SendEmail, SendEmailAsync
+from .logic import SendEmail, SendEmailAsync, get_site_url
 
 
 #@method_decorator(csrf_exempt, name='dispatch')
@@ -43,6 +43,7 @@ def new_visitor(request):
 	data['location'] = forum.location
 	data['date'] = forum.date_forum
 	data['reg_id'] = f'{visitor.id:03}-{forum.date_forum.day:02}{forum.date_forum.month:02}{forum.date_forum.year:04}'
+	data['site_url'] = get_site_url(request)
 
 	if data['status'] == 0:
 		# Отправка уведомления администратору сервиса

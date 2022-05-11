@@ -26,7 +26,7 @@ const Control = ({title, type='text', choices, required = false, inline = false,
 	}
 
 	return (
-		<Form.Group className="form-group my-4" controlId={`${name}${objIndex}`}>
+		<Form.Group className="form-group my-4vh" controlId={`${name}${objIndex}`}>
 			{
 				type === 'textarea' ? (
 					<>

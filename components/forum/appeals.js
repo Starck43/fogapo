@@ -29,7 +29,7 @@ const Appeals = ({post}) => {
 				<h2 className="mx-auto">
 					<HtmlContent>{post.appeals_title}</HtmlContent>
 				</h2>
-				<ul className="appeals-block flex-wrap py-4">
+				<ul className="appeals-block flex-wrap py-4vh">
 					{
 						post.appeals.map(appeal => (
 							<li className="appeal p-2 cell-4" key={appeal.id}>

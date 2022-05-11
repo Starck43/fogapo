@@ -6,7 +6,7 @@ import SubTitle from "../UI/subtitle"
 
 export const RegistrationForm = ({data, validated}) => {
 	return (
-		<Form className="my-2" validated={validated}>
+		<Form className="my-2vh" validated={validated}>
 			{Object.keys(data).map((key) => (
 				<Fragment key={key}>
 					{typeof data[key] === 'string' &&

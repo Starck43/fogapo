@@ -3,7 +3,7 @@ import {HtmlContent} from "../UI/html-content"
 
 export default function Events({events}) {
 	return (
-		<section className="events-forum py-4">
+		<section className="events-forum py-4vh">
 			{
 				events.map(event => (
 					<article className="event" key={event.id}>
