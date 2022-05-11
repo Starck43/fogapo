@@ -6,7 +6,7 @@ import PostHeader from "./post-header"
 import PostBody from "./post-body"
 import PostFooter from "./post-footer"
 
-import {SITE_NAME} from "../../core/constants"
+import DATA, {SITE_NAME} from "../../core/constants"
 
 
 export default function Post({post}) {
@@ -30,7 +30,7 @@ export default function Post({post}) {
 				<link rel="canonical" href={router.basePath}/>
 			</Head>
 
-			<PostHeader title={post.title} subtitle={post.subtitle} src={post.logo} datetime={post.date_forum}/>
+			<PostHeader title={post.title} subtitle={post.subtitle} src={post.logo} datetime={post.date_forum} extra_logo={DATA.extra_logo} appeals={DATA.posts[0]}/>
 			<PostBody events={post.events} partners={post.partners} location={post.location} info={post.info}/>
 			<PostFooter partners={post.partners} contacts={post.contacts}/>
 		</>

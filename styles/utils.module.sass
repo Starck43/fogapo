@@ -222,13 +222,18 @@
   display: flex
   flex-direction: column
   width: 100%
-  background-color: #fff
+  background-color: $modal-dialog-bg
   background-clip: padding-box
   border: $border-width solid $brand-color
   border-radius: $border-radius
   pointer-events: auto
   outline: 0
   @extend .shadow3
+
+
+.modal-header, .modal-footer
+  +media-breakpoint-down(md)
+    padding: 2vh 1.5em
 
 .modal-body, .modal-footer
   position: relative
@@ -241,7 +246,9 @@
   align-items: center
   justify-content: space-between
   padding: 1.5em
-  border-bottom: 1px solid #dee2e6
+  //border-bottom: 1px solid #dee2e6
+  //background: radial-gradient(0deg, rgba(255,255,255,0) 50%, rgba(255,255,255,1) 100%)
+
   border-top-left-radius: $border-radius - 1px
   border-top-right-radius: $border-radius - 1px
   .modal-title

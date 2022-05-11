@@ -5,6 +5,11 @@ export const googleAnalyticsId = 'G-ZBG8YKXFMZ'
 
 const DATA = {
 	site_logo: '/logo.png',
+	extra_logo: {
+		title: 'Мероприятие в рамках "Бизнес неделя"',
+		src: '/logos/business-week-150.png',
+		href: '#',
+	},
 	posts: [
 		{
 			id: 1,
@@ -56,6 +61,9 @@ const DATA = {
 		},
 	],
 }
+
+export default DATA
+
 
 export const FORM_DATA = {
 	header: 'Заполните анкету для участия в форуме',
@@ -163,5 +171,3 @@ export const FORM_DATA = {
 		},
 	],
 }
-
-export default DATA

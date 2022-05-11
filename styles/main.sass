@@ -74,6 +74,9 @@ header
 		+media-breakpoint-down(lg)
 			min-height: 100vh
 
+	.header-logos
+		flex: 1
+		justify-content: center
 	.logo-link
 		max-width: 4em
 		min-width: 80px
@@ -124,7 +127,7 @@ header
 			color: #fff
 			border-radius: 50rem
 			border-color: $brand-color
-			background: $brand-color //radial-gradient(circle at 50% 0, rgba(255,255,255,.55), rgba(255,255,255,.25))
+			background: $brand-color
 			user-select: none
 			&::after
 				position: absolute
@@ -140,7 +143,7 @@ header
 			font-weight: bold
 
 		.number-wrapper
-			margin: $countdown-number-offset
+			margin: $countdown-number-offset $countdown-number-offset 0
 			&:first-child
 				margin-left: 0
 				.two-digit::after
@@ -212,26 +215,26 @@ header
 			flex-wrap: wrap
 			justify-content: center
 			min-height: 100%
-
-		.logo-link
-			flex: 1 1 10%
+			align-items: flex-start
 
 		.header-title
 			flex: 1 1 75%
+
 
 		.date-forum
 			flex: 100%
 			flex-direction: row
 			margin-top: 2rem
 			.date-block
-				margin-bottom: 10px
+				margin-bottom: 1em
 
 	+media-breakpoint-down(md)
 		.date-forum
 			flex-direction: column
 			align-items: center !important
+			height: min-content
 			.date-block
-				margin-bottom: 2rem
+				margin-bottom: 2em
 			.countdown-block
 				justify-content: center
 				text-align: center
@@ -240,6 +243,7 @@ header
 		.header-title
 			margin-left: 0
 			font-size: 0.9em
+
 
 		.date-forum
 			.date-block
