@@ -37,7 +37,7 @@ const Control = ({title, type='text', choices, required = false, inline = false,
 							required={required}
 							placeholder={placeholder}
 							autoComplete={autocomplete}
-							style={{ height: '100px' }}
+							rows={3}
 						/>
 					</>
 				) : (type === 'text' || type === 'number' || type === 'tel' || type === 'email' ? (choices ? (
@@ -107,7 +107,7 @@ const Control = ({title, type='text', choices, required = false, inline = false,
 													<Form.Check.Input type={type} name={type === 'radio' ?  `${name}${objIndex}` : `${name}${objIndex}-${i}`} onClick={handleClick}/>
 													<Form.Check.Label>{Object.values(obj)}</Form.Check.Label>
 													{type === 'textarea'
-														? <Form.Control as={Object.keys(obj)} onClick={handleClick} onBlur={handleClick}/>
+														? <Form.Control as={Object.keys(obj)} rows={3} onClick={handleClick} onBlur={handleClick}/>
 														: <Form.Control type={Object.keys(obj)} onClick={handleClick} onBlur={handleClick}/>
 													}
 												</>

@@ -8,10 +8,10 @@ export default function ForumDate({datetime}) {
 			<div className="date-block">
 				<DateFormatter datetime={datetime}/>
 				<div className="at-time">начало в {datetime.toLocaleTimeString('ru', {
-					hour12: false,
-					hour: '2-digit',
-					minute: '2-digit',
-				})}
+						hour12: false,
+						hour: '2-digit',
+						minute: '2-digit',
+					})}
 				</div>
 			</div>
 			<Countdown datetime={datetime}/>

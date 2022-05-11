@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import RegistrationForm from "./forms"
+import {RegistrationForm} from "./forms"
 import ResponseContent from "./responseContent"
 import {FORM_DATA} from "../../core/constants"
 import {Fetch} from "../../core/Fetch"
@@ -32,17 +32,15 @@ const OnlineRegistration = ({show, handler}) => {
 					let questionLabel = form.querySelector(`label[for="${curQuestion}"]`)?.innerText || ""
 					text += prevQuestion ? '\n\n' : ""
 					text += `Вопрос ${num}: ${questionLabel}\nОтвет: `
-					num++
 					if (questionLabel == subQuestionLabel) {
 						text += `${data[key]}\n`
+						num++
 					} else {
-						num--
 						text += (type == "checkbox") ? `\n✅ ${data[key]}` : `[${subQuestionLabel}] - ${data[key]}`
 					}
-				} else {
-					text += (data[key])
-					? (type == "checkbox" ? `\n✅ ${data[key]}` : `, [${subQuestionLabel}] - ${data[key]}`)
-					: ""
+				} else
+				{
+					text += (data[key]) ? (type == "checkbox" ? `\n✅ ${data[key]}` : `, [${subQuestionLabel}] - ${data[key]}`) : ""
 				}
 
 				prevQuestion = curQuestion // сохраним ключ-вопрос

@@ -160,7 +160,7 @@ def SendEmail(subject, template, email_ricipients=settings.EMAIL_RICIPIENTS):
 	try:
 		email.send()
 	except BadHeaderError:
-		return HttpResponse('Ошибка в заголовке письма!')
+		return False
 
 	return True
 

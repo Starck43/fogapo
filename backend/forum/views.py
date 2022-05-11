@@ -47,11 +47,11 @@ def new_visitor(request):
 	if data['status'] == 0:
 		# Отправка уведомления администратору сервиса
 		template = render_to_string('admin_email_information.html', data)
-		SendEmailAsync('Уведомление о регистрации участника на сайте fogapo.ru!',template)
+		SendEmailAsync('Уведомление о регистрации участника на сайте fogapo.ru!', template)
 
 		# Отправка уведомления участнику
 		template = render_to_string('user_email_information.html', data)
-		SendEmailAsync('Уведомление о регистрации на мероприятие',template)
+		SendEmailAsync('Уведомление о регистрации на мероприятие', template, [data['email']])
 
 	#print(data)
 

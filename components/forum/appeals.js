@@ -12,7 +12,7 @@ const Appeals = ({post}) => {
 
 	useEffect(() => {
 		//console.log(router);
-		(router.asPath.startsWith('/?reg')) && setOpenRegForm(!openRegForm)
+		(router.asPath.startsWith(`/${router.query.slug}?reg`)) && setOpenRegForm(!openRegForm)
 		const link = document.getElementById('registration')
 		link.addEventListener('click', handleClick)
 		return () => link.removeEventListener('click', handleClick)

@@ -10,6 +10,7 @@ export default function ResponseContent ({data, className=""}) {
 			</p>
 			<p>
 				Ваш номер регистрации: <b>{data['reg_id']}</b><br/>
+				Уведомление отправлено на Ваш e-mail: {data['email']}<br/>
 				Статус регистрации: <span className={`status status-${data['status']}`}>{data['status_message']}</span><br/><br/>
 				<i>Ждите уведомление о подтверждении регистрации в течение дня. Если уведомление не поступит более суток, то позвоните на указанный на сайте контактный телефон.</i>
 			</p>
