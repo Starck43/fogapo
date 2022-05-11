@@ -15,15 +15,15 @@ export async function getLatestPost() {
 
 export async function getAllPosts(fields = []) {
 	//const posts = DATA.posts
-	let params = 'fields='
+	let params = ''
 
 	fields.forEach((field) => {
-		params += '&' + field
+		params += field + '&'
 	})
 
-	if (params) {
+	if (fields) {
 		//fetching data from server via api
-		const res = await fetch(process.env.API_SERVER+process.env.API_ENDPOINTS.posts+`?${params}/`)
+		const res = await fetch(process.env.API_SERVER+process.env.API_ENDPOINTS.posts+`?fields=${params}/`)
 		return await res.json() || []
 	}
 	else {

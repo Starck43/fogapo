@@ -36,7 +36,7 @@ export async function getStaticProps({params}) {
 
 export async function getStaticPaths() {
 	// fetching all posts only with a 'slug' field
-	const posts = await getAllPosts(['slug']) || []
+	const posts = await getAllPosts() || []
 
 	return {
 		paths: posts.map((post) => {
