@@ -106,6 +106,7 @@ export const FORM_DATA = {
 			choices: ['0', '1', '2', 'более 2-х', 'более 5-ти', 'более 10-ти',],
 			type: 'select',
 			required: true,
+			compact: false,
 		},
 		{
 			title: 'Как они распределяются по площади (укажите количество)',
@@ -118,6 +119,7 @@ export const FORM_DATA = {
 			choices: ['больше частных','больше общественных','50 на 50'],
 			type: 'select',
 			required: true,
+			compact: false,
 		},
 		{
 			title: 'Изменились ли потребности Ваших клиентов?',
@@ -168,6 +170,7 @@ export const FORM_DATA = {
 		{
 			title: 'На Форуме готовится секция от дизайнеров Кирова по обмену опытом в новой реальности. Ответы на какие вопросы вы хотели бы услышать?',
 			type: 'textarea',
+			autoComplete: false,
 		},
 	],
 }

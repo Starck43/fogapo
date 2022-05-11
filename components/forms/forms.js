@@ -1,12 +1,12 @@
-import {Form} from "react-bootstrap"
 import {Fragment, useState} from "react"
+
+import {Form, Button} from "react-bootstrap"
 import Control from "../UI/controls"
 import SubTitle from "../UI/subtitle"
 
-
-export const RegistrationForm = ({data, validated}) => {
+export const RegistrationForm = ({data, submitHandler, closeHandler, validated}) => {
 	return (
-		<Form className="my-2vh" validated={validated}>
+		<Form className="my-2vh" onSubmit={submitHandler} validated={validated}>
 			{Object.keys(data).map((key) => (
 				<Fragment key={key}>
 					{typeof data[key] === 'string' &&
@@ -20,6 +20,10 @@ export const RegistrationForm = ({data, validated}) => {
 					}
 				</Fragment>
 			))}
+			<div className="centered pt-3 gap">
+				<Button variant="primary" type="submit">Отправить</Button>
+				<Button variant="secondary" type="button" onClick={closeHandler}>Отменить</Button>
+			</div>
 		</Form>
 	)
 }

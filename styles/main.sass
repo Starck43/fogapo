@@ -31,8 +31,10 @@ main
 	section
 		flex: 100%
 
-img
-	//background: url('/placeholder.png') center no-repeat
+img:not([decoding=async])
+	background: url('/placeholder.png') no-repeat center
+	background-origin: border-box
+	background-size: contain
 
 pre
 	white-space: pre-wrap

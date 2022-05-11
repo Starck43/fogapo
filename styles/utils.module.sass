@@ -88,6 +88,9 @@
   justify-content: center
   align-items: center
 
+.rounded
+  border-radius: 50rem
+
 .btn
   @extend  .centered
   padding: 0.75em 1.25em
@@ -95,7 +98,7 @@
   border: 2px solid $brand-color
   line-height: 1
   color: $brand-color
-  border-radius: 50rem
+  @extend  .rounded
   user-select: none
   transition: all .18s ease
 

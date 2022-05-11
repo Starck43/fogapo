@@ -1,7 +1,22 @@
 import {Form, InputGroup, FloatingLabel} from "react-bootstrap"
 
+import InputControl from "./controls/text"
+import SelectControl from "./controls/select"
 
-const Control = ({title, type='text', choices, required = false, inline = false, placeholder='', autocomplete, name, objIndex = ''}) => {
+
+const Control = ({
+		title,
+		type='text',
+		choices,
+		selected="",
+		required = false,
+		inline = false,
+		compact="true",
+		placeholder='',
+		autocomplete,
+		name,
+		objIndex = ''
+	}) => {
 
 	const handleClick = (e) => {
 		let parent = e.target.parentNode
@@ -26,7 +41,7 @@ const Control = ({title, type='text', choices, required = false, inline = false,
 	}
 
 	return (
-		<Form.Group className="form-group my-4vh" controlId={`${name}${objIndex}`}>
+		<Form.Group className="form-group mb-3" controlId={`${name}${objIndex}`}>
 			{
 				type === 'textarea' ? (
 					<>
@@ -40,52 +55,26 @@ const Control = ({title, type='text', choices, required = false, inline = false,
 							rows={3}
 						/>
 					</>
-				) : (type === 'text' || type === 'number' || type === 'tel' || type === 'email' ? (choices ? (
-							<>
-								<Form.Label>{title}</Form.Label>
-								{choices?.map((obj, i) => (
-									<FloatingLabel
-										className={`mb-2 max-content ${inline ? "inline" : ""}`}
-										key={`${name}${objIndex}-${i}`}
-										controlId={`${name}${objIndex}-${i}`}
-										label={obj}
-									>
-										<Form.Control
-											type={type}
-											name={`${name}${objIndex}-${i}`}
-											placeholder={placeholder ? placeholder : obj}
-											autoComplete={autocomplete}
-											required={required}
-										/>
-									</FloatingLabel>
-								))}
-							</>
-						) : (
-							<FloatingLabel controlId={`${name}${objIndex}`} label={title}>
-								<Form.Control
-									type={type}
-									name={`${name}${objIndex}`}
-									placeholder={placeholder ? placeholder : title}
-									autoComplete={autocomplete}
-									required={required}
-								/>
-							</FloatingLabel>
-						)
+				) : (type === 'text' || type === 'number' || type === 'tel' || type === 'email' ? (
+						<InputControl
+							type={type}
+							choices={choices}
+						 	title={title}
+							name={`${name}${objIndex}`}
+							placeholder={placeholder}
+							autoComplete={autocomplete}
+							required={required}
+						/>
 					) : (type === 'select' ? (
-							<FloatingLabel controlId={`${name}${objIndex}`} label={title}>
-								<Form.Control
-									as="select"
-									name={`${name}${objIndex}`}
-									placeholder={placeholder ? placeholder : title}
-									required={required}
-									defaultValue=""
-								>
-									<option value="" disabled>{`не указано`}</option>
-									{choices?.map((option, i) => (
-										<option value={option} key={`${name}${objIndex}-${i}`}>{option}</option>
-									))}
-								</Form.Control>
-							</FloatingLabel>
+							<SelectControl
+								name={`${name}${objIndex}`}
+								title={title}
+								choices={choices}
+								selected={selected}
+								placeholder={placeholder}
+								required={required}
+								compact={compact}
+							/>
 						) : (type === 'radio' || type === 'checkbox' ? (
 								<>
 									<Form.Label>{title}</Form.Label>

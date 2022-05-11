@@ -18,14 +18,36 @@ export const Logo = ({className = 'logo', name = '', src}) => {
 		setImageSize(imageDimension)
 	}
 
+	const shimmer = (w, h=null) => `
+		<svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<defs>
+		<linearGradient id="g">
+		<stop stop-color="#333" offset="20%" />
+		<stop stop-color="#222" offset="50%" />
+		<stop stop-color="#333" offset="70%" />
+		</linearGradient>
+		</defs>
+		${ h==null
+			? `<circle fill="#333" cx="${w/2}" cy="${w/2}" r="${w/2}"/><circle id="c" fill="url(#g)" cx="${w/2}" cy="${w/2}" r="${w/2}"/>`
+			: `<rect width="${w}" height="${h}" fill="#333" /><rect id="r" width="${w}" height="${h}" fill="url(#g)" />`
+		}
+		<animate xlink:href="#c" attributeName="x" from="-${w}" to="${w}" dur="1s" repeatCount="indefinite"/>
+		</svg>`
+
+	const toBase64 = (str) => (
+		typeof window === 'undefined'
+			? Buffer.from(str).toString('base64')
+			: window.btoa(str)
+	)
+
 	return (
 		<div className={className}>
 			<Image
 				src={src}
 				loader={remoteLoader}
-				placeholder={placeholder}
-				//placeholder="blur"
 				layout="intrinsic"
+				blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(imageSize.naturalWidth, imageSize.naturalHeight))}`}
+				placeholder="blur"
 				width={imageSize.naturalWidth}
 				height={imageSize.naturalHeight}
 				unoptimized={true}
@@ -36,14 +58,16 @@ export const Logo = ({className = 'logo', name = '', src}) => {
 	)
 }
 
-export const Avatar = ({name = '', width = 160, height = 160, src}) => {
+export const Avatar = ({src, name = '', width = 160, height = null, rounded="rounded"}) => {
+
 	return (
 		<div className="avatar centered vertical">
 			<Image
-				className="rounded"
+				className={rounded}
 				src={src}
 				width={width}
-				height={height}
+				height={height ? height : width}
+				blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(width, height))}`}
 				placeholder="blur"
 				alt={name}
 			/>

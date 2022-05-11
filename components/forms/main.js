@@ -140,17 +140,10 @@ const OnlineRegistration = ({show, handler}) => {
 		<ModalDialog
 			title="Регистрация нового участника"
 			show={show}
-			submitHandler={handleSubmit}
 			closeHandler={handleClose}
-			footer={
-				<Modal.Footer className="centered gap">
-					<Button variant="primary" type="submit" onClick={handleSubmit}>Отправить</Button>
-					<Button variant="secondary" type="button" onClick={handleClose}>Отменить</Button>
-				</Modal.Footer>
-			}
 			className="registration"
 		>
-			<RegistrationForm data={FORM_DATA} validated={validated}/>
+			<RegistrationForm data={FORM_DATA} submitHandler={handleSubmit} closeHandler={handleClose} validated={validated}/>
 		</ModalDialog>
 	)
 }
