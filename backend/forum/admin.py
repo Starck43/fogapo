@@ -70,7 +70,7 @@ class VisitorAdmin(admin.ModelAdmin):
 	list_filter = ('name', 'forum', 'occupation', 'status', )
 
 	def reg_id(self, obj):
-		return f'{obj.id:03}-{obj.forum.date_forum.day:02}{obj.forum.date_forum.month:02}{obj.forum.date_forum.year:04}'
+		return get_visitor_reg_num(obj)
 	reg_id.short_description = 'Рег №'
 
 	def save_model(self, request, obj, form, change):

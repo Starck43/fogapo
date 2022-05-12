@@ -62,11 +62,12 @@ const OnlineRegistration = ({show, handler}) => {
 			headers: {
 				//'Content-Type': 'application/x-www-form-urlencoded',
 				//'Content-Type': 'multipart/form-data',
+				'Origin' : process.env.SERVER,
 				'Content-Type': 'application/json',
 				'Accept': 'application/json, application/xml, text/plain, text/html',
 			},
 			body: JSON.stringify(data),
-			credentials: 'same-origin',
+			//credentials: 'include',
 		})
 
 		setRespondedData(res)
