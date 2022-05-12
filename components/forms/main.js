@@ -71,8 +71,8 @@ const OnlineRegistration = ({show, handler}) => {
 		})
 
 		setRespondedData(res)
+		console.log('result:',res)
 
-		//console.log('result:',res)
 		return res
 	}
 
@@ -98,31 +98,13 @@ const OnlineRegistration = ({show, handler}) => {
 	}
 
 
-	if (respondedData instanceof Promise)
-		return <AlertDialog title="Регистрация на мероприятие" show={show} closeHandler={handler}>
+	if (respondedData instanceof Promise) return (
+		<AlertDialog title="Регистрация на мероприятие" show={show} closeHandler={handler}>
 			<h4 className="title">Связь с сервером...</h4>
 		</AlertDialog>
+		)
 
-	if (!respondedData || !Object.keys(respondedData.data).length || !respondedData.response.ok || respondedData.error) return (
-		<AlertDialog
-			title="Регистрация на мероприятие"
-			show={show}
-			closeHandler={handler}
-			footer={
-				<Modal.Footer>
-					<span className="status-message error centered">
-						{`Код ошибки: ${respondedData.response.status}`}
-					</span>
-				</Modal.Footer>
-			}
-			className="registration-error"
-		>
-			<h4 className="title">Возникла ошибка на сервере!</h4>
-			<ResponseContent data={respondedData.response.text}/>
-		</AlertDialog>
-	)
-
-	if (respondedData?.data && !respondedData.error) return (
+	else if (respondedData && respondedData?.data.status !== -1 && !respondedData?.error) return (
 		<AlertDialog
 			title={`Заявка ${respondedData.data?.status === 0 ? "успешно отправлена" : "уже существует"}!`}
 			show={show}
@@ -134,11 +116,48 @@ const OnlineRegistration = ({show, handler}) => {
 			}
 			className="registration"
 		>
-			<ResponseContent data={respondedData.data}/>
+			<ResponseContent data={respondedData?.data}/>
 		</AlertDialog>
-		)
+	)
 
-	return (
+	else if (typeof respondedData === 'undefined') return (
+		<AlertDialog
+			title={`Заявка отправлена!`}
+			show={show}
+			closeHandler={handler}
+			footer={
+				<Modal.Footer className="centered">
+					<Button variant="secondary" type="button" onClick={handleClose}>Закрыть</Button>
+					<span className="message status-error"> Ответ сервера: undefined<br/>Internal server error 500</span>
+				</Modal.Footer>
+			}
+			className="registration"
+		>
+		<h4>Регистрация прошла с ошибками на сервере</h4>
+		<p>Рекомендуем сообщить об этом администратору форума</p>
+		</AlertDialog>
+	)
+
+	else if (respondedData?.data && (respondedData?.data.status === -1 || respondedData?.error)) return (
+		<AlertDialog
+			title="Ошибка регистрации"
+			show={show}
+			closeHandler={handler}
+			footer={
+				<Modal.Footer>
+					<span className="status-message error centered">
+						{ respondedData?.response ? `Код ошибки: ${respondedData?.response?.status}` : "Ошибка структуры данных. Обратитесь к администратору сайта!"}
+					</span>
+				</Modal.Footer>
+			}
+			className="registration-error"
+		>
+			<h4 className="title">Возникла ошибка на сервере!</h4>
+			<p>{respondedData?.response?.text}</p>
+		</AlertDialog>
+	)
+
+	else return (
 		<ModalDialog
 			title="Регистрация нового участника"
 			show={show}

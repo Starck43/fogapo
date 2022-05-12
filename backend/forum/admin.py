@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.template.loader	import render_to_string
 
 from .models import *
-from .logic import SendEmail, SendEmailAsync, get_visitor_reg_num, get_site_url
+from .logic import SendEmail, SendEmailAsync, get_admin_site_url, get_visitor_reg_num, get_site_url
 
 
 # Creating a model's sort function for admin
@@ -84,7 +84,7 @@ class VisitorAdmin(admin.ModelAdmin):
 				'forum': obj.forum,
 				'date_forum': obj.forum.date_forum,
 				'location': obj.forum.location,
-				'logo' : {'url': obj.forum.logo.url, 'title': obj.forum.title},
+				'logo' : {'url': get_admin_site_url(request)+obj.forum.logo.url, 'title': obj.forum.title},
 				'reg_id': get_visitor_reg_num(obj),
 				'site' : get_site_url(request),
 			}

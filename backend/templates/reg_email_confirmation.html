@@ -12,16 +12,18 @@
 		padding: 0;
 		box-sizing: border-box;
 	}
-
+	html {
+		font-size: 18px;
+		font-family: Helvetica, Arial;
+	}
 	body{
 		position: relative;
 		width: 100%;
-		padding: 2em;
-		font-family: Helvetica, Arial;
-		font-size: 18px;
+		padding: 2vw;
 	}
 	p{
 		margin-bottom: 0.5em;
+		font-weight: 200;
 	}
 	div{
 		display: block;
@@ -32,34 +34,44 @@
 	}
 	img{
 		max-width: 100px;
-		height: auto;
+		height: auto !important;
 		margin-right: 1em;
 	}
 	.header-title{
 		display: flex;
 		flex-wrap: wrap;
+		align-items: center;
+		padding-bottom: 2em;
 	}
 	.header-title logo{
 		flex: 1 1 10%;
-		padding-bottom: 2em;
-		align-items: center;
 	}
 	.header-title img{
 		flex: 1 1 90%;
 	}
 	.message{
 		padding: 1.5em;
-		width:auto;
+		width: auto;
 		border: 3px solid #8c52ff;
-		border-radius: 8px;
+		border-radius: 7px;
 	}
+
+	@media (max-width: 575.98px) and (orientation: portrait) {
+		html{font-size: 14px;}
+		.message{padding: 1em;}
+	}
+
+	@media (max-width: 767.98px) {
+		html{font-size: 16px;}
+	}
+
 </style>
 <body>
 	<div class="header-title">
 		<div class="logo">
-			<img src="{{site.url}}{{logo.url}}" alt="{{logo.title}}">
+			<img src="{{logo.url}}" alt="{{logo.title}}">
 		</div>
-		<h1>Подтверждение регистрации на сайте fogapo.ru</h1>
+		<h1>Подтверждение регистрации на сайте {{site.name}}</h1>
 	</div>
 	<div class="message">
 		<h3>Уважаемая(-ый), {{name}}</h3>

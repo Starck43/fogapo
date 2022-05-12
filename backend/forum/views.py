@@ -17,7 +17,7 @@ from rest_framework.parsers import JSONParser
 from .models import *
 from .serializers import *
 
-from .logic import SendEmail, SendEmailAsync, get_visitor_reg_num, get_site_url
+from .logic import SendEmail, SendEmailAsync, get_visitor_reg_num, get_admin_site_url, get_site_url
 
 
 #@method_decorator(csrf_exempt, name='dispatch')
@@ -39,20 +39,25 @@ def new_visitor(request):
 		data['status'] = 0
 		data['status_message'] = 'новая регистрация'
 
-	data['forum'] = forum.title
-	data['location'] = forum.location
-	data['date'] = forum.date_forum
-	data['reg_id'] = get_visitor_reg_num(visitor)
-	data['site'] = get_site_url(request)
+	if visitor:
+		data['forum'] = forum.title
+		data['location'] = forum.location
+		data['date'] = forum.date_forum
+		data['reg_id'] = get_visitor_reg_num(visitor)
 
-	if data['status'] == 0:
-		# Отправка уведомления администратору сервиса
-		template = render_to_string('admin_email_information.html', data)
-		SendEmailAsync(f'Уведомление о регистрации участника на сайте {data.site.url}!', template)
+		if data['status'] == 0:
+			data['server_site'] = get_admin_site_url(request)
+			#print(get_site_url(request))
+			# Отправка уведомления администратору сервиса
+			template = render_to_string('admin_email_information.html', data)
+			SendEmailAsync(f'Уведомление о регистрации участника на сайте {get_site_url(request)}!', template)
 
-		# Отправка уведомления участнику
-		template = render_to_string('user_email_information.html', data)
-		SendEmailAsync('Уведомление о регистрации на мероприятие', template, [data['email']])
+			# Отправка уведомления участнику
+			template = render_to_string('user_email_information.html', data)
+			SendEmailAsync('Уведомление о регистрации на мероприятие', template, [data['email']])
+	else:
+		data = {}
+		data['status'] = -1
 
 	#print(data)
 

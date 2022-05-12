@@ -182,6 +182,14 @@ def SendEmailAsync(subject, template, email_ricipients=settings.EMAIL_RICIPIENTS
 	EmailThread(subject, template, email_ricipients).start()
 
 
+
+def get_admin_site_url(request):
+	protocol = 'https' if request.is_secure() else 'http'
+	admin_url = "{0}://{1}".format(protocol, request.get_host())
+	return admin_url
+
+
+
 def get_site_url(request):
 	scheme = request.is_secure() and "https" or "http"
 	url = settings.CORS_ALLOWED_ORIGINS[0] if len(settings.CORS_ALLOWED_ORIGINS) > 0 else '%s://%s' % (scheme, request.META['HTTP_HOST'])
@@ -192,6 +200,7 @@ def get_site_url(request):
 		'name': name
 	}
 	return site
+
 
 
 def get_visitor_reg_num(instance):
