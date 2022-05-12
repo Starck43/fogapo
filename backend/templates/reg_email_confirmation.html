@@ -1,0 +1,65 @@
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Сообщение с сайта fogapo.ru</title>
+</head>
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+
+	body{
+		position: relative;
+		width: 100%;
+		padding: 2em;
+		font-family: Helvetica, Arial;
+		font-size: 18px;
+	}
+	div{
+		display: block;
+	}
+	a{
+		color: #8c52ff;
+		font-weight: bold;
+	}
+	img{
+		max-width: 100px;
+		height: auto;
+	}
+	.header-title{
+		display: flex;
+	}
+	.header-title img{
+		margin-right: 1em;
+		align-items: center;
+	}
+	.message{
+		padding: 1.5em;
+		width:auto;
+		border: 3px solid #8c52ff;
+		border-radius: 8px;
+	}
+</style>
+<body>
+	<div class="header-title">
+		<img src="{{site.url}}{{logo.url}}" alt="{{logo.title}}">
+		<h1>Подтверждение регистрации на сайте fogapo.ru</h1>
+	</div>
+	<div class="message">
+		<h3>Уважаемая(-ый), {{name}}</h3>
+		<p>Вы оставили онлайн заявку на участие в форуме "{{forum}}"</p>
+		<p>Ваша регистрация успешно подтверждена администратором форума <a href="{{site.url}}">{{site.name}}</a></p>
+		<p>Регистрационный номер: {{reg_id}}</p>
+		<br>
+		<p>Напоминаем, что мероприятие пройдет <b>{{date_forum}}</b></p>
+		<p>Место проведения:<br/>
+			<b>{{location|safe}}</b>
+		</p>
+		<br>
+		<i>Будем ждать Вас, до скорой встречи!</i>
+	</div>
+
+</body>
+</html>

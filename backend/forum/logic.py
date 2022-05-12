@@ -184,5 +184,13 @@ def SendEmailAsync(subject, template, email_ricipients=settings.EMAIL_RICIPIENTS
 
 def get_site_url(request):
 	scheme = request.is_secure() and "https" or "http"
-	site_url = '%s://%s' % (scheme, request.META['HTTP_HOST'])
-	return site_url
+	site = {
+		'url': '%s://%s' % (scheme, request.META['HTTP_HOST']),
+		'name': request.META['HTTP_HOST']
+	}
+	return site
+
+
+def get_visitor_reg_num(instance):
+	return f'{instance.id:03}-{instance.forum.date_forum.day:02}{instance.forum.date_forum.month:02}{instance.forum.date_forum.year:04}'
+

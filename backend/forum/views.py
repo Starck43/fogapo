@@ -17,7 +17,7 @@ from rest_framework.parsers import JSONParser
 from .models import *
 from .serializers import *
 
-from .logic import SendEmail, SendEmailAsync, get_site_url
+from .logic import SendEmail, SendEmailAsync, get_visitor_reg_num, get_site_url
 
 
 #@method_decorator(csrf_exempt, name='dispatch')
@@ -42,13 +42,13 @@ def new_visitor(request):
 	data['forum'] = forum.title
 	data['location'] = forum.location
 	data['date'] = forum.date_forum
-	data['reg_id'] = f'{visitor.id:03}-{forum.date_forum.day:02}{forum.date_forum.month:02}{forum.date_forum.year:04}'
-	data['site_url'] = get_site_url(request)
+	data['reg_id'] = get_visitor_reg_num(visitor)
+	data['site'] = get_site_url(request)
 
 	if data['status'] == 0:
 		# Отправка уведомления администратору сервиса
 		template = render_to_string('admin_email_information.html', data)
-		SendEmailAsync('Уведомление о регистрации участника на сайте fogapo.ru!', template)
+		SendEmailAsync(f'Уведомление о регистрации участника на сайте {data.site.url}!', template)
 
 		# Отправка уведомления участнику
 		template = render_to_string('user_email_information.html', data)

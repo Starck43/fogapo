@@ -1,6 +1,9 @@
 from django.contrib import admin
+from django.template.loader	import render_to_string
 
 from .models import *
+from .logic import SendEmail, SendEmailAsync, get_visitor_reg_num, get_site_url
+
 
 # Creating a model's sort function for admin
 def get_app_list(self, request):
@@ -68,6 +71,27 @@ class VisitorAdmin(admin.ModelAdmin):
 
 	def reg_id(self, obj):
 		return f'{obj.id:03}-{obj.forum.date_forum.day:02}{obj.forum.date_forum.month:02}{obj.forum.date_forum.year:04}'
-
 	reg_id.short_description = 'Рег №'
+
+	def save_model(self, request, obj, form, change):
+		super().save_model(request, obj, form, change)
+
+		if change and obj.status == 2:
+
+			# Отправка уведомления участнику
+			data = {
+				'name' : obj.name,
+				'forum': obj.forum,
+				'date_forum': obj.forum.date_forum,
+				'location': obj.forum.location,
+				'logo' : {'url': obj.forum.logo.url, 'title': obj.forum.title},
+				'reg_id': get_visitor_reg_num(obj),
+				'site' : get_site_url(request),
+			}
+
+			print('Статус заявки подтвержден', data['reg_id'])
+			print(data['site'], data['logo'])
+
+			template = render_to_string('reg_email_confirmation.html', data)
+			SendEmailAsync('Регистрация на форум подтверждена', template, [obj.email])
 
