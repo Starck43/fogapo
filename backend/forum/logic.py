@@ -184,9 +184,12 @@ def SendEmailAsync(subject, template, email_ricipients=settings.EMAIL_RICIPIENTS
 
 def get_site_url(request):
 	scheme = request.is_secure() and "https" or "http"
+	url = settings.CORS_ALLOWED_ORIGINS[0] if len(settings.CORS_ALLOWED_ORIGINS) > 0 else '%s://%s' % (scheme, request.META['HTTP_HOST'])
+	name = re.compile(r"https?://(www\.)?")
+	name = name.sub('', url).strip().strip('/')
 	site = {
-		'url': '%s://%s' % (scheme, request.META['HTTP_HOST']),
-		'name': request.META['HTTP_HOST']
+		'url': url,
+		'name': name
 	}
 	return site
 

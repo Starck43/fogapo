@@ -36,11 +36,11 @@ const OnlineRegistration = ({show, handler}) => {
 						text += `${data[key]}\n`
 					} else {
 						text += (type == "checkbox") ? `\n✅ ${data[key]}` : `[${subQuestionLabel}] - ${data[key]}`
+						num--
 					}
 				} else
 				{
-					text += (data[key]) ? (type == "checkbox" ? `\n✅ ${data[key]}` : `, [${subQuestionLabel}] - ${data[key]}`) : ""
-					num--
+					text += (data[key]) ? (type == "checkbox" ? `\n\n✅ ${data[key]}` : `, [${subQuestionLabel}] - ${data[key]}`) : ""
 				}
 
 				num++
@@ -103,7 +103,7 @@ const OnlineRegistration = ({show, handler}) => {
 			<h4 className="title">Связь с сервером...</h4>
 		</AlertDialog>
 
-	if (respondedData && respondedData.error) return (
+	if (!respondedData || !Object.keys(respondedData.data).length || !respondedData.response.ok || respondedData.error) return (
 		<AlertDialog
 			title="Регистрация на мероприятие"
 			show={show}
