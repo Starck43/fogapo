@@ -1,61 +1,161 @@
-# A statically generated blog example using Next.js and Markdown
+# fogapo.ru
 
-This example showcases Next.js's [Static Generation](https://nextjs.org/docs/basic-features/pages) feature using Markdown files as the data source.
+[![Current Deploy Status](https://api.netlify.com/api/v1/badges/prj_CPUg9my2RLOhxXSS7Dssz1rrEDPa/yMXYOKXUYC/deploy-status)](https://app.netlify.com/sites/fogapo.ru/deploys)
 
-The blog posts are stored in `/_posts` as Markdown files with front matter support. Adding a new Markdown file in there will create a new blog post.
+![](screenshot.jpg)
 
-To create the blog posts we use [`remark`](https://github.com/remarkjs/remark) and [`remark-html`](https://github.com/remarkjs/remark-html) to convert the Markdown files into an HTML string, and then send it down as a prop to the page. The metadata of every post is handled by [`gray-matter`](https://github.com/jonschlinkert/gray-matter) and also sent in props to the page.
+1. To view a static site **[click here](https://fogapo.ru/)**.
+2. To view a site's code **[visit repository](https://github.com/Starck43/fogapo.git)**.
+3. To add/change content **[open Django](https://admin.fogapo.ru)**.
 
-## Demo
 
-[https://next-blog-starter.vercel.app/](https://next-blog-starter.vercel.app/)
+## Site code
 
-## Deploy your own
+Site was written on React/Next.js with Python/Django backend. Pages are pre-rendered at build time
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/blog-starter)
+ - `next-config.js` -  API settings
+ - `core/constants.js` - to change additional personal data
+ - `pages/*.js` - base pages
+ - `components/*.js` - all component's folder
+ - `public/` - folder for icons, logos and fonts
+ - `babel.config.js` Babel settings
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/blog-starter&project-name=blog-starter&repository-name=blog-starter)
-
-### Related examples
-
-- [WordPress](/examples/cms-wordpress)
-- [DatoCMS](/examples/cms-datocms)
-- [Sanity](/examples/cms-sanity)
-- [TakeShape](/examples/cms-takeshape)
-- [Prismic](/examples/cms-prismic)
-- [Contentful](/examples/cms-contentful)
-- [Strapi](/examples/cms-strapi)
-- [Agility CMS](/examples/cms-agilitycms)
-- [Cosmic](/examples/cms-cosmic)
-- [ButterCMS](/examples/cms-buttercms)
-- [Storyblok](/examples/cms-storyblok)
-- [GraphCMS](/examples/cms-graphcms)
-- [Kontent](/examples/cms-kontent)
-- [Umbraco Heartcore](/examples/cms-umbraco-heartcore)
-- [Builder.io](/examples/cms-builder-io)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
+# babel.config.js configuration
 ```
-npx create-next-app --example blog-starter blog-starter-app
-
-```
-
-or
-
-```
-yarn create next-app --example blog-starter blog-starter-app
-# or
-pnpm create next-app -- --example blog-starter blog-starter-app
-
+module.exports = {
+		"presets": [
+				[
+						"next/babel",
+				]
+		],
+		"plugins": [
+				[
+						"babel-plugin-root-import"
+				],
+				[
+						"styled-components",
+						{
+								"ssr": true
+						}
+				],
+				[
+						"macros"
+				],
+		]
+}
 ```
 
-Your blog should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
+### Online registration
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+For sending data on server it uses a fetch function with post method [Python API](https://admin.fogapo.ru/api/user/add).
+After success data saving server sends email notifications to administrator and message author
 
-# Notes
+As base font used Axo 2 font
 
-This blog-starter uses [Tailwind CSS](https://tailwindcss.com) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3).
+
+## Server API
+
+Based on Django framework with Python code
+ - `backend` -  Django project
+ - `backend/forum` -  API app
+
+ For API used `djangorestframework` package
+ All packages saved in `backend/requirements.txt` file
+
+```bash
+
+# Environment installation
+$ python3 -m venv venv
+# Install main project crm
+$ django-admin startproject crm .
+# Install api app
+$ django-admin startapp api
+
+$ source ./venv/bin/activate
+
+$ python3 manage.py createsuperuser
+
+$ pip install -r requirements.txt
+
+$ python manage.py migrate
+# run server
+$ python manage.py runserver [localhost:8000]
+````
+
+**[all posts  ](https://admin.fogapo.ru/api/posts/)**
+**[detail post](https://admin.fogapo.ru/api/posts/[slug]/)**
+**[latest post](https://admin.fogapo.ru/api/post/latest/)**
+
+
+## Frontend
+
+Before working with the project you need to be installed Node.JS, Git and Yarn.
+In terminal clone and run the project:
+
+```bash
+# Clone this repository to your project's folder
+$ git clone https://github.com/Starck43/fogapo.git
+
+# Go into the repository
+$ cd fogapo
+
+# Install dependencies
+$ npm i (or yarn)
+
+# Start development server
+# npm run dev
+$ yarn dev
+```
+
+
+## Deployment
+
+When you are done with development you should commit changes and push them back to github.
+
+#### Deploying to Github
+
+```bash
+$ git add ./
+$ git commit -m "some changes added"
+$ git push origin
+```
+
+If you want to view a compiled site on github.io, please, read [Deploying on Github Pages](https://create-react-app.dev/docs/deployment/#github-pages) docs for React.
+
+#### Deploying to Netlify
+
+Site deploys and builds automatically and hosted directly with [Netlify](https://app.netlify.com) by linking a repository on Github.
+
+[![Deploy To Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/starck43/fogapo)
+
+For more information, read [hosting on Netlify](https://create-react-app.dev/docs/deployment/#netlify).
+
+## Technologies Used
+
+- [React](https://reactjs.org/)
+- [NextJS](https://nextjs.org/)
+- [Bootstrap React](https://react-bootstrap.github.io/)
+- [Django](https://docs.djangoproject.com/)
+- [Netlify](https://www.netlify.com/)
+
+## Favicon Package
+
+Generate favicons with [RealFaviconGenerator](https://realfavicongenerator.net/)
+
+To install this package:
+
+If the site is <code>http://www.example.com</code>, you should be able to access a file named <code>http://www.example.com/favicon.ico</code>.
+Put the `favicon.ico` file to your root directory `public_html`
+
+Insert the following code in the `head` section of `base.html`:
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#160d32">
+    <meta name="msapplication-TileColor" content="#160d32">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+*Optional* - Check your favicon with the [favicon checker](https://realfavicongenerator.net/favicon_checker)

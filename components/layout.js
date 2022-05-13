@@ -8,7 +8,7 @@ export default function Layout({preview, children}) {
 		<Fragment>
 			<Meta/>
 			{children}
-			<Copyright/>
+			<Copyright src="mailto:webmaster@istarck.ru"/>
 		</Fragment>
 	)
 }

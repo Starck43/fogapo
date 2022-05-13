@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import {HOME_TITLE, yandexMetrikaId, googleAnalyticsId} from "../core/constants"
 
+
 const Meta = () => (
 		<Head>
 			<meta charSet="utf-8"/>
@@ -11,7 +12,7 @@ const Meta = () => (
 				crossOrigin="true"
 			/>
 			<link
-				href="/fonts/exo2_0_regular.woff2"
+				href="/fonts/exo2_0_bold.woff2"
 				rel="preload"
 				as="font"
 			/>
@@ -32,19 +33,18 @@ const Meta = () => (
 				sizes="16x16"
 				href="/favicons/favicon-16x16.png"
 			/>
-			<link rel="manifest" href="/favicons/site.webmanifest"/>
 			<link
 				rel="mask-icon"
 				href="/favicons/safari-pinned-tab.svg"
-				color="#000000"
+				color="#8c52ff"
 			/>
-			<meta name="msapplication-TileColor" content="#000000"/>
+			<link rel="manifest" href="/favicons/site.webmanifest"/>
+			<meta name="msapplication-TileColor" content="#8c52ff"/>
 			<meta name="msapplication-config" content="/favicons/browserconfig.xml"/>
-			<meta name="theme-color" content="#000"/>
+			<meta name="theme-color" content="#a6a6a6"/>
 			<link rel="shortcut icon" href="/favicons/favicon.ico"/>
 			<link rel="alternate" type="application/rss+xml" href="/feed.xml"/>
 
-			<meta property="og:image" content={'/logo.png'}/>
 
 			<meta name="robots" content="follow, index"/>
 			<meta name="yandex-verification" content="0166bc6b3bf05401" />

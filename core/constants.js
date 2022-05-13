@@ -1,10 +1,14 @@
+import logo from "/public/logo.svg"
+
+export const LOGO = logo
 export const SITE_NAME = 'Fogapo'
 export const HOME_TITLE = 'Форум гарантированных поставщиков'
 export const yandexMetrikaId = '88707408'
 export const googleAnalyticsId = 'G-ZBG8YKXFMZ'
 
+
 const DATA = {
-	site_logo: '/logo.png',
+	site_logo: LOGO,
 	extra_logo: {
 		title: 'Мероприятие в рамках "Бизнес неделя"',
 		src: '/logos/business-week-150.png',
