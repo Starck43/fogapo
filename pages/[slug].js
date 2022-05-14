@@ -15,7 +15,7 @@ export default function Page({post, preview}) {
 	return (
 		<Layout preview={preview}>
 			{router.isFallback ? (
-				<div>Loading…</div>
+				<div>Загрузка...</div>
 			) : (
 				<Post post={post}/>
 				)
@@ -27,10 +27,20 @@ export default function Page({post, preview}) {
 export async function getStaticProps({params}) {
 	const post = await getPost(params.slug) || null
 
+	if (!post) {
+		return {
+			redirect: {
+				destination: '/',
+				permanent: false,
+			},
+		}
+	}
 	return {
 		props: {
 			post
 		},
+		revalidate: 60 * 60 * 24,
+
 	}
 }
 
