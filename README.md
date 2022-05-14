@@ -1,6 +1,8 @@
 # fogapo.ru
 
-[![Current Deploy Status](https://api.netlify.com/api/v1/badges/prj_CPUg9my2RLOhxXSS7Dssz1rrEDPa/yMXYOKXUYC/deploy-status)](https://app.netlify.com/sites/fogapo.ru/deploys)
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with CSR fetching JSON data from server via API.
+
+
 
 ![](screenshot.jpg)
 
@@ -20,7 +22,7 @@ Site was written on React/Next.js with Python/Django backend. Pages are pre-rend
  - `public/` - folder for icons, logos and fonts
  - `babel.config.js` Babel settings
 
-# babel.config.js configuration
+### babel.config.js configuration
 ```
 module.exports = {
 		"presets": [
@@ -50,12 +52,10 @@ module.exports = {
 For sending data on server it uses a fetch function with post method [Python API](https://admin.fogapo.ru/api/user/add).
 After success data saving server sends email notifications to administrator and message author
 
-As base font used Axo 2 font
 
+## Backend
 
-## Server API
-
-Based on Django framework with Python code
+Based on Django framework API with Python code
  - `backend` -  Django project
  - `backend/forum` -  API app
 
@@ -63,7 +63,6 @@ Based on Django framework with Python code
  All packages saved in `backend/requirements.txt` file
 
 ```bash
-
 # Environment installation
 $ python3 -m venv venv
 # Install main project crm
@@ -78,13 +77,16 @@ $ python3 manage.py createsuperuser
 $ pip install -r requirements.txt
 
 $ python manage.py migrate
+# collect static
+$ python manage.py collectstatic
 # run server
 $ python manage.py runserver [localhost:8000]
 ````
 
-**[all posts  ](https://admin.fogapo.ru/api/posts/)**
-**[detail post](https://admin.fogapo.ru/api/posts/[slug]/)**
-**[latest post](https://admin.fogapo.ru/api/post/latest/)**
+### API endpoints
+1. **[all posts  ](https://admin.fogapo.ru/api/posts/)**
+2. **[detail post](https://admin.fogapo.ru/api/posts/[slug]/)**
+3. **[latest post](https://admin.fogapo.ru/api/post/latest/)**
 
 
 ## Frontend
@@ -112,7 +114,7 @@ $ yarn dev
 
 When you are done with development you should commit changes and push them back to github.
 
-#### Deploying to Github
+### Deploy to Github
 
 ```bash
 $ git add ./
@@ -122,13 +124,17 @@ $ git push origin
 
 If you want to view a compiled site on github.io, please, read [Deploying on Github Pages](https://create-react-app.dev/docs/deployment/#github-pages) docs for React.
 
-#### Deploying to Netlify
+### Deploy on Vercel
 
-Site deploys and builds automatically and hosted directly with [Netlify](https://app.netlify.com) by linking a repository on Github.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-[![Deploy To Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/starck43/fogapo)
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-For more information, read [hosting on Netlify](https://create-react-app.dev/docs/deployment/#netlify).
+### Build
+
+Run [Hook](https://api.vercel.com/v1/integrations/deploy/prj_FCMF1WgdMPeSIP6bmDBe1PspBjAP/NJ0Kqa6gDK) to build site on the hoster's server
+
+Open [fogapo.vercel.app](http://fogapo.vercel.app) with your browser to see the result.
 
 ## Technologies Used
 
@@ -136,7 +142,7 @@ For more information, read [hosting on Netlify](https://create-react-app.dev/doc
 - [NextJS](https://nextjs.org/)
 - [Bootstrap React](https://react-bootstrap.github.io/)
 - [Django](https://docs.djangoproject.com/)
-- [Netlify](https://www.netlify.com/)
+- [Vercel](https://vercel.com/docs/)
 
 ## Favicon Package
 
@@ -145,17 +151,5 @@ Generate favicons with [RealFaviconGenerator](https://realfavicongenerator.net/)
 To install this package:
 
 If the site is <code>http://www.example.com</code>, you should be able to access a file named <code>http://www.example.com/favicon.ico</code>.
-Put the `favicon.ico` file to your root directory `public_html`
-
-Insert the following code in the `head` section of `base.html`:
-
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#160d32">
-    <meta name="msapplication-TileColor" content="#160d32">
-    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
-    <meta name="theme-color" content="#ffffff">
 
 *Optional* - Check your favicon with the [favicon checker](https://realfavicongenerator.net/favicon_checker)

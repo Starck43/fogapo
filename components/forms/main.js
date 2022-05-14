@@ -34,7 +34,7 @@ const OnlineRegistration = ({show, handler}) => {
 					text += `Вопрос ${num}: ${questionLabel}\nОтвет: `
 					if (questionLabel == subQuestionLabel) {
 						text += `${data[key]}\n`
-					} else {
+					} else if (data[key]) {
 						text += (type == "checkbox") ? `\n✅ ${data[key]}` : `[${subQuestionLabel}] - ${data[key]}`
 						num--
 					}

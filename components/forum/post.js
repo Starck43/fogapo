@@ -6,7 +6,7 @@ import PostHeader from "./post-header"
 import PostBody from "./post-body"
 import PostFooter from "./post-footer"
 
-import DATA, {SITE_NAME, LOGO} from "../../core/constants"
+import DATA, {SITE_NAME} from "../../core/constants"
 
 
 export default function Post({post}) {
@@ -22,6 +22,8 @@ export default function Post({post}) {
 				<meta name="title" content={post.title}/>
 				<meta name="description" content={post.description}/>
 				<meta name="keywords" content={post.keywords}/>
+				<meta property="og:type" content="website"/>
+				<meta property="og:locale" content="ru_RU"/>
 				<meta property="og:site_name" content={SITE_NAME}/>
 				<meta property="og:description" content={post.description}/>
 				<meta property="og:title" content={post.title}/>

@@ -17,9 +17,19 @@ const Meta = () => (
 				as="font"
 			/>
 			<link
+				href="/logo.svg"
+				rel="preload"
+				as="image"
+			/>
+			<link
 				rel="apple-touch-icon"
 				sizes="180x180"
 				href="/favicons/apple-touch-icon.png"
+			/>
+			<link
+				rel="icon"
+				type="image/svg"
+				href="/logo.svg"
 			/>
 			<link
 				rel="icon"

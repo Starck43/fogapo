@@ -52,7 +52,7 @@ def new_visitor(request):
 			#print(get_site_url(request))
 			# Отправка уведомления администратору сервиса
 			template = render_to_string('admin_email_information.html', data)
-			SendEmailAsync('Уведомление о регистрации участника на сайте %s!' % (data['site'].name), template)
+			SendEmailAsync('Уведомление о регистрации участника на сайте %s!' % (data['site']['name']), template)
 
 			# Отправка уведомления участнику
 			template = render_to_string('user_email_information.html', data)
