@@ -46,11 +46,13 @@ def new_visitor(request):
 		data['reg_id'] = get_visitor_reg_num(visitor)
 
 		if data['status'] == 0:
+			data['site'] = get_site_url(request)
 			data['server_site'] = get_admin_site_url(request)
+			data['info'] = forum.info
 			#print(get_site_url(request))
 			# Отправка уведомления администратору сервиса
 			template = render_to_string('admin_email_information.html', data)
-			SendEmailAsync(f'Уведомление о регистрации участника на сайте {get_site_url(request)}!', template)
+			SendEmailAsync('Уведомление о регистрации участника на сайте %s!' % (data['site'].name), template)
 
 			# Отправка уведомления участнику
 			template = render_to_string('user_email_information.html', data)
