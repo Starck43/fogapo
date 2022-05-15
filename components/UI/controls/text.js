@@ -1,16 +1,16 @@
 import {Form, FloatingLabel} from "react-bootstrap"
 
 
-const InputControl = ({type="text", title, choices=null, name, placeholder, autocomplete, required, inline=false, compact="true"}) => (
+const InputControl = ({type="text", title, choices=null, name, placeholder, autocomplete, required, inline, compact}) => (
 	choices ?
 	<>
 		<Form.Label>{title}</Form.Label>
 		{choices?.map((value, i) => (
 			<FloatingLabel
-				className={`mb-2 max-content ${inline ? "inline" : ""}`}
 				key={`${name}-${i}`}
 				controlId={`${name}-${i}`}
 				label={value}
+				className={`mb-2 max-content ${inline ? "inline" : ""}`}
 			>
 				<FormControl
 					type={type}
@@ -28,7 +28,7 @@ const InputControl = ({type="text", title, choices=null, name, placeholder, auto
 					type={type}
 					name={name}
 					placeholder={placeholder ? placeholder : title}
-					autoComplete={autocomplete}
+					autocomplete={autocomplete}
 					required={required}
 				/>
 			</FloatingLabel>
@@ -38,7 +38,7 @@ const InputControl = ({type="text", title, choices=null, name, placeholder, auto
 				type={type}
 				name={name}
 				placeholder={placeholder}
-				autoComplete={autocomplete}
+				autocomplete={autocomplete}
 				required={required}
 			/>
 		</>

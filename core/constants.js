@@ -173,7 +173,7 @@ export const FORM_DATA = {
 		{
 			title: 'На Форуме готовится секция от дизайнеров Кирова по обмену опытом в новой реальности. Ответы на какие вопросы вы хотели бы услышать?',
 			type: 'textarea',
-			autoComplete: false,
+			autocomplete: false,
 		},
 	],
 }

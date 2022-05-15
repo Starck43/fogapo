@@ -1,7 +1,7 @@
 import {Form, FloatingLabel} from "react-bootstrap"
 
 
-const SelectControl = ({choices, selected="", title, name, placeholder, required, compact="true"}) => (
+const SelectControl = ({choices, selected="", title, name, placeholder, required, compact}) => (
 	!compact
 	?   <FloatingLabel controlId={name} label={title}>
 			<Form.Select

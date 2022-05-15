@@ -193,13 +193,18 @@ def get_admin_site_url(request):
 def get_site_url(request):
 	scheme = request.is_secure() and "https" or "http"
 	url = settings.CORS_ALLOWED_ORIGINS[0] if len(settings.CORS_ALLOWED_ORIGINS) > 0 else '%s://%s' % (scheme, request.META['HTTP_HOST'])
-	name = re.compile(r"https?://(www\.)?")
-	name = name.sub('', url).strip().strip('/')
-	site = {
+	if (url):
+		name = re.sub(r'^https?:\/\/|\/(www\.)?$', '', url, flags=re.MULTILINE)
+		name = name.strip().strip('/')
+	else:
+		url = ''
+		name = ''
+
+	return {
 		'url': url,
 		'name': name
 	}
-	return site
+
 
 
 

@@ -93,7 +93,7 @@
 
 .btn
   @extend  .centered
-  padding: 0.75em 1.25em
+  padding: 0.75rem 1.25rem
   box-sizing: content-box
   border: 2px solid $brand-color
   line-height: 1
@@ -115,6 +115,7 @@
   display: block
   width: $icon-size
   height: $icon-size
+  max-width: 25px
   transition: all 150ms ease
   opacity: .7
   user-select: none
@@ -163,7 +164,7 @@
 
 .button
   @extend .centered
-  padding: 1.25em
+  padding: 1.25rem
   width: max-content
   color: $button-text-color
   background-color: $button-bg-color
@@ -221,7 +222,7 @@
   pointer-events: none
   +media-breakpoint-up(sm)
     max-width: 90%
-    margin: 1.75em auto
+    margin: 1.75rem auto
 
 .modal-content
   position: relative
@@ -239,19 +240,19 @@
 
 .modal-header, .modal-footer
   +media-breakpoint-down(md)
-    padding: 2vh 1.5em
+    padding: 2vh 1.5rem
 
 .modal-body, .modal-footer
   position: relative
   flex: 1 1 auto
-  padding: 1.5em
+  padding: 1.5rem
 
 .modal-header
   display: flex
   flex-shrink: 0
   align-items: center
   justify-content: space-between
-  padding: 1.5em
+  padding: 1.5rem
   //border-bottom: 1px solid #dee2e6
   //background: radial-gradient(0deg, rgba(255,255,255,0) 50%, rgba(255,255,255,1) 100%)
 
@@ -262,25 +263,25 @@
     line-height: 1.5
     color: $brand-color
     font-weight: 500
-    font-size: 1.4em
+    font-size: 1.4rem
 
 
 .modal-dialog-centered
   display: flex
   align-items: center
-  min-height: calc(100% - 1em)
+  min-height: calc(100% - 1rem)
   +media-breakpoint-up(sm)
-    min-height: calc(100% - 3.5em)
+    min-height: calc(100% - 3.5rem)
 
 .modal-dialog-scrollable
-  height: calc(100% - 1em)
+  height: calc(100% - 1rem)
   .modal-content
     max-height: 100%
     overflow: hidden
   .modal-body
     overflow-y: auto
   +media-breakpoint-up(sm)
-    height: calc(100% - 3.5em)
+    height: calc(100% - 3.5rem)
 
 
 .form-control:focus
@@ -294,6 +295,10 @@
 
 input~label
   color: $brand-color
+
+form-check-input
+  width: 1.2rem
+  height: 1.2rem
 
 .alert-container
   .status

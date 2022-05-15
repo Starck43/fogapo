@@ -49,7 +49,7 @@ def new_visitor(request):
 			data['site'] = get_site_url(request)
 			data['server_site'] = get_admin_site_url(request)
 			data['info'] = forum.info
-			#print(get_site_url(request))
+
 			# Отправка уведомления администратору сервиса
 			template = render_to_string('admin_email_information.html', data)
 			SendEmailAsync('Уведомление о регистрации участника на сайте %s!' % (data['site']['name']), template)

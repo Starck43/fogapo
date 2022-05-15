@@ -16,7 +16,7 @@ export const RegistrationForm = ({data, submitHandler, closeHandler, validated})
 						<Control {...data[key]} name={key}/>
 					}
 					{data[key] instanceof Array &&
-						data[key].map((obj, index) => <Control {...obj} name={key} objIndex={index} key={index}/>)
+						data[key].map((obj, index) => <Control {...obj} name={key+index} key={index}/>)
 					}
 				</Fragment>
 			))}
