@@ -316,30 +316,46 @@ article
 
 .event-content
 	max-width: 100%
+	min-height: $event-avatar-size
 	position: relative
 	text-align: center
+	>div
+		width: $event-avatar-size
+		height: $event-avatar-size
+		margin: 1rem auto
+		@extend .rounded
+		@extend .shadow3
 	a
 		color: $brand-color
 		text-decoration: none
 	img
-		max-width: 300px
+		max-width: $event-avatar-size
 		height: auto !important
 		margin-bottom: 1em
+
 
 	+media-breakpoint-up(sm)
 		display: inline-block
 		text-align: left
-		max-width: calc(100% - 150px)
-		img
+		max-width: calc(100% - $event-avatar-size-sm)
+		>div
 			position: absolute
+			top: 0
 			left: 100%
+			margin-top: 0
 			margin-left: 1rem
-			max-width: 150px
+			width: $event-avatar-size-sm
+			height: $event-avatar-size-sm
+		img
+			max-width: $event-avatar-size-sm
 
 	+media-breakpoint-up(md)
-		max-width: calc(100% - 300px)
+		max-width: calc(100% - $event-avatar-size)
+		>div
+			width: $event-avatar-size
+			height: $event-avatar-size
 		img
-			max-width: 300px
+			max-width: $event-avatar-size
 
 main
 	.container

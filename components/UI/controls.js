@@ -14,7 +14,7 @@ const Control = ({
 		inline=false,
 		compact=true,
 		placeholder='',
-		autocomplete,
+		autocomplete='false',
 		name,
 	}) => {
 
@@ -29,7 +29,7 @@ const Control = ({
 							name={name}
 							rows={3}
 							placeholder={placeholder}
-							autoComplete={autocomplete}
+							autoComplete={autocomplete.toString()}
 							required={required}
 						/>
 					</>
