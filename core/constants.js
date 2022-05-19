@@ -11,7 +11,7 @@ const DATA = {
 	extra_logo: {
 		title: 'Мероприятие в рамках "Бизнес неделя"',
 		src: '/logos/business-week-150.png',
-		href: '#',
+		href: 'https://app.glueup.ru/event/2294/',
 	},
 	posts: [
 		{
@@ -115,6 +115,7 @@ export const FORM_DATA = {
 			title: 'Как они распределяются по площади (укажите количество)',
 			choices: ['до 80','80 - 150','от 150'],
 			type: 'number',
+			required: true,
 			inline: false,
 		},
 		{

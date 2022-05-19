@@ -15,11 +15,13 @@ const Meta = () => (
 				href="/fonts/exo2_0_bold.woff2"
 				rel="preload"
 				as="font"
+				crossOrigin="true"
 			/>
 			<link
 				href="/logo.svg"
 				rel="preload"
 				as="image"
+				crossOrigin="true"
 			/>
 			<link
 				rel="apple-touch-icon"

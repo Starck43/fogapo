@@ -46,14 +46,14 @@ ul
 
 h1
 	color: $title-color
-	font-size: 2.6rem
+	font-size: 2.6em
 	letter-spacing: 1px
 	line-height: 1
 	text-transform: uppercase
 
 h2
 	color: $title-color
-	font-size: 2rem
+	font-size: 2em
 	font-weight: 500
 //letter-spacing: 2px
 
@@ -151,8 +151,7 @@ header
 			font-weight: bold
 
 		.number-wrapper
-			margin: 0
-			margin-right: $countdown-number-offset * 2
+			margin: 0 $countdown-number-offset * 2 0 0
 			&:last-child
 				margin-right: 0
 				.two-digit::after
@@ -240,7 +239,7 @@ header
 			height: min-content
 			margin-top: auto
 			.date-block
-				margin-bottom: 2em
+				margin-bottom: 0
 			.countdown-block
 				justify-content: center
 				text-align: center
@@ -252,11 +251,11 @@ header
 			flex: initial
 		.header-title
 			margin-left: 0
-			font-size: 0.9em
+			font-size: 0.8em
 
 		.date-forum
 			.date-block
-				font-size: 3em
+				font-size: 2.8em
 
 
 .partners-forum
@@ -337,7 +336,7 @@ article
 	+media-breakpoint-up(sm)
 		display: inline-block
 		text-align: left
-		max-width: calc(100% - $event-avatar-size-sm)
+		max-width: calc(100% - #{$event-avatar-size-sm})
 		>div
 			position: absolute
 			top: 0
@@ -350,7 +349,7 @@ article
 			max-width: $event-avatar-size-sm
 
 	+media-breakpoint-up(md)
-		max-width: calc(100% - $event-avatar-size)
+		max-width: calc(100% - #{$event-avatar-size-sm})
 		>div
 			width: $event-avatar-size
 			height: $event-avatar-size

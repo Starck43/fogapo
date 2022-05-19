@@ -32,15 +32,15 @@ const OnlineRegistration = ({show, handler}) => {
 					let questionLabel = form.querySelector(`label[for="${curQuestion}"]`)?.innerText || ""
 					text += prevQuestion ? '\n\n' : ""
 					text += `Вопрос ${num}: ${questionLabel}\nОтвет: `
-					if (questionLabel == subQuestionLabel) {
+					if (questionLabel === subQuestionLabel) {
 						text += `${data[key]}\n`
 					} else if (data[key]) {
-						text += (type == "checkbox") ? `\n✅ ${data[key]}` : `[${subQuestionLabel}] - ${data[key]}`
+						text += (type === "checkbox") ? `\n✅ ${data[key]}` : `[${subQuestionLabel}] - ${data[key]}`
 						num--
 					}
 				} else
 				{
-					text += (data[key]) ? (type == "checkbox" ? `\n\n✅ ${data[key]}` : `, [${subQuestionLabel}] - ${data[key]}`) : ""
+					text += (data[key]) ? (type === "checkbox" ? `\n\n✅ ${data[key]}` : `, [${subQuestionLabel}] - ${data[key]}`) : ""
 				}
 
 				num++
@@ -93,7 +93,7 @@ const OnlineRegistration = ({show, handler}) => {
 		}
 	}
 
-	const handleClose = (e) => {
+	const handleClose = () => {
 		handler(false)
 	}
 
