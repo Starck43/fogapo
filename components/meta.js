@@ -8,7 +8,8 @@ const Meta = () => (
 			<title>{HOME_TITLE}</title>
 			<link
 				href="/fonts/exo2_0_regular.woff2"
-				rel="stylesheet"
+				rel="preload"
+				as="font"
 				crossOrigin="true"
 			/>
 			<link

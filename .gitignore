@@ -17,6 +17,7 @@
 
 # static
 resources/
+src/
 static/
 **/media/*
 !**/media/no-image.jpg
@@ -27,19 +28,16 @@ CACHE/
 # misc
 .DS_Store
 *.pem
+package-lock.json
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# local env files
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
 
 # Environment
+.env*
 .env
 prod.env
 .venv
@@ -47,9 +45,7 @@ venv/
 
 # vercel
 .vercel
-
-# src
-/src
+.idea
 
 # Database #
 *.sqlite3
@@ -70,7 +66,3 @@ migrations/
 __init__.py
 wsgi.py
 asgi.py
-
-# misc
-.DS_Store
-.idea
