@@ -62,7 +62,10 @@ class PartnerAdmin(admin.ModelAdmin):
 class VisitorAdmin(admin.ModelAdmin):
 	list_display = ('forum', 'name', 'organization', 'occupation', 'status', 'reg_id')
 	list_display_links = ('forum', 'name',)
-	list_filter = ('name', 'forum', 'occupation', 'status', )
+	search_fields = ('name',)
+	list_filter = ('forum__date_forum', 'occupation', 'status', )
+	date_hierarchy = 'forum__date_forum'
+
 
 	def reg_id(self, obj):
 		return get_visitor_reg_num(obj)

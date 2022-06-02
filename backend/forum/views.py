@@ -26,15 +26,15 @@ from .logic import SendEmail, SendEmailAsync, get_visitor_reg_num, get_admin_sit
 @permission_classes((permissions.AllowAny,))
 def new_visitor(request):
 	data = request.data
-	forum = Forum.objects.latest()
+	# forum = Forum.objects.get(id=data['id'])
 	# visitor_serializer = VisitorSerializer(data=data)
 
 	try:
-		visitor = Visitor.objects.get(email=data['email'], forum=forum)
+		visitor = Visitor.objects.get(email=data['email'], forum_id=data['id'])
 		data = model_to_dict(visitor)
 		data['status_message'] = 'заявка подтверждена' if visitor.status == 2 else 'ожидание подтверждения'
 	except Visitor.DoesNotExist:
-		visitor = Visitor.objects.create(forum=forum, **data)
+		visitor = Visitor.objects.create(forum_id=data['id'], **data)
 		data = model_to_dict(visitor)
 		data['status'] = 0
 		data['status_message'] = 'новая регистрация'
@@ -78,8 +78,9 @@ class PostView(viewsets.ModelViewSet):
 class PostLatestView(generics.RetrieveAPIView):
 	serializer_class = PostDetailSerializer
 	queryset = Forum.objects.all()
+
 	def get_object(self):
 		queryset = self.get_queryset()
-		return queryset.latest()
+		return queryset.first()
 
 

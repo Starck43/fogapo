@@ -184,24 +184,34 @@ header
 				border: $border-width solid $brand-color
 				border-radius: $border-radius
 				padding: 1rem
+				a
+					display: block
+					float: left
 				img
 					background: none
 					height: auto
 				>span, img
 					max-width: 50px
-					margin-right: 5% !important
-				.text
+					margin-right: 3vw !important
+				p
 					margin-bottom: auto
 
 		.appeal-footer
 			display: flex
+			.appeal-reg-info
+				>div
+					margin-bottom: .75rem
+				>b
+					font-style: italic
+
 			.button
 				max-width: 300px
 				max-height: 75px
 				margin-left: 1em
 
 		+media-breakpoint-down(md)
-			ul.appeals-block
+			margin: 0
+			ul
 				flex-direction: column
 				li
 					max-width: 100%

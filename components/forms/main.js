@@ -10,7 +10,7 @@ import {Button, Modal} from "react-bootstrap"
 //import style from "~/styles/reg.module.sass"
 
 
-const OnlineRegistration = ({show, handler}) => {
+const OnlineRegistration = ({id, show, handler}) => {
 	const [respondedData, setRespondedData] = useState(null)
 	const [validated, setValidated] = useState(false)
 
@@ -54,6 +54,7 @@ const OnlineRegistration = ({show, handler}) => {
 		return json
 	}
 
+
 	const uploadData = async (form) => {
 		let data = formData2Json(form) // конвертируем данные формы в json
 		//console.log(data)
@@ -71,10 +72,10 @@ const OnlineRegistration = ({show, handler}) => {
 		})
 
 		setRespondedData(res)
-		console.log('result:',res)
-
+		//console.log('result:',res)
 		return res
 	}
+
 
 	const handleSubmit = (e) => {
 		let form = e.target.parentNode.parentNode.querySelector('form')
@@ -93,9 +94,8 @@ const OnlineRegistration = ({show, handler}) => {
 		}
 	}
 
-	const handleClose = () => {
-		handler(false)
-	}
+
+	const handleClose = () => handler(false)
 
 
 	if (respondedData instanceof Promise) return (
@@ -159,12 +159,12 @@ const OnlineRegistration = ({show, handler}) => {
 
 	else return (
 		<ModalDialog
-			title="Регистрация нового участника"
+			title="Регистрация на мероприятие"
 			show={show}
 			closeHandler={handleClose}
 			className="registration"
 		>
-			<RegistrationForm data={FORM_DATA} submitHandler={handleSubmit} closeHandler={handleClose} validated={validated}/>
+			<RegistrationForm id={id} data={FORM_DATA} submitHandler={handleSubmit} closeHandler={handleClose} validated={validated}/>
 		</ModalDialog>
 	)
 }

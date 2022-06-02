@@ -14,7 +14,7 @@ import Image from "next/image"
 export default function PostHeader({title, subtitle, datetime, add_logo, add_link, isRegShow, cost, content}) {
 	return (
 		<header className="post-header flex-column">
-			<Container className="py-2vh">
+			<Container className="py-4vh">
 				<div className="header-logos flex-wrap">
 					<Link href="/">
 						<a className="logo-link">

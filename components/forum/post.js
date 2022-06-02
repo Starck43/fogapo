@@ -15,9 +15,9 @@ export default function Post({post}) {
 	useEffect( () => {
 		let curDate = new Date()
 		let forumDate = new Date(post.date_forum)
-		//console.log(post.reg_is_active);
+		//console.log(post.reg_is_active, curDate < forumDate);
 		setRegShow(post.reg_is_active && curDate < forumDate)
-		document.body.style.background = `url(${post.page_background}) bottom right scroll no-repeat`
+		if (post.page_background) document.body.style.background = `url(${post.page_background}) bottom right scroll no-repeat`
 	},[])
 
 	return (

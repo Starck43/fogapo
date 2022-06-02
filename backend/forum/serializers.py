@@ -34,21 +34,21 @@ class FixRichCaretSerializer(serializers.Field):
 class PartnerSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Partner
-		fields = ('id', 'name', 'logo', 'link', )
+		fields = ( 'id', 'name', 'logo', 'link', )
 
 
 class EventSerializer(serializers.ModelSerializer):
 	content = FixAbsolutePathSerializer()
 	class Meta:
 		model = Event
-		fields = ('id', 'title', 'content', 'event_time', )
+		fields = ( 'id', 'title', 'content', 'event_time', )
 
 
 
 class PostSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Forum
-		fields = ('id', 'date_forum', 'title',)
+		fields = ( 'id', 'date_forum', 'title', )
 
 
 

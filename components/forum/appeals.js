@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react"
 import {useRouter} from "next/router"
-import {HtmlContent, HtmlBodyContent} from "../UI/html-content"
+import {HtmlContent} from "../UI/html-content"
 import Container from "../UI/container"
 import OnlineRegistration from "../forms/main"
 import DATA from "../../core/constants"
 
 
-const BodyContent = ({content, cost, showRegistration}) => {
+const BodyContent = ({id, content, cost, isRegShow}) => {
 	const [openRegForm, setOpenRegForm] = useState(false)
 	const router = useRouter()
 
@@ -25,24 +25,20 @@ const BodyContent = ({content, cost, showRegistration}) => {
 
 	return (
 		<section className="appeals">
-			<Container className="container appeals-container flex-column p-4 mx-auto">
-				<HtmlBodyContent>
+			<div className="appeals-container flex-column p-4 mx-auto">
+				<HtmlContent>
 					{content}
-				</HtmlBodyContent>
-				{
-				showRegistration && (
-					<div className="appeal-footer large-text mx-auto">
+				</HtmlContent>
+					<div className="appeal-footer large-text mt-4 mx-auto">
 						<div className="appeal-reg-info">
-							<HtmlContent>{DATA.reg_content}</HtmlContent>
-							<p>Участие в мероприятии <span className="highlight">{`${cost ? 'платное' : 'бесплатное'}`}</span></p>
+							{ isRegShow && <HtmlContent>{DATA.reg_content}</HtmlContent> }
+							<b>** Участие в мероприятии <span className="highlight">{`${cost ? 'платное' : 'бесплатное'}`}</span></b>
 						</div>
-						<div className="button" onClick={handleClick}>Зарегистрироваться online</div>
+						{ isRegShow && <div className="button" onClick={handleClick}>Зарегистрироваться online</div> }
 					</div>
-					)
-				}
-			</Container>
+			</div>
 			{
-				openRegForm && <OnlineRegistration show={openRegForm} handler={setOpenRegForm}/>
+				openRegForm && <OnlineRegistration id={id} show={openRegForm} handler={setOpenRegForm}/>
 			}
 		</section>
 	)
