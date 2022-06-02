@@ -11,7 +11,7 @@ import DATA, {HOME_TITLE} from "../../core/constants"
 import Image from "next/image"
 
 
-export default function PostHeader({title, subtitle, datetime, add_logo, add_link, isRegShow, cost, content}) {
+export default function PostHeader({id, title, subtitle, datetime, add_logo, add_link, isRegShow, cost, content}) {
 	return (
 		<header className="post-header flex-column">
 			<Container className="py-4vh">
@@ -46,7 +46,7 @@ export default function PostHeader({title, subtitle, datetime, add_logo, add_lin
 				</div>
 				<ForumDate datetime={new Date(datetime)}/>
 			</Container>
-			<BodyContent content={content} cost={cost} isRegShow={isRegShow}/>
+			<BodyContent id={id} content={content} cost={cost} isRegShow={isRegShow}/>
 		</header>
 	)
 }
