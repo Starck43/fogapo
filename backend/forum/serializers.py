@@ -55,6 +55,7 @@ class PostSerializer(serializers.ModelSerializer):
 class PostDetailSerializer(serializers.ModelSerializer):
 	# adding custom fields
 	#title = serializers.CharField(write_only=True)
+	content = FixAbsolutePathSerializer()
 	events = EventSerializer(source='event', many=True)
 	partners = PartnerSerializer(many=True)
 	logo = serializers.ImageField(max_length=None, use_url=True)
