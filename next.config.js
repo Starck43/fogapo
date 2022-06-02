@@ -36,7 +36,7 @@ module.exports = {
 	sassOptions: {
 			includePaths: [path.join(__dirname, 'styles')],
 	},
-	experimental: {
+	compiler: {
 		// Enables the styled-components SWC transform
 		styledComponents: true
 	}

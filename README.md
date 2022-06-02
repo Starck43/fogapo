@@ -78,9 +78,10 @@ $ python manage.py runserver [localhost:8000]
 ````
 
 ### API endpoints
-1. **[all posts  ](https://admin.fogapo.ru/api/posts/)**
-2. **[detail post](https://admin.fogapo.ru/api/posts/[slug]/)**
-3. **[latest post](https://admin.fogapo.ru/api/post/latest/)**
+1. **[all posts    ](https://admin.fogapo.ru/api/posts/)**
+2. **[detail post  ](https://admin.fogapo.ru/api/posts/[id]/)**
+3. **[latest post  ](https://admin.fogapo.ru/api/post/latest/)**
+4. **[add user data](https://admin.fogapo.ru/api/user/add/)**
 
 
 ## Frontend
