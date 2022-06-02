@@ -1,7 +1,7 @@
 //import logo from "/public/logo.svg"
 
 export const SITE_NAME = "Fogapo"
-export const HOME_TITLE = "Форум гарантированных поставщиков"
+export const HOME_TITLE = "Флагман гарантированных поставщиков"
 
 
 const DATA = {
