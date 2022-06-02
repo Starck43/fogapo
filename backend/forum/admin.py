@@ -28,26 +28,21 @@ admin.AdminSite.get_app_list = get_app_list
 
 
 
-class EventInlineAdmin(admin.TabularInline):
+class EventInlineAdmin(admin.StackedInline):
 	model = Event
-	extra = 1 #new blank record count
+	extra = 0 #new blank record count
 	show_change_link = True
-	fields = ('title', 'event_time', 'sort',)
-	list_display = ('title', 'event_time', 'sort',)
-
-
-class PartnerInlineAdmin(admin.TabularInline):
-	model = Partner
-	extra = 1 #new blank record count
-	show_change_link = True
+	fields = ('title', 'event_time', 'content', 'sort',)
+	#list_display = ('content', 'sort',)
 
 
 @admin.register(Forum)
 class ForumAdmin(admin.ModelAdmin):
-	list_display = ('thumb', 'title', 'date_forum',)
-	list_display_links = ('thumb', 'title',)
+	#exclude=('slug',)
+	list_display = ('title', 'date_forum',)
+	list_display_links = ('title',)
 	list_filter = ('date_forum',)
-	inlines = [EventInlineAdmin, PartnerInlineAdmin]
+	inlines = [EventInlineAdmin]
 
 
 @admin.register(Event)
@@ -59,7 +54,7 @@ class EventAdmin(admin.ModelAdmin):
 
 @admin.register(Partner)
 class PartnerAdmin(admin.ModelAdmin):
-	list_display = ('thumb', 'name', 'forum', 'link',)
+	list_display = ('thumb', 'name',  'link',)
 	list_display_links = ('thumb', 'name',)
 
 

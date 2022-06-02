@@ -48,7 +48,7 @@ class EventSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Forum
-		fields = ('id', 'slug', 'title',)
+		fields = ('id', 'date_forum', 'title',)
 
 
 
@@ -56,15 +56,16 @@ class PostDetailSerializer(serializers.ModelSerializer):
 	# adding custom fields
 	#title = serializers.CharField(write_only=True)
 	events = EventSerializer(source='event', many=True)
-	partners = PartnerSerializer(source='partner', many=True)
+	partners = PartnerSerializer(many=True)
 	logo = serializers.ImageField(max_length=None, use_url=True)
 	page_background = serializers.ImageField(max_length=None, use_url=True)
+	subtitle = FixCharCaretSerializer()
 	location = FixCharCaretSerializer()
 	info = FixRichCaretSerializer()
 
 	class Meta:
 		model = Forum
-		fields = ('id', 'slug', 'logo', 'page_background', 'title', 'subtitle', 'date_forum', 'events', 'partners', 'location', 'info', 'description', 'keywords')
+		fields = ('id', 'page_background', 'logo', 'link', 'content', 'title', 'subtitle', 'date_forum', 'events', 'partners', 'location', 'info', 'reg_is_active', 'cost', 'description', 'keywords')
 
 
 class VisitorSerializer(serializers.ModelSerializer):

@@ -163,25 +163,31 @@ header
 				color: $brand-color
 				font-weight: bold
 
-
 	.appeals
 		width: 100%
 		flex: auto
+		display: flex
 		align-items: center
 		background-color: transparentize(white, 0.1)
+
 	.appeals-container
 		position: relative
 		margin: 4vh 0
-		ul.appeals-block
+		ul
 			display: flex
 			justify-content: space-between
+			margin-top: 2rem
 			li
 				position: relative
 				display: flex
 				max-width: calc(33.33% - 2vw)
 				border: $border-width solid $brand-color
 				border-radius: $border-radius
-				>span
+				padding: 1rem
+				img
+					background: none
+					height: auto
+				>span, img
 					max-width: 50px
 					margin-right: 5% !important
 				.text

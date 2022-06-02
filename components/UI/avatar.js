@@ -1,6 +1,6 @@
 import {useState} from "react"
 import Image from 'next/image'
-import placeholder from "~/public/placeholder.png"
+//import placeholder from "~/public/placeholder.png"
 
 
 export const Logo = ({className = 'logo', name = '', src}) => {
@@ -53,6 +53,7 @@ export const Logo = ({className = 'logo', name = '', src}) => {
 				unoptimized={true}
 				alt={name}
 				onLoadingComplete={loadComplete}
+				priority
 			/>
 		</div>
 	)

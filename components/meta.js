@@ -1,6 +1,8 @@
 import Head from 'next/head'
-import {HOME_TITLE, yandexMetrikaId, googleAnalyticsId} from "../core/constants"
+import {HOME_TITLE} from "../core/constants"
 
+const googleAnalyticsId = process.env.GA_ANALYTICS_MEASUREMENT_ID
+const yandexMetrikaId = process.env.YANDEX_METRIKA_ID
 
 const Meta = () => (
 		<Head>

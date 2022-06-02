@@ -25,11 +25,6 @@ Site was written on React/Next.js with Python/Django backend. Pages are pre-rend
 ### babel.config.js configuration
 ```
 module.exports = {
-		"presets": [
-				[
-						"next/babel",
-				]
-		],
 		"plugins": [
 				[
 						"babel-plugin-root-import"
@@ -38,10 +33,9 @@ module.exports = {
 						"styled-components",
 						{
 								"ssr": true
+								"displayName": true,
+								"preprocess": false
 						}
-				],
-				[
-						"macros"
 				],
 		]
 }
@@ -59,18 +53,18 @@ Based on Django framework API with Python code
  - `backend` -  Django project
  - `backend/forum` -  API app
 
- For API used `djangorestframework` package
+ For creating API used `djangorestframework` package
  All packages saved in `backend/requirements.txt` file
 
 ```bash
 # Environment installation
 $ python3 -m venv venv
-# Install main project crm
-$ django-admin startproject crm .
-# Install api app
-$ django-admin startapp api
-
 $ source ./venv/bin/activate
+
+# Install main project to crm folder
+$ django-admin startproject crm .
+# Install new app to api folder
+$ django-admin startapp api
 
 $ python3 manage.py createsuperuser
 
@@ -130,11 +124,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-### Build
-
-Run [Hook](https://api.vercel.com/v1/integrations/deploy/prj_FCMF1WgdMPeSIP6bmDBe1PspBjAP/NJ0Kqa6gDK) to build site on the hoster's server
-
-Open [fogapo.vercel.app](http://fogapo.vercel.app) with your browser to see the result.
 
 ## Technologies Used
 

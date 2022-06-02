@@ -11,7 +11,9 @@ module.exports = {
 				[
 						"styled-components",
 						{
-								"ssr": true
+								"ssr": true,
+								"displayName": true,
+								"preprocess": false
 						}
 				],
 				[

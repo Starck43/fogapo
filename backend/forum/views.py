@@ -69,7 +69,7 @@ def new_visitor(request):
 class PostView(viewsets.ModelViewSet):
 	queryset = Forum.objects.all()
 	serializer_class = PostSerializer
-	lookup_field = 'slug'
+	lookup_field = 'pk'
 	def retrieve(self, request, *args, **kwargs):
 		self.serializer_class = PostDetailSerializer
 		return super().retrieve(request, *args, **kwargs)

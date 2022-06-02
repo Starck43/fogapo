@@ -3,13 +3,12 @@ import ErrorPage from 'next/error'
 
 import Layout from '../components/layout'
 import Post from "../components/forum/post"
-
 import {getPost, getAllPosts} from '../core/api'
 
 
 export default function Page({post, preview}) {
 	const router = useRouter()
-	if (!router.isFallback && !post?.slug) {
+	if (!router.isFallback && !post?.id) {
 		return <ErrorPage statusCode={404}/>
 	}
 	return (
@@ -25,7 +24,7 @@ export default function Page({post, preview}) {
 }
 
 export async function getStaticProps({params}) {
-	const post = await getPost(params.slug) || null
+	const post = await getPost(params.id) || null
 
 	if (!post) {
 		return {
@@ -45,14 +44,14 @@ export async function getStaticProps({params}) {
 }
 
 export async function getStaticPaths() {
-	// fetching all posts only with a 'slug' field
+	// fetching all posts only with a 'id' field
 	const posts = await getAllPosts() || []
 
 	return {
 		paths: posts.map((post) => {
 			return {
 				params: {
-					slug: post.slug,
+					id: post.id,
 				},
 			}
 		}),

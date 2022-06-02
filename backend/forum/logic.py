@@ -19,7 +19,7 @@ from uuslug import slugify
 
 # delete main image and its thumbs
 def remove_images(obj):
-	if obj.path:
+	if obj and obj.path:
 		filename, ext = path.splitext(obj.path)
 		cache_folder = filename.replace('/media/', '/media/CACHE/images/')
 		rmtree(cache_folder, ignore_errors=True)

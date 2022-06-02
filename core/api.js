@@ -1,9 +1,9 @@
 //import DATA from "./constants"
 //import {apiDataFetch} from "./apiDataFetch"
 
-export async function getPost(slug) {
+export async function getPost(id) {
 	//const post = DATA.posts[0]
-	const res = await fetch(process.env.API_SERVER+process.env.API_ENDPOINTS.posts+`/${slug}/`)
+	const res = await fetch(process.env.API_SERVER+process.env.API_ENDPOINTS.posts+`/${id}/`)
 	return await res.json()
 }
 
