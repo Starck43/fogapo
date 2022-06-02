@@ -6,14 +6,15 @@ import Link from "next/link"
 
 const Calendar = ({currentId, posts}) => {
 	const [isShow, setShow] = useState(false)
-	console.log(currentId, posts)
+	//console.log(currentId, posts)
 	const CalendarHandler = () => {
 		setShow(!isShow)
 	}
 
 	return (
-		<>
+		<div className="calendar-button">
 			<HiOutlineCalendar onClick={CalendarHandler}/>
+			<small>Календарь мероприятий</small>
 			{isShow &&
 			<AlertDialog title="Календарь мероприятий"
 			             show={isShow}
@@ -22,7 +23,7 @@ const Calendar = ({currentId, posts}) => {
 			>
 				<ul>
 					{posts.map(post => (
-						<li>
+						<li key={post.id}>
 							<Link href={`/${post.id}`}><a onClick={CalendarHandler}>{post.title}</a></Link>
 							<small className="small text-muted">
 								{new Date(post.date_forum).toLocaleDateString("ru", {
@@ -33,7 +34,7 @@ const Calendar = ({currentId, posts}) => {
 					))}
 				</ul>
 			</AlertDialog>}
-		</>
+		</div>
 	)
 }
 
