@@ -6,7 +6,7 @@ import Post from "../components/forum/post"
 import {getPost, getAllPosts} from '../core/api'
 
 
-export default function Page({post, preview}) {
+export default function Page({post, posts, preview}) {
 	const router = useRouter()
 	if (!router.isFallback && !post?.id) {
 		return <ErrorPage statusCode={404}/>
@@ -16,7 +16,7 @@ export default function Page({post, preview}) {
 			{router.isFallback ? (
 				<div>Загрузка...</div>
 			) : (
-				<Post post={post}/>
+				<Post post={post} posts={posts}/>
 				)
 			}
 		</Layout>
@@ -24,7 +24,8 @@ export default function Page({post, preview}) {
 }
 
 export async function getStaticProps({params}) {
-	const post = await getPost(params.id) || null
+	const post = await getPost(params.id)
+	const posts = await getAllPosts()
 
 	if (!post) {
 		return {
@@ -36,7 +37,8 @@ export async function getStaticProps({params}) {
 	}
 	return {
 		props: {
-			post
+			post: post || null,
+			posts: posts || null,
 		},
 		revalidate: 60 * 60 * 24,
 

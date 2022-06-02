@@ -9,11 +9,13 @@ import {Logo} from "../UI/avatar"
 
 import DATA, {HOME_TITLE} from "../../core/constants"
 import Image from "next/image"
+import Calendar from "../forms/calendar"
 
 
-export default function PostHeader({id, title, subtitle, datetime, add_logo, add_link, isRegShow, cost, content}) {
+export default function PostHeader({posts, id, title, subtitle, datetime, add_logo, add_link, isRegShow, cost, content}) {
 	return (
 		<header className="post-header flex-column">
+			<Calendar currentId={id} posts={posts}/>
 			<Container className="py-4vh">
 				<div className="header-logos flex-wrap">
 					<Link href="/">
