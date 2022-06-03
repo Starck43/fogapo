@@ -1,7 +1,10 @@
+import {useEffect} from "react"
 import {useTimeCounter} from "../../core/hooks"
 
 export default function Countdown({datetime}) {
+	//useEffect( () => {},[datetime])
 	let countdown = useTimeCounter(datetime)
+
 	let {days, hours, minutes, seconds} = countdown
 	return (
 		Object.keys(countdown).length ? (

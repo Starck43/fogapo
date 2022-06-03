@@ -11,11 +11,11 @@ const Calendar = ({currentId, posts}) => {
 	const calendarHandler = () => {
 		setShow(!isShow)
 	}
-	console.log(posts)
+
 	return (
-		<div className="calendar-button" onClick={calendarHandler}>
+		<div className="calendar-button centered" onClick={calendarHandler}>
 			<HiOutlineCalendar/>
-			<small>Календарь мероприятий</small>
+			<span>Календарь мероприятий</span>
 			{isShow &&
 			<AlertDialog title="Календарь мероприятий"
 			             show={isShow}

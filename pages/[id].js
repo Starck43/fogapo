@@ -1,6 +1,6 @@
 import {useRouter} from 'next/router'
 import ErrorPage from 'next/error'
-
+import {AiOutlineLoading3Quarters as Loader} from "react-icons/ai"
 import Layout from '../components/layout'
 import Post from "../components/forum/post"
 import {getPost, getAllPosts} from '../core/api'
@@ -14,7 +14,7 @@ export default function Page({post, posts, preview}) {
 	return (
 		<Layout preview={preview}>
 			{router.isFallback ? (
-				<div>Загрузка...</div>
+				<div className="centered"><Loader/></div>
 			) : (
 				<Post post={post} posts={posts}/>
 				)

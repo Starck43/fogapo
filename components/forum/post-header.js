@@ -12,7 +12,18 @@ import Image from "next/image"
 import Calendar from "../forms/calendar"
 
 
-export default function PostHeader({posts, id, title, subtitle, datetime, add_logo, add_link, isRegShow, cost, content}) {
+export default function PostHeader({
+	                                   posts,
+	                                   id,
+	                                   title,
+	                                   subtitle,
+	                                   datetime,
+	                                   add_logo,
+	                                   add_link,
+	                                   isRegShow,
+	                                   cost,
+	                                   content
+                                   }) {
 	return (
 		<header className="post-header flex-column">
 			<Calendar currentId={id} posts={posts}/>
