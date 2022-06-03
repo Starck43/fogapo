@@ -40,6 +40,36 @@ export const FORM_DATA = {
 		type: "email",
 		required: true,
 	},
+}
+
+export const FORM_DATA_EXT = {
+	header: "Заполните анкету для участия в форуме",
+	name: {
+		title: "Как Вас зовут (ФИО)",
+		type: "text",
+		required: true,
+	},
+	organization: {
+		title: "Место работы",
+		required: true,
+		placeholder: "Название организации/физлицо",
+	},
+	occupation: {
+		title: "Род деятельности",
+		choices: ["дизайнер/декоратор", "руководитель дизайн студии/арт-директор"],
+		type: "select",
+		required: true,
+	},
+	phone: {
+		title: "Телефон",
+		type: "tel",
+		required: true,
+	},
+	email: {
+		title: "E-mail",
+		type: "email",
+		required: true,
+	},
 	questions: [
 		{
 			title: "Изменилось ли количество Ваших клиентов за последнее время?",

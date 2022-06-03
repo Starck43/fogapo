@@ -48,6 +48,8 @@ class Partner(models.Model):
 
 
 class Forum(models.Model):
+	CHOICES = ((0,'простая форма'),(1,'расширенная форма'),)
+
 	title = models.CharField('Название мероприятия', max_length=250, help_text='')
 	subtitle = models.TextField('Подзаголовок', blank=True, help_text='Текст в шапке сайта')
 	content = RichTextUploadingField('Контент', null=True, blank=True, help_text='Секция описания мероприятия')
@@ -57,6 +59,7 @@ class Forum(models.Model):
 	info = RichTextField('Дополнительная информация', blank=True, help_text='Дополнительный блок, расположенный под местом проведения')
 	reg_is_active = models.BooleanField('Отображать блок регистрации до начала мероприятия', null=True, default=True)
 	cost = models.BooleanField('Платное участие', null=True, default=False)
+	reg_form = models.PositiveSmallIntegerField('Форма регистрации', null=True, choices=CHOICES, default=0, help_text='' )
 	page_background = models.FileField(upload_to=ForumUploadTo, storage=MediaFileStorage(), blank=True, verbose_name='Фоновая подложка', help_text='Фото на нижнем слое фона страницы')
 	logo = ProcessedImageField(
 		upload_to=ForumUploadTo,

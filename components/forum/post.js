@@ -35,7 +35,7 @@ export default function Post({post, posts}) {
 				<meta property="og:image" content={DATA.logo}/>
 			</Head>
 
-			<PostHeader posts={posts} id={post.id} title={post.title} subtitle={post.subtitle} add_logo={post.logo} add_link={post.link} datetime={post.date_forum} isRegShow={isRegShow} cost={post.cost} content={post.content}/>
+			<PostHeader posts={posts} id={post.id} title={post.title} subtitle={post.subtitle} add_logo={post.logo} add_link={post.link} datetime={post.date_forum} isRegShow={isRegShow} reg_form={post.reg_form} cost={post.cost} content={post.content}/>
 			<PostBody events={post.events} partners={post.partners} location={post.location} info={post.info}/>
 			<PostFooter partners={post.partners} contacts={post.contacts}/>
 		</>

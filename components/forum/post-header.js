@@ -21,6 +21,7 @@ export default function PostHeader({
 	                                   add_logo,
 	                                   add_link,
 	                                   isRegShow,
+	                                   reg_form,
 	                                   cost,
 	                                   content
                                    }) {
@@ -59,7 +60,7 @@ export default function PostHeader({
 				</div>
 				<ForumDate datetime={new Date(datetime)}/>
 			</Container>
-			<BodyContent id={id} content={content} cost={cost} isRegShow={isRegShow}/>
+			<BodyContent id={id} content={content} cost={cost} isRegShow={isRegShow} reg_form={reg_form}/>
 		</header>
 	)
 }

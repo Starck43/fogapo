@@ -20,14 +20,17 @@ class FixAbsolutePathSerializer(serializers.Field):
 
 class FixCharCaretSerializer(serializers.Field):
 	def to_representation(self, value):
-		text = value.replace('\r\n', '<br/>')
-		return text
+		value = value.replace('\r\n', '<br/>')
+		return value
 
 
 class FixRichCaretSerializer(serializers.Field):
 	def to_representation(self, value):
-		text = value.replace('</p>\r\n\r\n<p>', '<br/>')
-		return text
+		value = value.replace('</p>\r\n\r\n<p>', '<br/>')
+		request = self.context.get('request')
+		pattern = 'src=\"<URL>/media/'
+		value = addDomainToUrl(request, value, pattern)
+		return value
 
 
 
@@ -38,7 +41,9 @@ class PartnerSerializer(serializers.ModelSerializer):
 
 
 class EventSerializer(serializers.ModelSerializer):
-	content = FixAbsolutePathSerializer()
+	#content = FixAbsolutePathSerializer()
+	content = FixRichCaretSerializer()
+
 	class Meta:
 		model = Event
 		fields = ( 'id', 'title', 'content', 'event_time', )
@@ -66,7 +71,7 @@ class PostDetailSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Forum
-		fields = ('id', 'page_background', 'logo', 'link', 'content', 'title', 'subtitle', 'date_forum', 'events', 'partners', 'location', 'info', 'reg_is_active', 'cost', 'description', 'keywords')
+		fields = ('id', 'page_background', 'logo', 'link', 'content', 'title', 'subtitle', 'date_forum', 'events', 'partners', 'location', 'info', 'reg_is_active', 'reg_form', 'cost', 'description', 'keywords')
 
 
 class VisitorSerializer(serializers.ModelSerializer):
