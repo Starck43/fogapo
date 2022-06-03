@@ -8,7 +8,8 @@ module.exports = {
 		API_SERVER: serverName + '/api',
 		API_ENDPOINTS: {
 				posts: '/posts',
-				latest: '/post/latest',
+				postsGrouped: '/posts/grouped',
+				latest: '/posts/latest',
 				saveUser: '/user/add',
 			},
 	},
@@ -24,7 +25,7 @@ module.exports = {
 			//imageSizes: [320, 450, 640, 900, 1200], // breakpoints
 	},
 	compiler: {
-			// ssr and displayName are configured by default
+			// Enables the styled-components SWC transform
 			styledComponents: true,
 			relay: {
 					// This should match relay.config.js
@@ -36,9 +37,6 @@ module.exports = {
 	sassOptions: {
 			includePaths: [path.join(__dirname, 'styles')],
 	},
-	compiler: {
-		// Enables the styled-components SWC transform
-		styledComponents: true
-	}
+
 }
 

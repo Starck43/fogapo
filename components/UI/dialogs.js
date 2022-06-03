@@ -2,13 +2,13 @@ import {Button, Modal} from "react-bootstrap"
 import React from "react"
 
 
-export const AlertDialog = ({children, show, closeHandler, title, footer, className}) => (
-	<Modal className={`alert-container ${className}`} show={show} onHide={closeHandler} size="md" centered>
+export const AlertDialog = ({children, show, closeHandler, title, footer, className, size="md"}) => (
+	<Modal className={`alert-container ${className}`} show={show} onHide={closeHandler} size={size} centered>
 		<Modal.Header closeButton>
 			<Modal.Title>{title}</Modal.Title>
 		</Modal.Header>
 
-		<Modal.Body className="flex-column center">
+		<Modal.Body className="flex-column">
 			{children}
 		</Modal.Body>
 
@@ -17,8 +17,8 @@ export const AlertDialog = ({children, show, closeHandler, title, footer, classN
 )
 
 
-export const ModalDialog = ({children, show, submitHandler, closeHandler, title, footer, className}) => (
-	<Modal className={`${className}`} show={show} onHide={closeHandler} size="xl" fullscreen="sm-down" scrollable={true} centered>
+export const ModalDialog = ({children, show, submitHandler, closeHandler, title, footer, className, size="xl"}) => (
+	<Modal className={`${className}`} show={show} onHide={closeHandler} size={size} fullscreen="sm-down" scrollable={true} centered>
 		<Modal.Header closeButton>
 			<Modal.Title>{title}</Modal.Title>
 		</Modal.Header>

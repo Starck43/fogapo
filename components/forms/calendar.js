@@ -1,41 +1,55 @@
-import {useState} from "react"
+import {Fragment, useState} from "react"
 import {HiOutlineCalendar} from "react-icons/hi"
 import {AlertDialog} from "../UI/dialogs"
 import Link from "next/link"
+import log from "tailwindcss/lib/util/log"
 
 
 const Calendar = ({currentId, posts}) => {
 	const [isShow, setShow] = useState(false)
 	//console.log(currentId, posts)
-	const CalendarHandler = () => {
+	const calendarHandler = () => {
 		setShow(!isShow)
 	}
-
+	console.log(posts)
 	return (
-		<div className="calendar-button">
-			<HiOutlineCalendar onClick={CalendarHandler}/>
+		<div className="calendar-button" onClick={calendarHandler}>
+			<HiOutlineCalendar/>
 			<small>Календарь мероприятий</small>
 			{isShow &&
 			<AlertDialog title="Календарь мероприятий"
 			             show={isShow}
 			             closeHandler={setShow}
 			             className="events-calendar-modal"
+			             size="md"
 			>
-				<ul>
-					{posts.map(post => (
-						<li key={post.id}>
-							<Link href={`/${post.id}`}><a onClick={CalendarHandler}>{post.title}</a></Link>
-							<small className="small text-muted">
-								{new Date(post.date_forum).toLocaleDateString("ru", {
-									hour12: false,
-								})}
-							</small>
-						</li>
-					))}
-				</ul>
+				{Object.keys(posts).map(key => (
+					<div key={key} className="forum-group">
+						<h4>{key === "prev_forums" ? "Архив мероприятий" : "Предстоящие мероприятия"}</h4>
+						<ul>
+							<CalendarItems currentId={currentId} items={posts[key]} closeHandler={calendarHandler}/>
+						</ul>
+					</div>
+				))}
 			</AlertDialog>}
 		</div>
 	)
 }
 
 export default Calendar
+
+const CalendarItems = ({currentId, items, closeHandler}) => (
+	items.map(post => (
+		<li key={post.id}>
+			{currentId !== post.id
+				? <Link href={`/${post.id}`}><a onClick={closeHandler}>{post.title}</a></Link>
+				: <div>{post.title}</div>
+			}
+			<small className="small text-muted">
+				{new Date(post.date_forum).toLocaleDateString("ru", {
+					hour12: false,
+				})}
+			</small>
+		</li>
+	))
+)

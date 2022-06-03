@@ -47,7 +47,7 @@ export async function getStaticProps({params}) {
 
 export async function getStaticPaths() {
 	// fetching all posts only with a 'id' field
-	const posts = await getAllPosts() || []
+	const posts = await getAllPosts(['id']) || []
 
 	return {
 		paths: posts.map((post) => {

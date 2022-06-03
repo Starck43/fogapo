@@ -20,14 +20,15 @@ export async function getAllPosts(fields = []) {
 	fields.forEach((field) => {
 		params += field + '&'
 	})
+	if (params) params = '?fields='+params
 
-	if (fields) {
+	if (fields.length > 0) {
 		//fetching data from server via api
-		const res = await fetch(process.env.API_SERVER+process.env.API_ENDPOINTS.posts+`?fields=${params}/`)
+		const res = await fetch(process.env.API_SERVER+process.env.API_ENDPOINTS.posts+`${params}/`)
 		return await res.json() || []
 	}
 	else {
-		const res = await fetch(process.env.API_SERVER+process.env.API_ENDPOINTS.posts+'/')
+		const res = await fetch(process.env.API_SERVER+process.env.API_ENDPOINTS.posts+'/grouped/')
 		return await res.json() || []
 	}
 }

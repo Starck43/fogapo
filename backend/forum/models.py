@@ -76,7 +76,7 @@ class Forum(models.Model):
 		verbose_name = 'мероприятие'
 		verbose_name_plural = 'Мероприятия'
 		ordering = ['-date_forum']
-		get_latest_by = ['-date_forum']
+		get_latest_by = ['date_forum']
 		db_table = 'forums'
 
 	def __init__(self, *args, **kwargs):
