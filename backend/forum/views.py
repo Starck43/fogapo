@@ -28,6 +28,7 @@ class PostView(viewsets.ModelViewSet):
 	serializer_class = PostSerializer
 	lookup_field = 'pk'
 	def retrieve(self, request, *args, **kwargs):
+		request.session['django_timezone'] = str(timezone.utc)
 		self.serializer_class = PostDetailSerializer
 		return super().retrieve(request, *args, **kwargs)
 
@@ -36,7 +37,9 @@ class PostGroupedView(viewsets.ModelViewSet):
 	queryset = Forum.objects.all()
 	#serializer_class = PostSerializer
 	def list(self, request, *args, **kwargs):
-		today = datetime.datetime.now(tz=timezone.utc)
+		request.session['django_timezone'] = str(timezone.utc)
+		today = datetime.datetime.now()
+		#today = datetime.datetime.now(tz=timezone.utc)
 		queryset = self.queryset.filter(date_forum__lt=today)
 		prev_forums = PostSerializer(queryset, many=True).data
 		queryset = self.queryset.filter(date_forum__gte=today)
@@ -62,43 +65,49 @@ class PostLatestView(generics.RetrieveAPIView):
 @api_view(["POST", "GET"])
 @permission_classes((permissions.AllowAny,))
 def new_visitor(request):
+	request.session['django_timezone'] = str(timezone.utc)
+
 	data = request.data
-	# forum = Forum.objects.get(id=data['id'])
-	# visitor_serializer = VisitorSerializer(data=data)
-
+	forum_id = data.pop('id')
 	try:
-		visitor = Visitor.objects.get(email=data['email'], forum_id=data['id'])
-		data = model_to_dict(visitor)
-		data['status_message'] = 'заявка подтверждена' if visitor.status == 2 else 'ожидание подтверждения'
-	except Visitor.DoesNotExist:
-		visitor = Visitor.objects.create(forum_id=data['id'], **data)
-		data = model_to_dict(visitor)
-		data['status'] = 0
-		data['status_message'] = 'новая регистрация'
+		forum = Forum.objects.get(id=forum_id)
 
-	if visitor:
-		data['forum'] = forum.title
-		data['location'] = forum.location
-		data['date'] = forum.date_forum
-		data['reg_id'] = get_visitor_reg_num(visitor)
+		try:
+			visitor = Visitor.objects.get(email=data['email'], forum=forum)
+			data = model_to_dict(visitor)
+			data['status_message'] = 'заявка подтверждена' if visitor.status == 2 else 'ожидание подтверждения'
+		except Visitor.DoesNotExist:
+			visitor = Visitor.objects.create(forum=forum, **data)
+			data = model_to_dict(visitor)
+			data['status'] = 0
+			data['status_message'] = 'новая регистрация'
 
-		if data['status'] == 0:
-			data['site'] = get_site_url(request)
-			data['server_site'] = get_admin_site_url(request)
-			data['info'] = forum.info
+		if visitor:
+			data['forum'] = forum.title
+			data['location'] = forum.location
+			data['date'] = forum.date_forum
+			data['reg_id'] = get_visitor_reg_num(visitor)
 
-			# Отправка уведомления администратору сервиса
-			template = render_to_string('admin_email_information.html', data)
-			SendEmailAsync('Уведомление о регистрации участника на сайте %s!' % (data['site']['name']), template)
+			if data['status'] == 0:
+				data['site'] = get_site_url(request)
+				data['server_site'] = get_admin_site_url(request)
+				data['info'] = forum.info
 
-			# Отправка уведомления участнику
-			template = render_to_string('user_email_information.html', data)
-			SendEmailAsync('Уведомление о регистрации на мероприятие', template, [data['email']])
-	else:
+				# Отправка уведомления администратору сервиса
+				template = render_to_string('admin_email_information.html', data)
+				SendEmailAsync('Уведомление о регистрации участника на сайте %s!' % (data['site']['name']), template)
+
+				# Отправка уведомления участнику
+				template = render_to_string('user_email_information.html', data)
+				SendEmailAsync('Уведомление о регистрации на мероприятие', template, [data['email']])
+		else:
+			data = {}
+			data['status'] = -1
+
+	except Forum.DoesNotExist:
 		data = {}
 		data['status'] = -1
 
 	#print(data)
-
 	return JsonResponse(data, safe=False)
 

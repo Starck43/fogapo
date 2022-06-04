@@ -62,8 +62,8 @@ class PartnerAdmin(admin.ModelAdmin):
 class VisitorAdmin(admin.ModelAdmin):
 	list_display = ('forum', 'name', 'organization', 'occupation', 'status', 'reg_id')
 	list_display_links = ('forum', 'name',)
-	search_fields = ('name',)
-	list_filter = ('forum__date_forum', 'occupation', 'status', )
+	search_fields = ('name', 'forum__title', )
+	list_filter = ('forum', 'occupation', 'status', )
 	date_hierarchy = 'forum__date_forum'
 
 

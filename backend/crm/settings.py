@@ -62,6 +62,7 @@ MIDDLEWARE = [
    # 'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'crm.middleware.TimezoneMiddleware', # custom middleware
 ]
 
 API_PAGES_RENDER_HOOK = env('API_BUILD_HOOK')
@@ -214,7 +215,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 PUBLIC_ROOT = ''
 
