@@ -57,7 +57,7 @@ class PostLatestView(generics.RetrieveAPIView):
 
 	def get_object(self):
 		queryset = self.get_queryset()
-		return queryset.latest()
+		return queryset.earliest()
 
 
 #@method_decorator(csrf_exempt, name='dispatch')

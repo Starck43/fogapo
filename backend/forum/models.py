@@ -81,7 +81,7 @@ class Forum(models.Model):
 		verbose_name = 'мероприятие'
 		verbose_name_plural = 'Мероприятия'
 		ordering = [Coalesce("sort", 100000), '-date_forum']
-		get_latest_by = ['date_forum']
+		get_latest_by = [Coalesce("sort", 100000), '-date_forum']
 		db_table = 'forums'
 
 	def __init__(self, *args, **kwargs):
