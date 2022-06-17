@@ -71,6 +71,8 @@ class Forum(models.Model):
 		verbose_name='Дополнительный логотип',
 		help_text='Дополнительный логотип в шапке под главным'
 	)
+	sort = models.PositiveSmallIntegerField('Индекс сортировки', null=True, blank=True)
+
 	link = models.URLField('Ссылка для логотипа', null=True, blank=True, help_text='')
 	description = models.TextField('Краткое описание мероприятия', blank=True, help_text='Текст попадает в мета описание сайта для поисковиков. 80-100 символов')
 	keywords = models.CharField('Ключевые слова', max_length=250, blank=True, help_text='Главные поисковые словосочетания. Перечисление через запятую')
@@ -78,7 +80,7 @@ class Forum(models.Model):
 	class Meta:
 		verbose_name = 'мероприятие'
 		verbose_name_plural = 'Мероприятия'
-		ordering = ['-date_forum']
+		ordering = [Coalesce("sort", 100000), '-date_forum']
 		get_latest_by = ['date_forum']
 		db_table = 'forums'
 

@@ -1,6 +1,6 @@
 const path = require('path')
 const isProduction = process.env.NODE_ENV === "production"
-const serverName = isProduction ? 'https://admin.fogapo.ru' : 'http://localhost:8001'
+const serverName = isProduction ? 'https://admin.fogapo.ru' : 'http://localhost:8002'
 
 module.exports = {
 	env: {

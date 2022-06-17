@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 import {RegistrationForm} from "./forms"
 import ResponseContent from "./responseContent"
-import {FORM_DATA} from "../../core/constants"
+import {FORM_DATA, FORM_DATA_EXT} from "../../core/constants"
 import {Fetch} from "../../core/Fetch"
 import {AlertDialog, ModalDialog} from "../UI/dialogs"
 import {Button, Modal} from "react-bootstrap"
@@ -163,6 +163,7 @@ const OnlineRegistration = ({id, show, handler, reg_form}) => {
 			show={show}
 			closeHandler={handleClose}
 			className="registration"
+			size="md"
 		>
 			<RegistrationForm id={id} data={reg_form === 1 ? FORM_DATA_EXT : FORM_DATA} submitHandler={handleSubmit} closeHandler={handleClose} validated={validated}/>
 		</ModalDialog>

@@ -1,8 +1,7 @@
-import {Fragment, useState} from "react"
-import {HiOutlineCalendar} from "react-icons/hi"
+import {useState} from "react"
+import {AiFillCalendar as CalendarIcon} from "react-icons/ai"
 import {AlertDialog} from "../UI/dialogs"
 import Link from "next/link"
-import log from "tailwindcss/lib/util/log"
 
 
 const Calendar = ({currentId, posts}) => {
@@ -14,7 +13,7 @@ const Calendar = ({currentId, posts}) => {
 
 	return (
 		<div className="calendar-button centered" onClick={calendarHandler}>
-			<HiOutlineCalendar/>
+			<CalendarIcon/>
 			<span>Календарь мероприятий</span>
 			{isShow &&
 			<AlertDialog title="Календарь мероприятий"
