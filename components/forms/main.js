@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState} from "react"
 
 import {RegistrationForm} from "./forms"
 import ResponseContent from "./responseContent"
@@ -17,7 +17,7 @@ const OnlineRegistration = ({id, show, handler, reg_form}) => {
 	const formData2Json = (form) => {
 		let formData = new FormData(form)
 		let data = Object.fromEntries(formData)
-		let json = {}, text = '', num = 1, curQuestion, prevQuestion=null
+		let json = {}, text = "", num = 1, curQuestion, prevQuestion = null
 		const REGEX = /questions[0-9]*/
 
 		//console.log('form data:', data)
@@ -30,7 +30,7 @@ const OnlineRegistration = ({id, show, handler, reg_form}) => {
 
 				if (!prevQuestion || curQuestion[0] !== prevQuestion[0]) {
 					let questionLabel = form.querySelector(`label[for="${curQuestion}"]`)?.innerText || ""
-					text += prevQuestion ? '\n\n' : ""
+					text += prevQuestion ? "\n\n" : ""
 					text += `Вопрос ${num}: ${questionLabel}\nОтвет: `
 					if (questionLabel === subQuestionLabel) {
 						text += `${data[key]}\n`
@@ -38,8 +38,7 @@ const OnlineRegistration = ({id, show, handler, reg_form}) => {
 						text += (type === "checkbox") ? `\n✅ ${data[key]}` : `[${subQuestionLabel}] - ${data[key]}`
 						num--
 					}
-				} else
-				{
+				} else {
 					text += (data[key]) ? (type === "checkbox" ? `\n\n✅ ${data[key]}` : `, [${subQuestionLabel}] - ${data[key]}`) : ""
 				}
 
@@ -49,7 +48,7 @@ const OnlineRegistration = ({id, show, handler, reg_form}) => {
 				json[key] = data[key]
 			}
 		})
-		json['questionnaire'] = text
+		json["questionnaire"] = text
 
 		return json
 	}
@@ -63,9 +62,9 @@ const OnlineRegistration = ({id, show, handler, reg_form}) => {
 			headers: {
 				//'Content-Type': 'application/x-www-form-urlencoded',
 				//'Content-Type': 'multipart/form-data',
-				'Origin' : process.env.SERVER,
-				'Content-Type': 'application/json',
-				'Accept': 'application/json, application/xml, text/plain, text/html',
+				"Origin": process.env.SERVER,
+				"Content-Type": "application/json",
+				"Accept": "application/json, application/xml, text/plain, text/html",
 			},
 			body: JSON.stringify(data),
 			//credentials: 'include',
@@ -78,13 +77,13 @@ const OnlineRegistration = ({id, show, handler, reg_form}) => {
 
 
 	const handleSubmit = (e) => {
-		let form = e.target.parentNode.parentNode.querySelector('form')
+		let form = e.target.parentNode.parentNode.querySelector("form")
 
 		if (form.checkValidity() === false) {
 			e.preventDefault()
 			e.stopPropagation()
 			setValidated(true)
-			let invalid = form.querySelector(':invalid')
+			let invalid = form.querySelector(":invalid")
 			if (invalid) {
 				invalid.scrollIntoView({behavior: "smooth"})
 				invalid.focus()
@@ -102,7 +101,7 @@ const OnlineRegistration = ({id, show, handler, reg_form}) => {
 		<AlertDialog title="Регистрация на мероприятие" show={show} closeHandler={handler}>
 			<h4 className="title">Связь с сервером...</h4>
 		</AlertDialog>
-		)
+	)
 
 	else if (respondedData && respondedData?.data.status !== -1 && !respondedData?.error) return (
 		<AlertDialog
@@ -120,7 +119,7 @@ const OnlineRegistration = ({id, show, handler, reg_form}) => {
 		</AlertDialog>
 	)
 
-	else if (typeof respondedData === 'undefined') return (
+	else if (typeof respondedData === "undefined") return (
 		<AlertDialog
 			title={`Заявка отправлена!`}
 			show={show}
@@ -128,13 +127,14 @@ const OnlineRegistration = ({id, show, handler, reg_form}) => {
 			footer={
 				<Modal.Footer className="centered">
 					<Button variant="secondary" type="button" onClick={handleClose}>Закрыть</Button>
-					<span className="message status-error"> Ответ сервера: undefined<br/>Internal server error 500</span>
+					<span
+						className="message status-error"> Ответ сервера: undefined<br/>Internal server error 500</span>
 				</Modal.Footer>
 			}
 			className="registration"
 		>
-		<h4>Регистрация прошла с ошибками на сервере</h4>
-		<p>Рекомендуем сообщить об этом администратору форума</p>
+			<h4>Регистрация прошла с ошибками на сервере</h4>
+			<p>Рекомендуем сообщить об этом <a href="mailto:webmaster@istarck.ru">администратору сайта</a></p>
 		</AlertDialog>
 	)
 
@@ -146,7 +146,7 @@ const OnlineRegistration = ({id, show, handler, reg_form}) => {
 			footer={
 				<Modal.Footer>
 					<span className="status-message error centered">
-						{ respondedData?.response ? `Код ошибки: ${respondedData?.response?.status}` : "Ошибка структуры данных. Обратитесь к администратору сайта!"}
+						{respondedData?.response ? `Код ошибки: ${respondedData?.response?.status}` : "Ошибка структуры данных. Обратитесь к администратору сайта!"}
 					</span>
 				</Modal.Footer>
 			}
@@ -158,16 +158,17 @@ const OnlineRegistration = ({id, show, handler, reg_form}) => {
 	)
 
 	else return (
-		<ModalDialog
-			title="Регистрация на мероприятие"
-			show={show}
-			closeHandler={handleClose}
-			className="registration"
-			size="md"
-		>
-			<RegistrationForm id={id} data={reg_form === 1 ? FORM_DATA_EXT : FORM_DATA} submitHandler={handleSubmit} closeHandler={handleClose} validated={validated}/>
-		</ModalDialog>
-	)
+			<ModalDialog
+				title="Регистрация на мероприятие"
+				show={show}
+				closeHandler={handleClose}
+				className="registration"
+				size="md"
+			>
+				<RegistrationForm id={id} data={reg_form === 1 ? FORM_DATA_EXT : FORM_DATA} submitHandler={handleSubmit}
+				                  closeHandler={handleClose} validated={validated}/>
+			</ModalDialog>
+		)
 }
 
 export default OnlineRegistration

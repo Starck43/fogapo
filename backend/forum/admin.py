@@ -82,13 +82,13 @@ class VisitorAdmin(admin.ModelAdmin):
 				'forum': obj.forum,
 				'date_forum': obj.forum.date_forum,
 				'location': obj.forum.location,
-				'logo' : {'url': get_admin_site_url(request)+obj.forum.logo.url, 'title': obj.forum.title},
+				'logo' : {'url': None, 'title': obj.forum.title},
 				'reg_id': get_visitor_reg_num(obj),
 				'site' : get_site_url(request),
 			}
 
 			print('Статус заявки подтвержден', data['reg_id'])
-			print(data['site'], data['logo'])
+			#print(data['site'], data['logo'])
 
 			template = render_to_string('reg_email_confirmation.html', data)
 			SendEmailAsync('Регистрация на форум подтверждена', template, [obj.email])

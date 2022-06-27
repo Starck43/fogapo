@@ -55,6 +55,9 @@ export const absoluteUrl = (url) => {
 	return url
 }
 
+export const removeProtocol = (url) => url.replace(/^https?:\/\//i, "")
+
+
 export const truncateHTML = (value, n = 200) => {
 	let t = value.substring(0, n) // first cut
 	let tr = t.replace(/<(.*?[^\/])>.*?<\/\1>|<.*?\/>/, "") // remove opened+closed tags
