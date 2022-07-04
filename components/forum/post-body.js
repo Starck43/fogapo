@@ -9,7 +9,13 @@ export default function PostBody({events, partners, location, info}) {
 		<main className="post">
 			<Container className="py-4vh flex-wrap">
 				{events.length > 0 && <Events events={events}/>}
-				{partners.length > 0 &&
+				{partners.length === 1 &&
+				<section className="partners-forum cell-auto">
+					<h3>Партнер мероприятия</h3>
+					<Partners className="partner-logos" partners={partners} fields={['logo']}/>
+				</section>
+				}
+				{partners.length > 1 &&
 				<section className="partners-forum cell-auto">
 					<h3>Партнеры</h3>
 					<Partners className="partner-names" partners={partners} fields={["name"]}/>
