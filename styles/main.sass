@@ -72,12 +72,9 @@ h4
 	font-weight: 500
 
 header
-	min-height: 100vh
+	//min-height: 100vh
 	.container
 		display: flex
-
-		+media-breakpoint-down(lg)
-			min-height: 100vh
 
 	.header-logos
 		flex: 1
@@ -181,8 +178,8 @@ header
 			p
 				display: flex
 			img
-				width: 100%
-				height: auto
+				width: 100% !important
+				height: auto !important
 				margin: 2rem 0
 			ul
 				display: flex
