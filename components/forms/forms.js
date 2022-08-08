@@ -1,8 +1,8 @@
-import {Fragment, useState} from "react"
-
+import {Fragment} from "react"
 import {Form, Button} from "react-bootstrap"
 import Control from "../UI/controls"
 import SubTitle from "../UI/subtitle"
+
 
 export const RegistrationForm = ({id, data, submitHandler, closeHandler, validated}) => {
 	return (

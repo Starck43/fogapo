@@ -4,7 +4,7 @@ export default function ResponseContent ({data, className=""}) {
 	return (
 		<div className={`container ${className}`}>
 			<p>
-				Вы подали заявку на мероприятие <b>"{data['forum']}"</b><br/>
+				Вы подали заявку на мероприятие <b>&quot;{data['forum']}&quot;</b><br/>
 				Мероприятие пройдет <b>{date.toLocaleDateString("ru")}</b> по адресу:<br/>
 				{data['location']}
 			</p>

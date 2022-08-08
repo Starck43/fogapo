@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react"
+import {useEffect, useState} from "react"
 import {useRouter} from "next/router"
 import {HtmlContent} from "../UI/html-content"
 import OnlineRegistration from "../forms/main"
@@ -16,11 +16,11 @@ const BodyContent = ({id, content, cost, isRegShow, reg_form}) => {
 		const link = document.getElementById("registration")
 		link && link.addEventListener("click", handleRegistrationClick)
 		return () => link && link.removeEventListener("click", handleRegistrationClick) || null
-	}, [])
+	}, [router.query.id])
 
 	const handleRegistrationClick = (e) => {
 		e.preventDefault()
-		setOpenRegForm(!openRegForm)
+		setOpenRegForm(true)
 	}
 
 	return (
@@ -50,8 +50,8 @@ const BodyContent = ({id, content, cost, isRegShow, reg_form}) => {
 							closeHandler={setOpenRegForm}
 							className="registration-finished"
 						>
-							<h4 className="title">Регистрация уже не доступна!</h4>
-							<p>Мероприятие завершено.</p>
+							<h4 className="title">Регистрация не доступна</h4>
+							<p>Мероприятие уже завершилось!</p>
 						</AlertDialog>
 					: null
 			}

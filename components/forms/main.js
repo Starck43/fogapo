@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import {useState} from "react"
 
 import {RegistrationForm} from "./forms"
 import ResponseContent from "./responseContent"
