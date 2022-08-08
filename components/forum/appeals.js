@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from "react"
 import {useRouter} from "next/router"
 import {HtmlContent} from "../UI/html-content"
-import Container from "../UI/container"
 import OnlineRegistration from "../forms/main"
 import DATA from "../../core/constants"
 import {AlertDialog} from "../UI/dialogs"
-import {Modal} from "react-bootstrap"
 
 
 const BodyContent = ({id, content, cost, isRegShow, reg_form}) => {
@@ -16,11 +14,11 @@ const BodyContent = ({id, content, cost, isRegShow, reg_form}) => {
 		//console.log(router);
 		(router.asPath.startsWith(`/${router.query.id}?reg`)) && setOpenRegForm(!openRegForm)
 		const link = document.getElementById("registration")
-		link && link.addEventListener("click", handleClick)
-		return () => link && link.removeEventListener("click", handleClick) || null
+		link && link.addEventListener("click", handleRegistrationClick)
+		return () => link && link.removeEventListener("click", handleRegistrationClick) || null
 	}, [])
 
-	const handleClick = (e) => {
+	const handleRegistrationClick = (e) => {
 		e.preventDefault()
 		setOpenRegForm(!openRegForm)
 	}
@@ -38,7 +36,7 @@ const BodyContent = ({id, content, cost, isRegShow, reg_form}) => {
 						<b>** Участие в мероприятии <span
 							className="highlight">{`${cost ? "платное" : "бесплатное"}`}</span></b>
 					</div>
-					<div className="button" onClick={handleClick}>Зарегистрироваться online</div>
+					<div className="button" onClick={handleRegistrationClick}>Зарегистрироваться online</div>
 				</div>
 				}
 			</div>

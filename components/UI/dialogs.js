@@ -1,5 +1,4 @@
-import {Button, Modal} from "react-bootstrap"
-import React from "react"
+import {Modal} from "react-bootstrap"
 
 
 export const AlertDialog = ({children, show, closeHandler, title, footer, className, size="md"}) => (
