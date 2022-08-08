@@ -55,6 +55,7 @@ venv/
 *.sublime-project
 sftp-config.json
 package-lock.json
+yarn.lock
 datadamp.json
 
 # Django #
