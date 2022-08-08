@@ -37,7 +37,7 @@ export default function PostHeader({
 								alt={title}
 								width={150}
 								height={150}
-								priority
+								//priority
 								//placeholder="blur"
 							/>
 						</a>
