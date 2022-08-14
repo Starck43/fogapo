@@ -11,6 +11,8 @@ from ckeditor.fields import RichTextField
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFit, ResizeToFill
 
+#from smart_selects.db_fields import ChainedManyToManyField
+
 from .logic import remove_images, get_admin_thumb, ForumUploadTo, MediaFileStorage
 
 
@@ -137,7 +139,7 @@ class Event(models.Model):
 
 
 class Visitor(models.Model):
-	CHOICES = ((1,'не подтвержден'),(2,'подтвержден'),)
+	CHOICES = ((0,'не подтвержден'),(1,'ожидание подтверждения'),(2,'подтвержден'),)
 
 	forum = models.ForeignKey(Forum, on_delete=models.SET_NULL, null=True, related_name='visitor', verbose_name = 'Форум', help_text='')
 	name = models.CharField('Имя посетителя', max_length=100, null=True, help_text='')
@@ -146,13 +148,33 @@ class Visitor(models.Model):
 	phone = models.CharField('Контактный телефон',  max_length=18, null=True)
 	email = models.EmailField('E-mail', max_length=75, null=True)
 	questionnaire = models.TextField('Анкета', null=True, blank=True)
-	status = models.PositiveIntegerField('Статус участника', choices=CHOICES, default=1, help_text='')
+	status = models.PositiveIntegerField('Статус участия', null=True, choices=CHOICES, default=1)
 
 	class Meta:
 		verbose_name = 'Заявка на регистрацию'
 		verbose_name_plural = 'Список посетителей'
-		ordering = ['-forum__date_forum']
+		ordering = ['email']
 		db_table = 'visitors'
 
 	def __str__(self):
 		return self.name
+
+
+class Invitation(models.Model):
+	CHOICES = ((0,'рассылка не выполнялась'),(1,'разослано'),)
+
+	forum = models.ForeignKey(Forum, on_delete=models.CASCADE, null=True, related_name='invitation', verbose_name = 'Форум', help_text='')
+	content = RichTextUploadingField('Контент', null=True, blank=True, help_text='Контент рассылки')
+	visitors = models.ManyToManyField(Visitor, related_name='invited_visitors', blank=True, verbose_name = 'Посетители', help_text='Список приглашенных посетителей')
+	status = models.BooleanField('Статус рассылки', blank=True, choices=CHOICES, default=0)
+	last_sent_date = models.DateTimeField('Время последней рассылки', null=True, blank=True, auto_now_add=False)
+
+	class Meta:
+		verbose_name = 'Приглашение'
+		verbose_name_plural = 'Приглашения'
+		ordering = ['-forum__date_forum']
+		db_table = 'invitations'
+
+	def __str__(self):
+		return self.forum.title
+
