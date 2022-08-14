@@ -145,7 +145,7 @@ def addDomainToUrl(request, value, pattern, start=False):
 
 
 """ Sending email """
-def SendEmail(subject, template, email_ricipients=settings.EMAIL_RICIPIENTS):
+def send_email(subject, template, email_ricipients=settings.EMAIL_RICIPIENTS):
 	email = EmailMessage(
 		subject,
 		template,
@@ -174,11 +174,11 @@ class EmailThread(Thread):
 		Thread.__init__(self)
 
 	def run(self):
-		return SendEmail(self.subject, self.html_content, self.recipient_list)
+		return send_email(self.subject, self.html_content, self.recipient_list)
 
 
 """ Sending email to recipients """
-def SendEmailAsync(subject, template, email_ricipients=settings.EMAIL_RICIPIENTS):
+def send_email_async(subject, template, email_ricipients=settings.EMAIL_RICIPIENTS):
 	EmailThread(subject, template, email_ricipients).start()
 
 
@@ -204,7 +204,6 @@ def get_site_url(request):
 		'url': url,
 		'name': name
 	}
-
 
 
 

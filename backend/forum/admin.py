@@ -1,8 +1,11 @@
 from django.contrib import admin
 from django.template.loader	import render_to_string
 
+import datetime
+
+from .tasks import send_email_task
 from .models import *
-from .logic import SendEmail, SendEmailAsync, get_admin_site_url, get_visitor_reg_num, get_site_url
+from .logic import send_email, send_email_async, get_admin_site_url, get_visitor_reg_num, get_site_url
 
 
 # Creating a model's sort function for admin
@@ -60,7 +63,7 @@ class PartnerAdmin(admin.ModelAdmin):
 
 @admin.register(Visitor)
 class VisitorAdmin(admin.ModelAdmin):
-	list_display = ('forum', 'name', 'organization', 'occupation', 'status', 'reg_id')
+	list_display = ('forum', 'name', 'email', 'status', 'reg_id')
 	list_display_links = ('forum', 'name',)
 	search_fields = ('name', 'forum__title', )
 	list_filter = ('forum', 'occupation', 'status', )
@@ -91,5 +94,42 @@ class VisitorAdmin(admin.ModelAdmin):
 			#print(data['site'], data['logo'])
 
 			template = render_to_string('reg_email_confirmation.html', data)
-			SendEmailAsync('Регистрация на форум подтверждена', template, [obj.email])
+			send_email_async('Регистрация на форум подтверждена', template, [obj.email])
+
+
+
+@admin.register(Invitation)
+class InvitationAdmin(admin.ModelAdmin):
+	readonly_fields = ('status', 'last_sent_date',)
+	list_display = ('forum', 'status', 'last_sent_date',)
+
+
+	def save_model(self, request, obj, form, change):
+		old_list = obj.visitors.values_list('id', flat=True) if change else []
+		new_list = form.cleaned_data['visitors'].values_list('id', flat=True)
+		added_visitors_ids = list(set(new_list).difference(old_list))
+		obj.status = True
+		if len(added_visitors_ids) > 0:
+			obj.last_sent_date = datetime.datetime.now()
+		super().save_model(request, obj, form, change)
+
+		# async email send
+		context = {
+			'site_name': get_site_url(request)['name'],
+			'site_url': get_admin_site_url(request),
+			'forum': obj.forum.title,
+			'location': obj.forum.location,
+			'date_forum': obj.forum.date_forum.strftime('%d/%m/%Y в %H:%M'),
+			'content': obj.content
+		}
+
+		for visitor_id in added_visitors_ids:
+			send_email_task.delay(context, visitor_id)
+
+
+	def formfield_for_manytomany(self, db_field, request, **kwargs):
+		if db_field.name == "visitors":
+			unique_emails = list({v['email']:v['id'] for v in Visitor.objects.order_by('name').values('id', 'email')}.values())
+			kwargs["queryset"] = Visitor.objects.filter(pk__in=unique_emails)
+		return super().formfield_for_manytomany(db_field, request, **kwargs)
 

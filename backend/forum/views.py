@@ -15,12 +15,13 @@ from rest_framework.response import Response
 from rest_framework import views, viewsets, generics, permissions #, filters
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions
-from rest_framework.parsers import JSONParser
+
+from django.contrib.admin.views.decorators import staff_member_required
 
 from .models import *
 from .serializers import *
 
-from .logic import SendEmail, SendEmailAsync, get_visitor_reg_num, get_admin_site_url, get_site_url
+from .logic import send_email, send_email_async, get_visitor_reg_num, get_admin_site_url, get_site_url
 
 
 class PostView(viewsets.ModelViewSet):
@@ -95,11 +96,11 @@ def new_visitor(request):
 
 				# Отправка уведомления администратору сервиса
 				template = render_to_string('admin_email_information.html', data)
-				SendEmailAsync('Уведомление о регистрации участника на сайте %s!' % (data['site']['name']), template)
+				send_email_async('Уведомление о регистрации участника на сайте %s!' % (data['site']['name']), template)
 
 				# Отправка уведомления участнику
 				template = render_to_string('user_email_information.html', data)
-				SendEmailAsync('Уведомление о регистрации на мероприятие', template, [data['email']])
+				send_email_async('Уведомление о регистрации на мероприятие', template, [data['email']])
 		else:
 			data = {}
 			data['status'] = -1

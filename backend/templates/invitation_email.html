@@ -1,0 +1,94 @@
+{% load static %}
+
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<title>Приглашение на мероприятие от сайта {{site_name}}</title>
+</head>
+<style>
+	h1, h2, h3{
+		line-height: 1.25;
+	}
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	html {
+		font-size: 18px;
+		font-family: Helvetica, Arial;
+	}
+	body{
+		position: relative;
+		width: 100%;
+		padding: 2vw;
+	}
+	p{
+		margin-bottom: 0.5em;
+		line-height: 1.3;
+		font-weight: 200;
+		font-size: 1em;
+	}
+	div{
+		display: block;
+	}
+	a{
+		color: #8c52ff;
+		font-weight: bold;
+	}
+
+	.header-title{
+		display: block;
+		margin: 0 auto 1em;
+		padding-bottom: 2em;
+	}
+	.header-title img{
+		max-width: 100px;
+		height: auto !important;
+		margin-right: 1em;
+		margin-bottom:  1em;
+	}
+	.main{
+		padding: 1.5em;
+		width: auto;
+		border: 3px solid #8c52ff;
+		border-radius: 7px;
+	}
+	.content-body{
+		margin: 1em 0;
+	}
+	.content-body img{
+		max-width:  100%;
+		height:  auto;
+	}
+
+	@media (max-width: 575.98px) and (orientation: portrait) {
+		html{font-size: 14px;}
+		.main{padding: 1em;}
+	}
+	@media (max-width: 767.98px) {
+		html{font-size: 16px;}
+	}
+</style>
+
+<body>
+	<div class="header-title">
+		<img src="{{site_url}}{% get_media_prefix %}logo.png" alt="">
+		<h1>{{forum}}</h1>
+	</div>
+
+	<div class="main">
+		<h3>Уважаемая(-ый), {{guest}}</h3>
+		<div class="content-body">
+			{{content|safe}}
+		</div>
+		<p>Мероприятие состоится:<br/><b>{{date_forum}}</b></p>
+		<p>Место проведения:<br/><b>{{location|safe}}</b></p>
+	</div>
+	<br/>
+	<p>Событие пройдет при поддержке <a href="https://artservice43.ru">"Компания Арт-Сервис"</a></p>
+	<br/>
+	<small>** Письмо отправлено роботом - не отвечайте на него. Чтобы оставить сообщение администратору мероприятия, используйте <a href="mailto:admin@fogapo.ru">эту ссылку</a></small>
+
+</body>
+</html>
