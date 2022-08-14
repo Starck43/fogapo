@@ -29,6 +29,7 @@ CACHE/
 .DS_Store
 *.pem
 package-lock.json
+.zshrc
 
 # debug
 npm-debug.log*
