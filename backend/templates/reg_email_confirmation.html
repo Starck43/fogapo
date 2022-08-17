@@ -1,16 +1,19 @@
+{% load static %}
+
 <html lang="ru">
 <head>
 	<meta charset="UTF-8">
 	<title>Сообщение с сайта {{site.name}}</title>
 </head>
 <style>
-	h1, h2, h3{
-		line-height: 1.25;
-	}
 	* {
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
+	}
+	h1, h2, h3{
+		line-height: 1.25;
+		margin-bottom: 1rem;
 	}
 	html {
 		font-size: 18px;
@@ -69,17 +72,19 @@
 <body>
 	<div class="header-title">
 		<div class="logo">
-			<img src="{{logo.url}}" alt="{{logo.title}}">
+			<img src="{{site_url}}{% get_media_prefix %}logo.png" alt="">
 		</div>
 		<h1>Подтверждение регистрации на сайте {{site.name}}</h1>
 	</div>
 	<div class="message">
 		<h3>Уважаемая(-ый), {{name}}</h3>
-		<p>Вы оставили онлайн заявку на участие в форуме "{{forum}}"</p>
-		<p>Ваша регистрация успешно подтверждена администратором форума <a href="{{site.url}}">{{site.name}}</a></p>
-		<p>Регистрационный номер: {{reg_id}}</p>
+		<p>Вы оставиляли онлайн заявку на участие в мероприятии "<b>{{forum}}</b>"</p>
+		<p>Ваша регистрация подтверждена администратором форума <a href="{{site.url}}">{{site.name}}</a></p>
+		<p>Номер вашей регистрации: <b>{{reg_id}}</b></p>
 		<br>
-		<p>Напоминаем, что мероприятие пройдет <b>{{date_forum}}</b></p>
+		<p>Напоминаем, что мероприятие пройдет:<br/>
+			<b>{{date_forum}}</b>
+		</p>
 		<p>Место проведения:<br/>
 			<b>{{location|safe}}</b>
 		</p>
