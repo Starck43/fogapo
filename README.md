@@ -16,30 +16,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 Site was written on React/Next.js with Python/Django backend. Pages are pre-rendered at build time
 
  - `next-config.js` -  API settings
- - `core/constants.js` - to change additional personal data
- - `pages/*.js` - base pages
+ - `babel.config.js` Babel settings
+ - `core/` - folder with api, hooks, utils and an additional personal data
+ - `pages/*.js` - base pages (index, [id])
  - `components/*.js` - all component's folder
  - `public/` - folder for icons, logos and fonts
- - `babel.config.js` Babel settings
 
-### babel.config.js configuration
-```
-module.exports = {
-		"plugins": [
-				[
-						"babel-plugin-root-import"
-				],
-				[
-						"styled-components",
-						{
-								"ssr": true
-								"displayName": true,
-								"preprocess": false
-						}
-				],
-		]
-}
-```
 
 ### Online registration
 
@@ -52,9 +34,16 @@ After success data saving server sends email notifications to administrator and 
 Based on Django framework API with Python code
  - `backend` -  Django project
  - `backend/forum` -  API app
+ - `templates` -  folder with templates for sending emails to users and administrator
+ - `templates/admin/app_list.html` -  overrided admin template with adding rebuild hook button
 
- For creating API used `djangorestframework` package
- All packages saved in `backend/requirements.txt` file
+
+ For creating API used `djangorestframework` python package with Django
+ All python packages saved in `backend/requirements.txt` file
+
+### Tables relationships in models
+![](fogapo_sql_scheme.pdf)
+
 
 ```bash
 # Environment installation
