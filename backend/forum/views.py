@@ -41,9 +41,9 @@ class PostGroupedView(viewsets.ModelViewSet):
 		request.session['django_timezone'] = str(timezone.utc)
 		today = datetime.datetime.now()
 		#today = datetime.datetime.now(tz=timezone.utc)
-		queryset = self.queryset.filter(date_forum__lt=today)
+		queryset = self.queryset.filter(date_forum__lt=today).order_by('-date_forum')
 		prev_forums = PostSerializer(queryset, many=True).data
-		queryset = self.queryset.filter(date_forum__gte=today)
+		queryset = self.queryset.filter(date_forum__gte=today).order_by('date_forum')
 		next_forums = PostSerializer(queryset, many=True).data
 		#print(next_forums, prev_forums)
 		data = {}
@@ -54,11 +54,11 @@ class PostGroupedView(viewsets.ModelViewSet):
 
 class PostLatestView(generics.RetrieveAPIView):
 	serializer_class = PostDetailSerializer
-	queryset = Forum.objects.all()
-
+	queryset = Forum.objects.filter(date_forum__gte=datetime.datetime.now()).order_by('date_forum')
 	def get_object(self):
 		queryset = self.get_queryset()
-		return queryset.earliest()
+		post = queryset[0] if queryset else None
+		return post
 
 
 #@method_decorator(csrf_exempt, name='dispatch')
