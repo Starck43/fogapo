@@ -1,5 +1,4 @@
 import {useState, useEffect} from "react"
-//import {useRouter} from "next/router"
 import Head from "next/head"
 
 import PostHeader from "./post-header"
@@ -8,16 +7,17 @@ import PostFooter from "./post-footer"
 
 import DATA, {SITE_NAME} from "../../core/constants"
 
-
 export default function Post({post, posts}) {
 	const [isRegShow, setRegShow] = useState(false)
 
 	useEffect( () => {
 		let curDate = new Date()
 		let forumDate = new Date(post.date_forum)
+		let background = post?.page_background || DATA.background
 		//console.log(forumDate);
 		setRegShow(post.reg_is_active && curDate < forumDate)
-		if (post.page_background) document.body.style.background = `url(${post.page_background}) bottom right scroll no-repeat`
+
+		document.body.style.background = `url(${background}) bottom right scroll no-repeat`
 	},[post])
 
 	return (
