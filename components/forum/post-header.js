@@ -1,15 +1,15 @@
 import Link from "next/link"
+import Image from "next/image"
 
 import ForumDate from "./forum-date"
 import BodyContent from "./appeals"
+import Calendar from "../calendar/calendar"
 
 import Container from "../UI/container"
 import {HtmlContent} from "../UI/html-content"
 import {Logo} from "../UI/avatar"
 
 import DATA, {HOME_TITLE} from "../../core/constants"
-import Image from "next/image"
-import Calendar from "../forms/calendar"
 
 
 export default function PostHeader({
@@ -27,8 +27,8 @@ export default function PostHeader({
                                    }) {
 	return (
 		<header className="post-header flex-column">
-			<Calendar currentId={id} posts={posts}/>
-			<Container className="py-4vh">
+			<Container className="pt-5 pb-4">
+				<Calendar selected={id} posts={posts}/>
 				<div className="header-logos flex-wrap">
 					<Link href="/">
 						<a className="logo-link">
@@ -37,11 +37,10 @@ export default function PostHeader({
 								alt={title}
 								width={150}
 								height={150}
-								//priority
-								//placeholder="blur"
 							/>
 						</a>
 					</Link>
+
 					{add_logo &&
 					<Link href={add_link || "#"}>
 						<a className="logo-link extra"><Logo name="" src={add_logo}/></a>
