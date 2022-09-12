@@ -14,7 +14,6 @@ export const Logo = ({className = "logo", name = "", src}) => {
 	})
 
 	const loadComplete = function (imageDimension) {
-		//console.log(imageDimension)
 		setImageSize(imageDimension)
 	}
 
@@ -44,14 +43,14 @@ export const Logo = ({className = "logo", name = "", src}) => {
 		<div className={className}>
 			<Image
 				src={src}
+				alt={name}
 				loader={remoteLoader}
-				layout="intrinsic"
+				//layout="responsive"
 				blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer("#a6a6a6", imageSize.naturalWidth, imageSize.naturalHeight))}`}
-				placeholder="blur"
+				placeholder="fill"
 				width={imageSize.naturalWidth}
 				height={imageSize.naturalHeight}
-				unoptimized={true}
-				alt={name}
+				unoptimized
 				onLoadingComplete={loadComplete}
 				priority
 			/>
