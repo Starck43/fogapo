@@ -62,7 +62,7 @@ const Meta = () => (
 
 
 			<meta name="robots" content="follow, index"/>
-			<meta name="yandex-verification" content="0166bc6b3bf05401" />
+			<meta name="yandex-verification" content={process.env.YANDEX_VERIFICATION} />
 
 			{process.env.NODE_ENV === "production" && googleAnalyticsId &&
 				<>
