@@ -51,9 +51,10 @@ class EventSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
+	events = EventSerializer(source='event', many=True)
 	class Meta:
 		model = Forum
-		fields = ( 'id', 'date_forum', 'title', )
+		fields = ( 'id', 'date_forum', 'title', 'events',)
 
 
 
