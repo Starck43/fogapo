@@ -12,38 +12,26 @@ import {Logo} from "../UI/avatar"
 import DATA, {HOME_TITLE} from "../../core/constants"
 
 
-export default function PostHeader({
-	                                   posts,
-	                                   id,
-	                                   title,
-	                                   subtitle,
-	                                   datetime,
-	                                   add_logo,
-	                                   add_link,
-	                                   isRegShow,
-	                                   reg_form,
-	                                   cost,
-	                                   content
-                                   }) {
+export default function PostHeader({posts, post}) {
 	return (
 		<header className="post-header flex-column">
 			<Container className="pt-5 pb-4">
-				<Calendar selected={id} posts={posts}/>
+				<Calendar selected={post.d} posts={posts}/>
 				<div className="header-logos flex-wrap">
 					<Link href="/">
 						<a className="logo-link">
 							<Image
 								src={DATA.logo}
-								alt={title}
+								alt={post.title}
 								width={150}
 								height={150}
 							/>
 						</a>
 					</Link>
 
-					{add_logo &&
-					<Link href={add_link || "#"}>
-						<a className="logo-link extra"><Logo name="" src={add_logo}/></a>
+					{post.add_logo &&
+					<Link href={post.add_link || "#"}>
+						<a className="logo-link extra"><Logo name="" src={post.add_logo}/></a>
 					</Link>
 					}
 				</div>
@@ -51,15 +39,16 @@ export default function PostHeader({
 				<div className="header-title">
 					<h1>{HOME_TITLE}</h1>
 
-					{subtitle &&
+					{post.subtitle &&
 					<HtmlContent className="subtitle highlight">
-						{subtitle}
+						{post.subtitle}
 					</HtmlContent>
 					}
 				</div>
-				<ForumDate datetime={new Date(datetime)}/>
+				<ForumDate datetime={new Date(post.date_forum)}/>
 			</Container>
-			<BodyContent id={id} content={content} cost={cost} isRegShow={isRegShow} reg_form={reg_form}/>
+
+			<BodyContent {...post}/>
 		</header>
 	)
 }
