@@ -39,6 +39,12 @@ export const getCountdown = (target) => {
 }
 
 
+export const daysToTarget = (target) => {
+	let {days} = getCountdown(new Date(target))
+	let prefix = days === 1 ? "день" : days > 1 && days < 5 ? "дня" : "дней"
+	return days > 0 ? <span>осталось {days} {prefix}</span> : null
+}
+
 export const createThumbUrl = (src, width) => {
 	let path = src.split('.')
 	if (path.length > 1) {
@@ -57,6 +63,8 @@ export const absoluteUrl = (url) => {
 
 export const removeProtocol = (url) => url.replace(/^https?:\/\//i, "")
 
+export const tripQuotes = (str) => str.replace(/^["'](.+(?=["']$))["']$/, '$1')
+
 
 export const truncateHTML = (value, n = 200) => {
 	let t = value.substring(0, n) // first cut
@@ -68,3 +76,24 @@ export const truncateHTML = (value, n = 200) => {
 	return value
 }
 
+export const shimmer = (color, w, h = null) => `
+		<svg width="${w}" height="${h}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<defs>
+		<linearGradient id="g">
+		<stop stop-color="${color}" offset="20%" />
+		<stop stop-color="#ccc" offset="50%" />
+		<stop stop-color="${color}" offset="70%" />
+		</linearGradient>
+		</defs>
+		${h == null
+	? `<circle fill="${color}" cx="${w / 2}" cy="${w / 2}" r="${w / 2}"/><circle id="c" fill="url(#g)" cx="${w / 2}" cy="${w / 2}" r="${w / 2}"/>`
+	: `<rect width="${w}" height="${h}" fill="${color}" /><rect id="r" width="${w}" height="${h}" fill="url(#g)" />`
+}
+		<animate xlink:href="#c" attributeName="x" from="-${w}" to="${w}" dur="1s" repeatCount="indefinite"/>
+		</svg>`
+
+export const toBase64 = (str) => (
+	typeof window === "undefined"
+		? Buffer.from(str).toString("base64")
+		: window.btoa(str)
+)
