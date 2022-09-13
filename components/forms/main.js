@@ -10,7 +10,7 @@ import {Button, Modal} from "react-bootstrap"
 //import style from "~/styles/reg.module.sass"
 
 
-const OnlineRegistration = ({id, show, handler, reg_form}) => {
+const OnlineRegistration = ({id, show, handler, regForm}) => {
 	const [respondedData, setRespondedData] = useState(null)
 	const [validated, setValidated] = useState(false)
 
@@ -165,7 +165,7 @@ const OnlineRegistration = ({id, show, handler, reg_form}) => {
 				className="registration"
 				size="md"
 			>
-				<RegistrationForm id={id} data={reg_form === 1 ? FORM_DATA_EXT : FORM_DATA} submitHandler={handleSubmit}
+				<RegistrationForm id={id} data={regForm === 1 ? FORM_DATA_EXT : FORM_DATA} submitHandler={handleSubmit}
 				                  closeHandler={handleClose} validated={validated}/>
 			</ModalDialog>
 		)
