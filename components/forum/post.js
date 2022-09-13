@@ -31,7 +31,7 @@ export default function Post({post, posts}) {
 			</Head>
 
 			<PostHeader posts={posts} post={post}/>
-			<PostBody events={post.events} partners={post.partners} location={post.location} info={post.info}/>
+			<PostBody post={post}/>
 			<PostFooter partners={post.partners} contacts={post.contacts}/>
 		</>
 	)

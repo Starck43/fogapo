@@ -27,10 +27,10 @@ const Calendar = ({selected, posts}) => {
 				scrollable
 			>
 				<div className={`forum-group next`}>
-					<h4 className="title">Предстоящие мероприятия</h4>
+					{/*<h4 className="title">Предстоящие мероприятия</h4>*/}
 					<ul className="next-forums">
 						<Items
-							current={selected}
+							selected={selected}
 							items={posts.next_forums}
 							closeHandler={handleCalendarModal}
 						/>
@@ -44,7 +44,7 @@ const Calendar = ({selected, posts}) => {
 							<Accordion.Body>
 								<ul className="prev-forums">
 									<Items
-										current={selected}
+										selected={selected}
 										items={posts.prev_forums}
 										closeHandler={handleCalendarModal}
 									/>

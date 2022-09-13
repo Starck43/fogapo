@@ -1,8 +1,6 @@
 import Link from "next/link"
-import Image from "next/image"
 
 import ForumDate from "./forum-date"
-import BodyContent from "./appeals"
 import Calendar from "../calendar/calendar"
 
 import Container from "../UI/container"
@@ -16,16 +14,13 @@ export default function PostHeader({posts, post}) {
 	return (
 		<header className="post-header flex-column">
 			<Container className="pt-5 pb-4">
-				<Calendar selected={post.d} posts={posts}/>
+
+				<Calendar selected={post.id} posts={posts}/>
+
 				<div className="header-logos flex-wrap">
 					<Link href="/">
 						<a className="logo-link">
-							<Image
-								src={DATA.logo}
-								alt={post.title}
-								width={150}
-								height={150}
-							/>
+							<Logo src={DATA.logo} alt={post.title} width={150} height={150}/>
 						</a>
 					</Link>
 
@@ -47,8 +42,6 @@ export default function PostHeader({posts, post}) {
 				</div>
 				<ForumDate datetime={new Date(post.date_forum)}/>
 			</Container>
-
-			<BodyContent {...post}/>
 		</header>
 	)
 }

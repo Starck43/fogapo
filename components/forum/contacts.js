@@ -1,6 +1,5 @@
 import {Fragment} from "react"
 import {HtmlContent} from "../UI/html-content"
-//import * as PropTypes from "prop-types"
 
 
 export default function Contacts({info, location}) {
@@ -11,10 +10,3 @@ export default function Contacts({info, location}) {
 		</Fragment>
 	)
 }
-/*
-
-Contacts.propTypes = {
-	className: PropTypes.string,
-	phone: PropTypes.string,
-	location: PropTypes.string,
-}*/
