@@ -34,19 +34,45 @@ class FixRichCaretSerializer(serializers.Field):
 
 
 
+class VisitorSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Visitor
+		fields = '__all__'
+
+
+
 class PartnerSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Partner
 		fields = ( 'id', 'name', 'logo', 'link', )
 
 
+
+class HostSerializer(serializers.ModelSerializer):
+	avatar = serializers.ImageField(max_length=None, use_url=True)
+
+	class Meta:
+		model = Host
+		fields = ( 'id', 'name', 'avatar', 'pre_name', 'excerpt', )
+
+
+
 class EventSerializer(serializers.ModelSerializer):
-	#content = FixAbsolutePathSerializer()
+	host = HostSerializer(many=False)
 	content = FixRichCaretSerializer()
 
 	class Meta:
 		model = Event
-		fields = ( 'id', 'title', 'content', 'event_time', )
+		fields = ( 'id', 'title', 'content', 'host', 'event_time', )
+
+
+
+class ReviewSerializer(serializers.ModelSerializer):
+	content = FixRichCaretSerializer()
+	visitor = VisitorSerializer(many=False)
+	class Meta:
+		model = Review
+		fields = ( 'id', 'content', 'visitor', )
 
 
 
@@ -54,7 +80,7 @@ class PostSerializer(serializers.ModelSerializer):
 	events = EventSerializer(source='event', many=True)
 	class Meta:
 		model = Forum
-		fields = ( 'id', 'date_forum', 'title', 'events',)
+		fields = ( 'id', 'date_forum', 'title', 'subtitle', 'events',)
 
 
 
@@ -64,30 +90,15 @@ class PostDetailSerializer(serializers.ModelSerializer):
 	content = FixAbsolutePathSerializer()
 	events = EventSerializer(source='event', many=True)
 	partners = PartnerSerializer(many=True)
-	logo = serializers.ImageField(max_length=None, use_url=True)
-	page_background = serializers.ImageField(max_length=None, use_url=True)
+	reviews = ReviewSerializer(source='review', many=True)
 	subtitle = FixCharCaretSerializer()
 	location = FixCharCaretSerializer()
 	info = FixRichCaretSerializer()
+	logo = serializers.ImageField(max_length=None, use_url=True)
+	page_background = serializers.ImageField(max_length=None, use_url=True)
 
 	class Meta:
 		model = Forum
-		fields = ('id', 'page_background', 'logo', 'link', 'content', 'title', 'subtitle', 'date_forum', 'events', 'partners', 'location', 'info', 'reg_is_active', 'reg_form', 'cost', 'description', 'keywords')
+		fields = '__all__' #('id', 'page_background', 'logo', 'link', 'content', 'title', 'subtitle', 'date_forum', 'events', 'partners', 'reviews', 'location', 'info', 'reg_is_active', 'reg_form', 'cost', 'description', 'keywords')
 
-
-class VisitorSerializer(serializers.ModelSerializer):
-
-	class Meta:
-		model = Visitor
-		fields = '__all__'
-
-"""
-	def to_representation(self, instance):
-		data = super().to_representation(instance)
-		data['logo'] = instance.logo.url if logo else None
-		data['page_background'] = instance.page_background.url if page_background else None
-
-		return data
-
- """
 

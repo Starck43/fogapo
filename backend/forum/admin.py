@@ -14,7 +14,11 @@ def get_app_list(self, request):
 		('projects', [
 			'Forum',
 			'Event',
+			'Host',
 			'Partner',
+			'Visitor',
+			'Invitation',
+			'Review',
 		])
 	]
 	app_dict = self._build_app_dict(request)
@@ -39,20 +43,37 @@ class EventInlineAdmin(admin.StackedInline):
 	#list_display = ('content', 'sort',)
 
 
+class ReviewInlineAdmin(admin.StackedInline):
+	model = Review
+	extra = 0 #new blank record count
+	show_change_link = True
+	fields = ('forum', 'visitor', 'content',)
+
+
 @admin.register(Forum)
 class ForumAdmin(admin.ModelAdmin):
 	#exclude=('slug',)
 	list_display = ('title', 'date_forum',)
 	list_display_links = ('title',)
 	list_filter = ('date_forum',)
-	inlines = [EventInlineAdmin]
+	inlines = [EventInlineAdmin, ReviewInlineAdmin]
+
+
+
+@admin.register(Host)
+class HostAdmin(admin.ModelAdmin):
+	list_display = ('thumb', 'name', )
+	list_display_links = ('thumb', 'name',)
+
 
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
 	#fields = ('title', 'content','event_time',)
-	list_display = ('__str__', 'forum', 'event_time',)
-	list_filter = ('forum','forum__date_forum',)
+	list_display = ('__str__', 'host', 'forum',)
+	list_filter = ('forum__date_forum',)
+	search_fields = ('forum__title', 'title', 'content')
+
 
 
 @admin.register(Partner)
@@ -69,7 +90,8 @@ class VisitorAdmin(admin.ModelAdmin):
 	search_fields = ('name', 'email', 'forum__title', )
 	list_filter = ('forum', 'occupation', 'status', )
 	date_hierarchy = 'forum__date_forum'
-	oredering = ('-id',)
+	ordering = ('-id',)
+	inlines = [ReviewInlineAdmin]
 
 
 	def reg_id(self, obj):
@@ -109,4 +131,13 @@ class InvitationAdmin(admin.ModelAdmin):
 			unique_emails = list({v['email']:v['id'] for v in Visitor.objects.order_by('name').values('id', 'email')}.values())
 			kwargs["queryset"] = Visitor.objects.filter(pk__in=unique_emails)
 		return super().formfield_for_manytomany(db_field, request, **kwargs)
+
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+	list_display = ('visitor', 'forum',)
+	list_display_links = ('visitor', 'forum',)
+	search_fields = ('content', 'visitor__name', 'forum__title', )
+	list_filter = ('forum', 'visitor', )
 

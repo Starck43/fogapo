@@ -42,9 +42,9 @@ class PostGroupedView(viewsets.ModelViewSet):
 		today = datetime.datetime.now()
 		#today = datetime.datetime.now(tz=timezone.utc)
 		queryset = self.queryset.filter(date_forum__lt=today).order_by('-date_forum')
-		prev_forums = PostSerializer(queryset, many=True).data
+		prev_forums = PostSerializer(queryset, many=True, context={'request': request}).data
 		queryset = self.queryset.filter(date_forum__gte=today).order_by('date_forum')
-		next_forums = PostSerializer(queryset, many=True).data
+		next_forums = PostSerializer(queryset, many=True, context={'request': request}).data
 		#print(next_forums, prev_forums)
 		data = {}
 		data['prev_forums'] = prev_forums
