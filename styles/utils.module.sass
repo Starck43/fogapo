@@ -16,6 +16,10 @@
 	margin-top: 2vh !important
 	margin-bottom: 2vh !important
 
+.my-4vh
+	margin-top: 4vh !important
+	margin-bottom: 4vh !important
+
 .px-4vw
 	padding-left: 4vw !important
 	padding-right: 4vw !important
@@ -64,9 +68,12 @@
 	gap: 1em
 
 .cell-4
-	flex: 1 1 33.3%
+	flex: 1 0 33.3%
 
-.col-12
+.cell-8
+	flex: 1 0 66.7%
+
+.cell-12
 	flex: 100%
 
 .cell-6
@@ -97,7 +104,7 @@
 	align-items: center
 
 .rounded
-	border-radius: 50rem
+	border-radius: 50rem !important
 
 .btn
 	@extend .centered
@@ -106,9 +113,10 @@
 	border: 2px solid $brand-color
 	line-height: 1
 	color: $brand-color
-	@extend .rounded
+	border-radius: $border-radius
 	user-select: none
-	transition: all .18s ease
+	transition: all 200ms ease
+	@extend .shadow4
 
 	&-primary
 		background-color: $brand-color
@@ -118,14 +126,15 @@
 		background-color: white
 
 	&:hover
-		@extend .shadow4
+		transform: scale(1.05)
 
 .btn-close
 	position: relative
 	display: block
 	width: $icon-size
 	height: $icon-size
-	max-width: 25px
+	max-width: 20px
+	max-height: 20px
 	transition: all 150ms ease
 	opacity: .7
 	user-select: none
@@ -177,6 +186,21 @@
 .highlight, strong
 	color: $brand-color !important
 
+blockquote
+	border-left: 4px solid white
+	padding: 2px 1rem
+	font-family: initial
+
+	p
+		text-align: left
+
+	a
+		display: block
+		margin-top: 1rem
+		font-size: 1rem
+		font-weight: bold
+		font-family: $font-family-sans-serif
+
 .status-error
 	color: darkred
 
@@ -193,6 +217,14 @@
 	font-weight: bold
 	@extend .shadow3
 	cursor: pointer
+
+
+.avatar
+	&.rounded
+		overflow: hidden
+
+	&.bordered
+		border: $border-width solid lightgrey
 
 .large-text
 	font-size: 1.2em
@@ -254,6 +286,7 @@
 	+media-breakpoint-up(sm)
 		max-width: 90%
 		margin: 1.75rem auto
+
 	form
 		width: 100%
 

@@ -43,6 +43,7 @@ img:not([decoding=async])
 	background-origin: border-box
 	background-size: contain
 
+
 pre
 	white-space: pre-wrap
 
@@ -77,6 +78,13 @@ h4
 	font-size: 1.2rem
 	text-transform: uppercase
 	font-weight: 500
+
+article
+	margin-bottom: 2rem
+	>.title
+		margin-bottom: 3.5rem
+		text-transform: lowercase
+
 
 header
 	//min-height: 100vh
@@ -165,6 +173,7 @@ header
 				margin-left: .11em
 
 		.countdown-title
+			flex: 100%
 			font-weight: bold
 
 		.number-wrapper
@@ -182,102 +191,6 @@ header
 				text-transform: uppercase
 				color: $brand-color
 				font-weight: bold
-
-	.appeals
-		width: 100%
-		flex: auto
-		display: flex
-		align-items: center
-		background-color: transparentize(white, 0.25)
-
-	.appeals-container
-		position: relative
-		width: 100%
-		max-width: 1200px
-		margin: 4vh 0
-
-		.appeal-body
-			p
-				display: flex
-
-			img
-				width: 100% !important
-				height: auto !important
-
-			ul
-				display: flex
-				justify-content: space-between
-				margin-top: 2rem
-
-				li
-					position: relative
-					display: flex
-					flex: 1
-					max-width: calc(33.33% - 1.5vw)
-					min-height: 90px
-					padding: 1.5rem
-					border: $border-width solid $brand-color
-					border-radius: $border-radius
-
-					a
-						display: block
-						float: left
-
-					img
-						background: none
-						height: auto !important
-
-					> span, img
-						max-width: 5rem
-						max-height: 5rem
-						margin-right: 1rem !important
-
-					p
-						margin-bottom: auto
-
-		.appeal-footer
-			display: flex
-
-			.appeal-reg-info
-				> div
-					margin-bottom: .75rem
-
-				> b
-					font-style: italic
-
-			.button
-				max-width: 300px
-				max-height: 75px
-				margin-left: 1em
-
-		+media-breakpoint-down(md)
-			margin: 0
-			.appeal-body
-				h2, h3, p
-					word-break: break-word
-
-				ul
-					flex-direction: column
-
-					li
-						max-width: 100%
-						margin-top: 2vh
-
-						> span, img
-							max-width: 35px
-							max-height: 35px
-			.appeal-footer
-				flex-direction: column
-
-				.button
-					align-items: center
-					margin-top: 4vh
-					margin-left: 0
-
-		+media-breakpoint-down(sm)
-			.appeal-body
-				h2
-					font-size: 1.8rem
 
 	+media-breakpoint-down(xl)
 		.date-forum
@@ -334,158 +247,233 @@ header
 			min-height: 100vh !important
 			margin: 0
 
-.partners-forum
-	margin: auto
 
-	h3
-		font-weight: bold
+.post
+	.appeals
+		width: 100%
+		flex: auto
+		display: flex
+		align-items: center
+		background-color: transparentize(white, 0.25)
 
-	.partners
-		.partner-name
-			color: #fff
-			@extend h4
-			line-height: 0.8
+	.appeals-container
+		position: relative
+		width: 100%
+		max-width: 1200px
 
-.post-footer
-	.partners
-		&.partner-logos
-			display: flex
-			justify-content: center
+		.appeal-body
+			p
+				display: flex
 
-		.partner-logo
-			position: relative
-			height: 100%
+			img
+				width: 100% !important
+				height: auto !important
 
-.partner-block a
-	display: table
-	color: white
-	text-decoration: none
-	user-select: none
+			ul
+				display: flex
+				justify-content: space-between
+				margin-top: 2rem
 
-.contacts-forum
-	margin-top: 3rem
-	text-align: right
-	font-weight: 500
-
-	h4
-		font-weight: 700
-
-	.get-in-touch
-		max-width: 100%
-		padding: 1rem 1.5rem
-		margin-right: -1.5rem
-		color: #000
-		background-color: transparentize(white, 0.3)
-		border-radius: $border-radius
-
-		p
-			margin: 0
-
-		a
-			color: $brand-color
-
-	div:last-child
-		color: #fff
-		margin-top: 2rem
-
-	+media-breakpoint-up(lg)
-		max-width: 40%
-
-	+media-breakpoint-down(sm)
-		flex: 100% !important
-		.get-in-touch
-			margin-right: 0
-			margin-top: 1em
-
-article
-	margin-bottom: 2em
-
-main
-	.container
-		margin-top: 4vh
-		margin-bottom: 4vh
-
-		.events-forum
-			width: 100%
-
-			.event-title
-				margin-bottom: 4vh
-
-			.event-content
-				max-width: 100%
-				min-height: $event-avatar-size
-				position: relative
-				text-align: center
-
-				h4
-					margin-top: 4vh
-					font-weight: bold
-
-				blockquote
-					margin: 4vw 2vw
-					border-left: 4px white solid
-					padding-left: 1rem
-					font-size: 0.9em
-					font-family: initial
-
-					p
-						text-align: left
+				li
+					position: relative
+					display: flex
+					flex: 1
+					max-width: calc(33.33% - 1.5vw)
+					min-height: 90px
+					padding: 1.5rem
+					border: $border-width solid $brand-color
+					border-radius: $border-radius
 
 					a
 						display: block
-						margin-top: 1rem
-						font-size: 1rem
-						font-weight: bold
-						font-family: 'exo2'
+						float: left
+
+					img
+						background: none
+						height: auto !important
+
+					> span, img
+						max-width: 5rem
+						max-height: 5rem
+						margin-right: 1rem !important
+
+					p
+						margin-bottom: auto
+
+		.appeal-footer
+			display: flex
+			align-items: self-end
+			.appeal-reg-info
+				> div
+					margin-bottom: .75rem
+
+				> b
+					font-style: italic
+
+			.button
+				max-width: 300px
+				max-height: 75px
+				margin-left: 1em
+
+		+media-breakpoint-down(md)
+			.appeal-body
+				h2, h3, p
+					word-break: break-word
 
 				ul
-					margin: revert
-					padding: revert
-					list-style-type: initial
-					text-align: left
+					flex-direction: column
 
-				img
-					//width: $event-avatar-size
-					//height: $event-avatar-size
-					width: 100% !important
-					max-width: $event-avatar-size
-					height: auto !important
-					margin: 1rem auto
-					@extend .rounded
-					@extend .shadow3
-					overflow: hidden
+					li
+						max-width: 100%
+						margin-top: 2vh
 
-				a
+						> span, img
+							max-width: 35px
+							max-height: 35px
+			.appeal-footer
+				flex-direction: column
+
+				.button
+					align-items: center
+					margin-top: 4vh
+					margin-left: 0
+
+		+media-breakpoint-down(sm)
+			.appeal-body
+				h2
+					font-size: 1.8rem
+
+
+	.events-forum
+		.event-host
+			display: flex
+			flex-direction: column
+			margin-bottom: 4vh
+			.meta
+				max-width: 450px
+				margin-right: 4vw
+				.host-title
 					color: $brand-color
-					text-decoration: none
+				.host-excerpt
+					margin-bottom: 2rem
+					color: $text-color
+				span
+					color: $title-color
+					font-size: 1.4rem
 
-				> div
-					font-size: 1rem !important
-					max-width: 900px
-					line-height: 1.3
-					background-color: transparent !important
+			.avatar
+				max-width: $event-avatar-size
+
+			align-items: center
+			+media-breakpoint-up(md)
+				flex-direction: unset
 
 
-				+media-breakpoint-up(sm)
-					display: inline-block
-					text-align: left
-					max-width: calc(100% - #{$event-avatar-size-sm})
-					img
-						position: absolute
-						top: 0
-						left: 100%
-						max-width: $event-avatar-size-sm
-						width: $event-avatar-size-sm
-						height: $event-avatar-size-sm
-						margin-top: 0
-						margin-left: 1rem
+		.event-content
+			position: relative
+			display: block
+			width: 100%
+			> div
+				font-size: 1rem !important
+				max-width: 900px
+				line-height: 1.3
+				background-color: transparent !important
 
-				+media-breakpoint-up(md)
-					max-width: calc(100% - #{$event-avatar-size})
-					img
-						width: $event-avatar-size
-						height: $event-avatar-size
-						max-width: $event-avatar-size
+			ul
+				margin: revert
+				padding: revert
+				list-style-type: initial
+				text-align: left
+
+			img
+				width: 100% !important
+				max-width: $event-avatar-size
+				height: auto !important
+				margin: 1rem auto
+
+			a
+				color: $brand-color
+				text-decoration: none
+
+
+	.reviews-forum
+		.title
+			color: $brand-color
+			font-weight: bold
+			text-align: center
+
+		.review
+			width: 100%
+			max-width: 800px
+			+push--auto
+			//background-color: transparentize(white, 0.8)
+			.review-owner
+				margin-top: 1rem
+				font-weight: bold
+
+
+
+	.middle-section
+		position: relative
+		margin: 0 -4vw
+		background-color: transparentize(black, 0.8)
+
+	.partners-forum
+		h3
+			font-weight: bold
+
+		.partners
+			.partner-name
+				color: #fff
+				@extend h4
+				line-height: 0.8
+
+
+		.partner-block a
+			display: table
+			color: white
+			text-decoration: none
+			user-select: none
+
+	.contacts-forum
+		text-align: right
+		font-weight: 500
+		+media-breakpoint-down(sm)
+			margin-top: 3rem
+
+		h4
+			font-weight: 700
+
+		.get-in-touch
+			flex-grow: 1
+			width: max-content
+			max-width: 100%
+			padding: 1rem 1.5rem
+			margin-left: auto
+			color: #000
+			background-color: transparentize(white, 0.3)
+			border-radius: $border-radius
+
+			p
+				margin: 0
+
+			a
+				color: $brand-color
+
+		div:last-child
+			color: #fff
+			margin-top: 2rem
+
+		+media-breakpoint-up(sm)
+			max-width: 50%
+		+media-breakpoint-up(lg)
+			max-width: 40%
+
+		+media-breakpoint-down(sm)
+			flex: 100% !important
+			.get-in-touch
+				margin-right: 0
+				margin-top: 1em
 
 
 footer
@@ -510,6 +498,14 @@ footer
 					min-width: unset !important
 					min-height: unset !important
 
+	.partners
+		&.partner-logos
+			display: flex
+			justify-content: center
+
+		.partner-logo
+			position: relative
+			height: 100%
 
 .copyright
 	border-top: 1px solid $bg-color
@@ -540,65 +536,124 @@ footer
 	z-index: 1000
 	cursor: pointer
 
-
 	span
 		margin-left: 0.5rem
 
 
-.events-calendar-modal .modal-body
-	padding-top: 2vh
+.events-calendar-modal
+	.modal-header
+		position: relative
+		//border-bottom: $border-width solid white
+		box-shadow: 0 0 2vh 3vh lighten($bg-color, 30%)
+		z-index: 1
+
+	.modal-body
+		padding-top: 4vh
 
 .forum-group
-	&.next .title
-		margin-bottom: calc(1rem + 2vh)
+	.forum:not(:last-child)
+		margin-bottom: 4vh
 
-	.next-forums
-		margin-left: 1rem
+		&.selected
+			.forum-body
+				border-color: $brand-color
 
 	.forum-date
 		width: 100%
-		border-bottom: 2px solid $border-color
+		display: table-cell
+		padding: 2px 7px
 
-		.date
-			display: inline-block
-			padding: 2px 7px
-			background-color: $border-color
+	.forum-title
+		.title
+			font-weight: bold
+
+		.subtitle
+			opacity: 0.7
 
 	.forum-body
-		margin-bottom: 1rem
-
+		display: block
+		padding: 1rem
+		color: inherit
+		text-decoration: none
+		border: $border-width solid transparent
+		border-top-color: white
+		border-bottom-left-radius: $border-radius
+		border-bottom-right-radius: $border-radius
+		border-top-right-radius: $border-radius
+		transition: all 200ms ease
 		a
 			display: block
-			margin: 0.5rem 0
 			color: $brand-color
 			text-transform: uppercase
 			text-decoration: none
+		&:hover
+			border-color: $brand-color
+			background-color: #fff !important
+
+	.forum-events
+		margin-top: 0.5rem
+		font-size: 0.8em
+
+		.host-name
+			font-weight: bold
+			text-transform: uppercase
+
+	&.next
+		.title
+			margin-bottom: calc(1rem + 2vh)
+			color: $brand-color
+
+		.forum-body
+			background-color: transparentize(white, 0)
+
+		.forum-date
+			color: white
+			background-color: $brand-color
+			border: $border-width solid $brand-color
+			span
+				position: absolute
+				right: 1.5rem
+				color: #8c52ff
+				background: transparent
+
+	&.prev
+		.forum-date
+			border: $border-width solid $border-color
+			background-color: $border-color
+
+		.forum-body
+			border: $border-width solid $border-color
 
 	.next-forums-accordion
 		margin-bottom: 4vh
 
 	.prev-forums-accordion
+		--bs-accordion-body-padding-x: 0
 		--bs-accordion-btn-padding-x: 0
 		--bs-accordion-btn-padding-y: 0
 		--bs-accordion-border-width: 0
 		--bs-accordion-active-bg: inherit
 		--bs-accordion-bg: transparent
-
-		margin-top: 2vh
+		margin-top: 3rem
 
 		.accordion-header
+			width: max-content
 			margin-bottom: 1rem
+			margin-left: auto
 
-		.title
-			display: inline-block
-			margin-right: 0.5rem
-			color: $brand-color
-			font-weight: bold
 
 		.accordion-body
 			margin-right: 0
 
 		.accordion-button
+			text-align: right
+			.title
+				display: inline-block
+				margin-right: 0.5rem
+				color: #000
+				font-weight: bold
+				text-decoration: underline
+
 			&::after
 				margin: 0
 				background-color: white
