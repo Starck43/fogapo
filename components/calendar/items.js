@@ -5,7 +5,7 @@ import {Fragment} from "react"
 const Items = ({current, items, closeHandler}) => {
 	return (
 		items.map((item, index) =>
-			<Fragment>
+			<Fragment key={item.id}>
 				<div className="forum-date">
 					<div className="date">
 						{item.date_forum && new Date(item.date_forum).toLocaleDateString("ru", {
@@ -16,7 +16,7 @@ const Items = ({current, items, closeHandler}) => {
 						})}
 					</div>
 				</div>
-				<li key={item.id} className={`forum-body ${current === item.id ? "current" : ""} ${index === 0 ? "nearest" : ""}`}>
+				<li className={`forum-body ${current === item.id ? "current" : ""} ${index === 0 ? "nearest" : ""}`}>
 					<Link href={`/${item.id}`} passHref>
 						<a onClick={closeHandler}>{item.title}</a>
 					</Link>
