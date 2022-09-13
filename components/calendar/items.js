@@ -29,10 +29,10 @@ const Items = ({selected, items, closeHandler}) => {
 							{item.events.map(event =>
 								<li className="event" key={event.id}>
 									{event.host?.pre_name &&
-									<span className="host-pre-name">{event.host.pre_name}&nbsp;</span>}
+									<span className="host-pre-name">{event.host.pre_name} </span>}
 									{event.host?.name && <span className="host-name">{event.host.name}</span>}
 									{event.host?.name && event.title &&
-									<span className="event-title">&nbsp;с темой <i>"{event.title}"</i></span>}
+									<span className="event-title"> с темой <i>"{event.title}"</i></span>}
 								</li>
 							)}
 						</ul>

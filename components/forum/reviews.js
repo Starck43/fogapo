@@ -8,9 +8,9 @@ export default function Reviews({reviews, ...props}) {
 			{reviews.map(review =>
 				<li className="review" key={review.id}>
 					{review.content && <blockquote className="review-content">
-						&ldquo;
+						<span dangerouslySetInnerHTML={{ __html: "&ldquo;" }}/>
 						<i>{tripQuotes(review.content)}</i>
-						&rdquo;
+						<span dangerouslySetInnerHTML={{ __html: "&rdquo;" }}/>
 						<br/>
 						<span className="review-owner">{review.visitor.name}</span>
 					</blockquote>}
