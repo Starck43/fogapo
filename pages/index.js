@@ -2,6 +2,7 @@ import Post from '../components/forum/post'
 import Layout from '../components/layout'
 import {getAllPosts, getLatestPost} from "../core/api"
 
+
 export default function Index({post, posts}) {
 	return (
 		<Layout>

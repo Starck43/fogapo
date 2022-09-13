@@ -1,23 +1,22 @@
 module.exports = {
-		"presets": [
-				[
-						"next/babel",
-				]
+	"presets": [
+		"next/babel",
+	],
+	"plugins": [
+		[
+			"babel-plugin-styled-components",
 		],
-		"plugins": [
-				[
-						"babel-plugin-root-import"
-				],
-				[
-						"styled-components",
-						{
-								"ssr": true,
-								"displayName": true,
-								"preprocess": false
-						}
-				],
-				[
-						"macros"
-				],
-		]
+		[
+			"babel-plugin-root-import",
+			{
+				"ssr": true,
+				"displayName": true,
+				"preprocess": false
+			}
+
+		],
+		[
+			"macros"
+		],
+	]
 }
