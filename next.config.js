@@ -20,17 +20,17 @@ module.exports = {
 		domains: ['localhost', process.env.SERVER_HOST],
 	},
 	compiler: {
-			// Enables the styled-components SWC transform
-			styledComponents: true,
-			relay: {
-					// This should match relay.config.js
-					src: './',
-					artifactDirectory: './__generated__',
-					language: 'typescript',
-			},
+		// ssr and displayName are configured by default
+		styledComponents: true,
+		relay: {
+			// This should match relay.config.js
+			src: './',
+			artifactDirectory: './__generated__',
+			language: 'typescript',
+		},
 	},
 	sassOptions: {
-			includePaths: [path.join(__dirname, 'styles')],
+		includePaths: [path.join(__dirname, 'styles')],
 	},
 
 }
