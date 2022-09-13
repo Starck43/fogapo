@@ -1,31 +1,51 @@
 import Events from "./events"
-import Container from "../UI/container"
 import Partners from "./partners"
 import Contacts from "./contacts"
+import Reviews from "./reviews"
+import Appeals from "./appeals"
+import Container from "../UI/container"
 
 
-export default function PostBody({events, partners, location, info}) {
+export default function PostBody({post}) {
+	const {events, partners, reviews, location, info} = post
 	return (
 		<main className="post">
+			<Appeals {...post}/>
 
-			<Container className="pb-4 flex-wrap">
-				{events.length > 0 && <Events events={events}/>}
-				{partners.length === 1 &&
-				<section className="partners-forum cell-auto">
-					<h3>Партнер мероприятия</h3>
-					<Partners className="partner-logos" partners={partners} fields={['logo']}/>
-				</section>
-				}
-				{partners.length > 1 &&
-				<section className="partners-forum cell-auto">
-					<h3>Партнеры</h3>
-					<Partners className="partner-names" partners={partners} fields={["name"]}/>
+			<Container className="my-4vh">
+				{events.length > 0 &&
+				<section className="events-forum py-4vh">
+					<Events events={events}/>
 				</section>
 				}
 
-				<section className="contacts-forum cell-auto">
-					<Contacts className="contacts-block" location={location} info={info}/>
+				<section className="middle-section flex-wrap py-4vh">
+					{partners.length === 1 &&
+					<div className="partners-forum cell-auto px-4vw">
+						<h3>Партнер мероприятия</h3>
+						<Partners className="partner-logos" partners={partners} fields={["logo"]}/>
+					</div>
+					}
+
+					{partners.length > 1 &&
+					<div className="partners-forum cell-auto px-4vw my-4vh">
+						<h3>Партнеры</h3>
+						<Partners className="partner-names" partners={partners} fields={["name"]}/>
+					</div>
+					}
+
+					{location && info &&
+					<div className="contacts-forum flex-column cell-auto px-4vw my-4vh">
+						<Contacts className="contacts-block" location={location} info={info}/>
+					</div>
+					}
 				</section>
+
+				{reviews?.length > 0 &&
+				<section className="reviews-forum">
+					<Reviews className="reviews-block my-4vh" reviews={reviews}/>
+				</section>
+				}
 
 			</Container>
 		</main>
