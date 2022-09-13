@@ -249,6 +249,8 @@ header
 
 
 .post
+	.container
+		margin-bottom: 0 !important
 	.appeals
 		width: 100%
 		flex: auto
@@ -408,7 +410,7 @@ header
 			+push--auto
 			//background-color: transparentize(white, 0.8)
 			.review-owner
-				margin-top: 1rem
+				margin-top: 1.5rem
 				font-weight: bold
 
 
@@ -453,7 +455,8 @@ header
 			color: #000
 			background-color: transparentize(white, 0.3)
 			border-radius: $border-radius
-
+			+media-breakpoint-up(sm)
+				width: 100%
 			p
 				margin: 0
 
