@@ -49,6 +49,7 @@ class Partner(models.Model):
 		remove_images(self.logo)
 
 
+
 class Forum(models.Model):
 	CHOICES = ((0,'простая форма'),(1,'расширенная форма'),)
 
@@ -62,7 +63,6 @@ class Forum(models.Model):
 	reg_is_active = models.BooleanField('Отображать блок регистрации до начала мероприятия', null=True, default=True)
 	cost = models.BooleanField('Платное участие', null=True, default=False)
 	reg_form = models.PositiveSmallIntegerField('Форма регистрации', null=True, choices=CHOICES, default=0, help_text='' )
-	page_background = models.FileField(upload_to=ForumUploadTo, storage=MediaFileStorage(), blank=True, verbose_name='Фоновая подложка', help_text='Фото на нижнем слое фона страницы')
 	logo = ProcessedImageField(
 		upload_to=ForumUploadTo,
 		storage=MediaFileStorage(output='logo.png'),
@@ -74,14 +74,15 @@ class Forum(models.Model):
 		help_text='Дополнительный логотип в шапке под главным'
 	)
 	sort = models.PositiveSmallIntegerField('Индекс сортировки', null=True, blank=True)
+	page_background = models.FileField(upload_to=ForumUploadTo, storage=MediaFileStorage(), blank=True, verbose_name='Фоновая подложка', help_text='Фото на нижнем слое фона страницы')
 
 	link = models.URLField('Ссылка для логотипа', null=True, blank=True, help_text='')
 	description = models.TextField('Краткое описание мероприятия', blank=True, help_text='Текст попадает в мета описание сайта для поисковиков. 80-100 символов')
 	keywords = models.CharField('Ключевые слова', max_length=250, blank=True, help_text='Главные поисковые словосочетания. Перечисление через запятую')
 
 	class Meta:
-		verbose_name = 'мероприятие'
-		verbose_name_plural = 'Мероприятия'
+		verbose_name = 'форум'
+		verbose_name_plural = 'Форумы'
 		ordering = [Coalesce("sort", 100000), '-date_forum']
 		get_latest_by = [Coalesce("sort", 100000), '-date_forum']
 		db_table = 'forums'
@@ -119,22 +120,56 @@ class Forum(models.Model):
 
 
 
+class Host(models.Model):
+	pre_name = models.CharField('Предзаголовок', max_length=50, null=True, blank=True, default='спецальный гость', help_text='Текст перед именем')
+	name = models.CharField('Имя лектора', max_length=250)
+	excerpt = models.TextField('О лекторе', blank=True, help_text='Краткое описание лектора')
+	avatar = ProcessedImageField(
+		upload_to='avatar/',
+		storage=MediaFileStorage(),
+		blank=True,
+		processors=[ResizeToFit(320, 320)],
+		options={'quality': 80},
+		verbose_name='Автатар',
+		help_text='Портрет размером 320х320 пикс'
+	)
+
+	class Meta:
+		verbose_name = 'лектор'
+		verbose_name_plural = 'Лекторы и спикеры'
+		ordering = ['name']
+		db_table = 'hosts'
+
+	def __str__(self):
+		return self.name
+
+	def thumb(self):
+		return get_admin_thumb(self.avatar)
+	thumb.short_description = 'Автатар'
+
+	def delete(self, *args, **kwargs):
+		super().delete(*args, **kwargs)
+		remove_images(self.avatar)
+
+
+
 class Event(models.Model):
-	forum = models.ForeignKey(Forum, on_delete=models.SET_NULL, null=True, related_name='event', verbose_name = 'Мероприятие', help_text='')
-	title = models.CharField('Заголовок', max_length=250, null=True, blank=True, help_text='')
-	content = RichTextUploadingField('Контент', null=True, blank=True, help_text='Контент с фото и описанием гостя')
-	event_time = models.TimeField('Время', null=True, blank=True, help_text='Укажите при необходимости время выступления')
+	forum = models.ForeignKey(Forum, on_delete=models.SET_NULL, null=True, related_name='event', verbose_name = 'Форум', help_text='')
+	host = models.ForeignKey(Host, on_delete=models.SET_NULL, null=True, related_name='host', verbose_name = 'Ведущий события', help_text='')
+	title = models.CharField('Заголовок события', max_length=150, null=True, blank=True, help_text='Можно указать короткое название события')
+	content = RichTextUploadingField('Описание события', null=True, blank=True, help_text='')
+	event_time = models.TimeField('Время выступления', null=True, blank=True, help_text='')
 	sort = models.PositiveSmallIntegerField('Индекс сортировки', null=True, blank=True)
 
 	class Meta:
-		verbose_name = 'гость мероприятия'
-		verbose_name_plural = 'Гости мероприятий'
+		verbose_name = 'событие на форуме'
+		verbose_name_plural = 'Все события'
 		ordering = ['-forum__date_forum', Coalesce("sort", F('id') + 100)]
 		db_table = 'events'
 
 
 	def __str__(self):
-		return self.title if self.title else 'Мероприятие '+self.forum.date_forum.strftime('%d-%m-%y')
+		return self.title if self.title else 'Событие от '+self.forum.date_forum.strftime('%d-%m-%y')
 
 
 
@@ -170,11 +205,28 @@ class Invitation(models.Model):
 	last_sent_date = models.DateTimeField('Время последней рассылки', null=True, blank=True, auto_now_add=False)
 
 	class Meta:
-		verbose_name = 'Приглашение'
+		verbose_name = 'приглашение'
 		verbose_name_plural = 'Приглашения'
 		ordering = ['-forum__date_forum']
 		db_table = 'invitations'
 
 	def __str__(self):
 		return self.forum.title
+
+
+class Review(models.Model):
+	forum = models.ForeignKey(Forum, on_delete=models.CASCADE, null=True, related_name='review', verbose_name = 'Форум', help_text='')
+	visitor = models.ForeignKey(Visitor, related_name='review_visitor', on_delete=models.CASCADE, verbose_name='Посетитель форума')
+	content = models.TextField("Отзыв", max_length=2000)
+	#posted_date = models.DateTimeField("Опубликовано", auto_now_add=True, blank=True)
+
+	class Meta:
+		verbose_name = "отзыв"
+		verbose_name_plural = "Отзывы посетителей"
+		ordering = ['-forum__date_forum']
+		unique_together = ('visitor', 'forum',)
+		db_table = 'reviews'
+
+	def __str__(self):
+		return "Отзыв от "+self.visitor.name
 
