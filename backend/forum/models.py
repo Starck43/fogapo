@@ -156,7 +156,7 @@ class Host(models.Model):
 
 class Event(models.Model):
 	forum = models.ForeignKey(Forum, on_delete=models.SET_NULL, null=True, related_name='event', verbose_name = 'Форум', help_text='')
-	host = models.ForeignKey(Host, on_delete=models.SET_NULL, null=True, related_name='host', verbose_name = 'Ведущий события', help_text='')
+	host = models.ForeignKey(Host, on_delete=models.SET_NULL, null=True, blank=True, related_name='host', verbose_name = 'Ведущий события', help_text='')
 	title = models.CharField('Заголовок события', max_length=150, null=True, blank=True, help_text='Можно указать короткое название события')
 	content = RichTextUploadingField('Описание события', null=True, blank=True, help_text='')
 	event_time = models.TimeField('Время выступления', null=True, blank=True, help_text='')
