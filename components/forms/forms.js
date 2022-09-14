@@ -3,10 +3,11 @@ import {Form, Button} from "react-bootstrap"
 import Control from "../UI/controls"
 import SubTitle from "../UI/subtitle"
 
+import style from "/styles/form.module.sass"
 
 export const RegistrationForm = ({id, data, submitHandler, closeHandler, validated}) => {
 	return (
-		<Form className="my-2vh" onSubmit={submitHandler} validated={validated}>
+		<Form className={`flex-column my-2vh ${style.form}`} onSubmit={submitHandler} validated={validated}>
 			<input type="hidden" name="id" value={id}/>
 			{Object.keys(data).map((key) => (
 				<Fragment key={key}>
@@ -21,7 +22,7 @@ export const RegistrationForm = ({id, data, submitHandler, closeHandler, validat
 					}
 				</Fragment>
 			))}
-			<div className="centered pt-3 gap">
+			<div className={`controls-block centered pt-3 gap ${style.controls}`}>
 				<Button variant="primary" type="submit">Отправить</Button>
 				<Button variant="secondary" type="button" onClick={closeHandler}>Отменить</Button>
 			</div>
