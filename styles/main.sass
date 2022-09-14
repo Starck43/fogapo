@@ -81,7 +81,8 @@ h4
 
 article
 	margin-bottom: 2rem
-	>.title
+
+	> .title
 		margin-bottom: 3.5rem
 		text-transform: lowercase
 
@@ -213,9 +214,6 @@ header
 			flex-direction: row
 			margin-top: 1rem
 
-			.date-block
-				margin-bottom: 1em
-
 	+media-breakpoint-down(md)
 		.date-forum
 			flex-direction: column
@@ -239,6 +237,8 @@ header
 			font-size: 0.8em
 
 		.date-forum
+			width: 100%
+
 			.date-block
 				font-size: 2.8em
 
@@ -251,6 +251,7 @@ header
 .post
 	.container
 		margin-bottom: 0 !important
+
 	.appeals
 		width: 100%
 		flex: auto
@@ -302,9 +303,13 @@ header
 					p
 						margin-bottom: auto
 
+				& ~ p img
+					margin-top: 1.5rem
+
 		.appeal-footer
 			display: flex
 			align-items: self-end
+
 			.appeal-reg-info
 				> div
 					margin-bottom: .75rem
@@ -351,14 +356,18 @@ header
 			display: flex
 			flex-direction: column
 			margin-bottom: 4vh
+
 			.meta
 				max-width: 450px
 				margin-right: 4vw
+
 				.host-title
 					color: $brand-color
+
 				.host-excerpt
 					margin-bottom: 2rem
 					color: $text-color
+
 				span
 					color: $title-color
 					font-size: 1.4rem
@@ -375,6 +384,7 @@ header
 			position: relative
 			display: block
 			width: 100%
+
 			> div
 				font-size: 1rem !important
 				max-width: 900px
@@ -414,10 +424,9 @@ header
 				font-weight: bold
 
 
-
 	.middle-section
 		position: relative
-		margin: 0 -4vw
+		margin: -4vh -4vw 0
 		background-color: transparentize(black, 0.8)
 
 	.partners-forum
@@ -438,6 +447,7 @@ header
 			user-select: none
 
 	.contacts-forum
+		width: 100%
 		text-align: right
 		font-weight: 500
 		+media-breakpoint-down(sm)
@@ -457,6 +467,7 @@ header
 			border-radius: $border-radius
 			+media-breakpoint-up(sm)
 				width: 100%
+
 			p
 				margin: 0
 
@@ -497,7 +508,7 @@ footer
 				> span, img
 					width: auto !important
 					max-height: 3rem !important
-					height: 100% !important
+					height: auto !important
 					min-width: unset !important
 					min-height: unset !important
 
@@ -544,12 +555,6 @@ footer
 
 
 .events-calendar-modal
-	.modal-header
-		position: relative
-		//border-bottom: $border-width solid white
-		box-shadow: 0 0 2vh 3vh lighten($bg-color, 30%)
-		z-index: 1
-
 	.modal-body
 		padding-top: 4vh
 
@@ -571,7 +576,11 @@ footer
 			font-weight: bold
 
 		.subtitle
-			opacity: 0.7
+			color: $text-color
+
+	.forum-time
+		margin-top: 0.5rem
+		text-align: right
 
 	.forum-body
 		display: block
@@ -584,11 +593,13 @@ footer
 		border-bottom-right-radius: $border-radius
 		border-top-right-radius: $border-radius
 		transition: all 200ms ease
+
 		a
 			display: block
 			color: $brand-color
 			text-transform: uppercase
 			text-decoration: none
+
 		&:hover
 			border-color: $brand-color
 			background-color: #fff !important
@@ -603,6 +614,7 @@ footer
 	&.next
 		.forum-title
 			color: $brand-color
+
 		.title
 			margin-bottom: 0
 
@@ -613,6 +625,7 @@ footer
 			color: white
 			background-color: $brand-color
 			border: $border-width solid $brand-color
+
 			span
 				position: absolute
 				right: 1.5rem
@@ -650,6 +663,7 @@ footer
 
 		.accordion-button
 			text-align: right
+
 			.title
 				display: inline-block
 				margin-right: 0.5rem
@@ -660,3 +674,4 @@ footer
 			&::after
 				margin: 0
 				background-color: white
+

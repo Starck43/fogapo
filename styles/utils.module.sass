@@ -136,8 +136,8 @@
 	display: block
 	width: $icon-size
 	height: $icon-size
-	max-width: 20px
-	max-height: 20px
+	max-width: 1.4rem
+	max-height: 1.4rem
 	transition: all 150ms ease
 	opacity: .7
 	user-select: none
@@ -300,11 +300,12 @@ blockquote
 	width: 100%
 	background-color: $modal-dialog-bg
 	background-clip: padding-box
-	border: $border-width solid $brand-color
-	border-radius: $border-radius
 	pointer-events: auto
 	outline: 0
 	@extend .shadow3
+	+media-breakpoint-up(sm)
+		border: $border-width solid $brand-color
+		border-radius: $border-radius
 
 
 .modal-header, .modal-footer
@@ -319,16 +320,17 @@ blockquote
 	+push--auto
 
 .modal-header
+	position: relative
 	display: flex
 	flex-shrink: 0
 	align-items: center
 	justify-content: space-between
 	padding: 1.5rem
-	//border-bottom: 1px solid #dee2e6
-	//background: radial-gradient(0deg, rgba(255,255,255,0) 50%, rgba(255,255,255,1) 100%)
-
 	border-top-left-radius: $border-radius - 1px
 	border-top-right-radius: $border-radius - 1px
+	//border-bottom: $border-width solid white
+	box-shadow: 0 0 2vh 3vh lighten($bg-color, 30%)
+	z-index: 1
 
 	.modal-title
 		margin-bottom: 0
@@ -347,9 +349,10 @@ blockquote
 		min-height: calc(100% - 3.5rem)
 
 .modal-dialog-scrollable
-	height: calc(100% - 1rem)
+	height: 100%
 
 	.modal-content
+		height: 100%
 		max-height: 100%
 		overflow: hidden
 
@@ -357,8 +360,11 @@ blockquote
 		overflow-y: auto
 
 	+media-breakpoint-up(sm)
-		height: calc(100% - 3.5rem)
+		.modal-content
+			height: auto
 
+	+media-breakpoint-up(md)
+		height: calc(100% - 3.5rem)
 
 .form-control:focus
 	border-color: $brand-color
