@@ -15,7 +15,7 @@ const Items = ({selected, items, closeHandler}) => {
 						year: "numeric",
 						hour12: false,
 					})}
-					{index === 0 && daysToTarget(item.date_forum)}
+					{daysToTarget(item.date_forum)}
 				</div>
 				<Link href={`/${item.id}`} replace>
 					<a className={`forum-body shadow4`} onClick={closeHandler}>
@@ -28,11 +28,14 @@ const Items = ({selected, items, closeHandler}) => {
 						<ul className="forum-events">
 							{item.events.map(event =>
 								<li className="event" key={event.id}>
-									{event.host?.pre_name &&
-									<span className="host-pre-name">{event.host.pre_name} </span>}
+									{/*{event.host?.pre_name && <span className="host-pre-name">{event.host.pre_name} </span>}*/}
 									{event.host?.name && <span className="host-name">{event.host.name}</span>}
 									{event.host?.name && event.title &&
 									<span className="event-title"> с темой <i>&laquo;{event.title}&raquo;</i></span>}
+									<div className="forum-time">Начало: {new Date(item.date_forum).toLocaleTimeString("ru", {
+										hour12: false,
+										timeStyle: "short"
+									})}</div>
 								</li>
 							)}
 						</ul>
