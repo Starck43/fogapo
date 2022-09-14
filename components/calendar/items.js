@@ -32,7 +32,7 @@ const Items = ({selected, items, closeHandler}) => {
 									<span className="host-pre-name">{event.host.pre_name} </span>}
 									{event.host?.name && <span className="host-name">{event.host.name}</span>}
 									{event.host?.name && event.title &&
-									<span className="event-title"> с темой <i>"{event.title}"</i></span>}
+									<span className="event-title"> с темой <i>&laquo;{event.title}&raquo;</i></span>}
 								</li>
 							)}
 						</ul>
