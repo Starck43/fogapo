@@ -2,17 +2,23 @@ import {tripQuotes} from "../../core/utils"
 
 
 export default function Reviews({reviews, ...props}) {
+	const reviewAuthor = (name) => <span className="review-author">{name}</span>
 	return (
 		<ul {...props}>
 			<h3 className="title">Отзывы</h3>
 			{reviews.map(review =>
 				<li className="review" key={review.id}>
 					{review.content && <blockquote className="review-content">
-						<span dangerouslySetInnerHTML={{ __html: "&ldquo;" }}/>
+						&ldquo;
 						<i>{tripQuotes(review.content)}</i>
-						<span dangerouslySetInnerHTML={{ __html: "&rdquo;" }}/>
+						&rdquo;
 						<br/>
-						<span className="review-owner">{review.visitor.name}</span>
+						{review.link
+							? <a href={review.link} className="link no-decoration">
+								{reviewAuthor(review.visitor?.name || review.author)}
+							</a>
+							: reviewAuthor(review.visitor?.name || review.author)
+						}
 					</blockquote>}
 				</li>
 			)}
