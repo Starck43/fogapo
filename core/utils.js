@@ -14,15 +14,15 @@ export const getNaturalImageSizes = (img) => {
 }
 
 export const getYear = () => {
-	return new Date().getFullYear();
+	return new Date().getFullYear()
 }
 
 
 export const getCountdown = (target) => {
-	let now = new Date();
+	let now = new Date()
 
 	// Find the distance between now and the count down date
-	let distance = target - now;
+	let distance = target - now
 
 	// If the count down is finished
 	if (distance < 0) {
@@ -30,10 +30,10 @@ export const getCountdown = (target) => {
 	}
 
 	// Time calculations for days, hours, minutes and seconds
-	let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-	let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-	let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+	let days = Math.floor(distance / (1000 * 60 * 60 * 24))
+	let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+	let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+	let seconds = Math.floor((distance % (1000 * 60)) / 1000)
 
 	return {days, hours, minutes, seconds}
 }
@@ -41,29 +41,37 @@ export const getCountdown = (target) => {
 
 export const daysToTarget = (target) => {
 	let {days} = getCountdown(new Date(target))
-	let prefix = days === 1 ? "день" : days > 1 && days < 5 ? "дня" : "дней"
-	return days > 0 ? <span>осталось {days} {prefix}</span> : null
+	if (!days) return null
+
+	switch (days) {
+		case 0:
+			return <span>Сегодня</span>
+		case 1:
+			return <span>остался 1 день</span>
+		default:
+			return <span>осталось {days} {days > 1 && days < 5 ? "дня" : "дней"}</span>
+	}
 }
 
 export const createThumbUrl = (src, width) => {
-	let path = src.split('.')
+	let path = src.split(".")
 	if (path.length > 1) {
 		let ext = path.pop()
-		let thumbName = '_' + width + 'w'
-		return path.join('.') + thumbName + '.' + ext
+		let thumbName = "_" + width + "w"
+		return path.join(".") + thumbName + "." + ext
 	}
 	return src
 }
 
 
 export const absoluteUrl = (url) => {
-	if (url && url.indexOf('http', 0) === -1) return process.env.SERVER + url
+	if (url && url.indexOf("http", 0) === -1) return process.env.SERVER + url
 	return url
 }
 
 export const removeProtocol = (url) => url.replace(/^https?:\/\//i, "")
 
-export const tripQuotes = (str) => str.replace(/^["'](.+(?=["']$))["']$/, '$1')
+export const tripQuotes = (str) => str.replace(/^["'](.+(?=["']$))["']$/, "$1")
 
 
 export const truncateHTML = (value, n = 200) => {
