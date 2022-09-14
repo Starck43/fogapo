@@ -29,6 +29,8 @@ CACHE/
 .DS_Store
 *.pem
 package-lock.json
+yarn.lock
+datadamp.json
 .zshrc
 
 # debug
@@ -55,9 +57,7 @@ venv/
 *.sublime-workspace
 *.sublime-project
 sftp-config.json
-package-lock.json
-yarn.lock
-datadamp.json
+
 
 # Django #
 __pycache__/
