@@ -43,7 +43,7 @@ const Appeals = ({id, content, cost, date_forum, reg_is_active, reg_form}) => {
 
 	return (
 		<section className="appeals">
-			<div className="appeals-container flex-column p-4 my-4vh mx-auto">
+			<div className="appeals-container flex-column p-4 my-2vh mx-auto">
 
 				<HtmlContent className="appeal-body">
 					{content}
