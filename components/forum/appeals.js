@@ -9,13 +9,14 @@ import DATA from "../../core/constants"
 
 const Appeals = ({id, content, cost, date_forum, reg_is_active, reg_form}) => {
 	const [showForm, setShowForm] = useState(false)
-	const [isRegOpen, setRegOpen] = useState(false)
+	const [isRegOpen, setRegOpen] = useState(true)
 	const router = useRouter()
 
 	useEffect(() => {
 		let curDate = new Date()
 		let forumDate = new Date(date_forum)
-		let available = reg_is_active && curDate <= forumDate
+		let available = reg_is_active && curDate < forumDate
+		console.log(reg_is_active, forumDate)
 		setRegOpen(available)
 		
 		if (router.asPath.endsWith(`?registration`)) {
@@ -33,7 +34,7 @@ const Appeals = ({id, content, cost, date_forum, reg_is_active, reg_form}) => {
 			return () => link.removeEventListener("click", openRegistration)
 		}
 
-	}, [])
+	}, [date_forum, reg_is_active, router.asPath])
 
 
 	const handleRegistrationClick = () => {
