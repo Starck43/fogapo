@@ -12,7 +12,7 @@ export default function PostBody({post}) {
 		<main className="post">
 			<Appeals {...post}/>
 
-			<Container className="my-4vh">
+			<Container className="my-2vh">
 				{events.length > 0 &&
 				<section className="events-forum py-4vh">
 					<Events events={events}/>
