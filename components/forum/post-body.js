@@ -43,7 +43,7 @@ export default function PostBody({post}) {
 
 				{reviews?.length > 0 &&
 				<section className="reviews-forum">
-					<Reviews className="reviews-block my-4vh" reviews={reviews}/>
+					<Reviews reviews={reviews} className="reviews-block my-4vh py-4vh"/>
 				</section>
 				}
 
