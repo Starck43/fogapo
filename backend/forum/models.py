@@ -121,7 +121,7 @@ class Forum(models.Model):
 
 
 class Host(models.Model):
-	pre_name = models.CharField('Предзаголовок', max_length=50, null=True, blank=True, default='спецальный гость', help_text='Текст перед именем')
+	pre_name = models.CharField('Предзаголовок', max_length=50, null=True, blank=True, default='специальный гость', help_text='Текст перед именем')
 	name = models.CharField('Имя лектора', max_length=250)
 	excerpt = models.TextField('О лекторе', blank=True, help_text='Краткое описание лектора')
 	avatar = ProcessedImageField(
@@ -133,6 +133,7 @@ class Host(models.Model):
 		verbose_name='Автатар',
 		help_text='Портрет размером 320х320 пикс'
 	)
+	link = models.URLField('Ссылка на сайт', null=True, blank=True, help_text='Внешняя ссылка на сайт лектора')
 
 	class Meta:
 		verbose_name = 'лектор'
@@ -216,7 +217,9 @@ class Invitation(models.Model):
 
 class Review(models.Model):
 	forum = models.ForeignKey(Forum, on_delete=models.CASCADE, null=True, related_name='review', verbose_name = 'Форум', help_text='')
-	visitor = models.ForeignKey(Visitor, related_name='review_visitor', on_delete=models.CASCADE, verbose_name='Посетитель форума')
+	visitor = models.ForeignKey(Visitor, related_name='review_visitor', null=True, blank=True, on_delete=models.CASCADE, verbose_name='Посетитель форума')
+	author = models.CharField('Имя автора', max_length=150, null=True, blank=True, help_text='')
+	link = models.URLField('Ссылка на сайт', null=True, blank=True, help_text='Внешняя ссылка на сайт автора')
 	content = models.TextField("Отзыв", max_length=2000)
 	#posted_date = models.DateTimeField("Опубликовано", auto_now_add=True, blank=True)
 
@@ -228,5 +231,5 @@ class Review(models.Model):
 		db_table = 'reviews'
 
 	def __str__(self):
-		return "Отзыв от "+self.visitor.name
+		return self.author or "Отзыв от "+self.visitor.name
 

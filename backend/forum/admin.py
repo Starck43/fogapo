@@ -47,7 +47,7 @@ class ReviewInlineAdmin(admin.StackedInline):
 	model = Review
 	extra = 0 #new blank record count
 	show_change_link = True
-	fields = ('forum', 'visitor', 'content',)
+	fields = ('forum', 'visitor', 'author', 'content',)
 
 
 @admin.register(Forum)
@@ -136,8 +136,8 @@ class InvitationAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-	list_display = ('visitor', 'forum',)
-	list_display_links = ('visitor', 'forum',)
-	search_fields = ('content', 'visitor__name', 'forum__title', )
+	list_display = ('visitor', 'author', 'forum',)
+	list_display_links = ('forum', 'visitor', 'author', )
+	search_fields = ('content', 'author', 'visitor__name', 'forum__title', )
 	list_filter = ('forum', 'visitor', )
 

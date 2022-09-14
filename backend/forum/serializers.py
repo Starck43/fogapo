@@ -53,7 +53,7 @@ class HostSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Host
-		fields = ( 'id', 'name', 'avatar', 'pre_name', 'excerpt', )
+		fields = '__all__' #( 'id', 'name', 'avatar', 'pre_name', 'excerpt', 'link', )
 
 
 
@@ -72,7 +72,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 	visitor = VisitorSerializer(many=False)
 	class Meta:
 		model = Review
-		fields = ( 'id', 'content', 'visitor', )
+		fields = '__all__' #( 'id', 'content', 'author', 'link',  'visitor', )
 
 
 
