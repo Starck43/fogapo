@@ -16,12 +16,12 @@ html
 		font-size: 16px
 	+media-breakpoint-up(lg)
 		font-size: 18px
-	background-color: $bg-color
+	background-color: $secondary-bg-color
 
 \:root
 	--bs-font-sans-serif: #{$font-family-sans-serif}
 	--bs-body-color: #{$text-color}
-	--bs-body-bg: #{$bg-color}
+	--bs-body-bg: #{$secondary-bg-color}
 
 body
 	min-height: 100vh
@@ -83,14 +83,19 @@ article
 	margin-bottom: 2rem
 
 	> .title
-		margin-bottom: 3.5rem
+		margin-bottom: 4vh
+		text-align: center
 		text-transform: lowercase
-
+		font-weight: bold
 
 header
-	//min-height: 100vh
+	min-height: 100vh
+	+media-breakpoint-up(sm)
+		min-height: unset
+
 	.container
 		display: flex
+
 
 	.header-logos
 		flex: 1
@@ -228,8 +233,6 @@ header
 				text-align: center
 
 	+media-breakpoint-down(sm)
-		.container
-			flex-direction: column
 		.header-logos
 			flex: initial
 		.header-title
@@ -242,35 +245,26 @@ header
 			.date-block
 				font-size: 2.8em
 
-	@media (max-width: 767.98px) and (orientation: portrait)
-		.container
-			min-height: 100vh !important
-			margin: 0
 
-
-.post
+main
 	.container
-		margin-bottom: 0 !important
-
-	.appeals
-		width: 100%
-		flex: auto
-		display: flex
-		align-items: center
-		background-color: transparentize(white, 0.25)
-
-	.appeals-container
 		position: relative
 		width: 100%
 		max-width: 1200px
 
-		.appeal-body
-			p
-				display: flex
+	.title
+		font-weight: bold
 
+	.appeals-forum
+		width: 100%
+		flex: auto
+		display: flex
+		align-items: center
+
+		.appeal-body
 			img
-				width: 100% !important
-				height: auto !important
+				max-width: 100%
+				height: max-content !important
 
 			ul
 				display: flex
@@ -281,27 +275,43 @@ header
 					position: relative
 					display: flex
 					flex: 1
-					max-width: calc(33.33% - 1.5vw)
-					min-height: 90px
-					padding: 1.5rem
-					border: $border-width solid $brand-color
-					border-radius: $border-radius
+					max-width: calc(33.33% - 2vw)
+					min-height: 100px
+					font-weight: bold
+					@extend .frame
+					@extend .shadow4
+
+					p
+						margin-bottom: auto
+						display: flex
+						flex-direction: column
 
 					a
 						display: block
 						float: left
 
+					> span, img
+						width: 30% !important
+						max-width: 5rem !important
+						max-height: 5rem !important
+						margin-bottom: 1.5rem
+						+push--auto()
+						text-align: center
+
 					img
 						background: none
-						height: auto !important
 
-					> span, img
-						max-width: 5rem
-						max-height: 5rem
-						margin-right: 1rem !important
+					+media-breakpoint-up(sm)
+						p
+							flex-direction: unset
+						> span, img
+							margin-right: 1.5rem
 
-					p
-						margin-bottom: auto
+					+media-breakpoint-up(md)
+						p
+							flex-direction: column
+						> span, img
+							margin-right: auto
 
 				& ~ p img
 					margin-top: 1.5rem
@@ -332,11 +342,8 @@ header
 
 					li
 						max-width: 100%
-						margin-top: 2vh
+						margin-top: 1rem
 
-						> span, img
-							max-width: 35px
-							max-height: 35px
 			.appeal-footer
 				flex-direction: column
 
@@ -352,6 +359,8 @@ header
 
 
 	.events-forum
+		position: relative
+
 		.event-host
 			display: flex
 			flex-direction: column
@@ -363,6 +372,7 @@ header
 
 				.host-title
 					color: $brand-color
+					font-weight: bold
 
 				.host-excerpt
 					margin-bottom: 2rem
@@ -410,100 +420,91 @@ header
 
 	.reviews-forum
 		.title
-			color: $brand-color
-			font-weight: bold
-			text-align: center
+			color: white
 
 		.review
 			width: 100%
 			max-width: 800px
-			+push--auto
-			//background-color: transparentize(white, 0.8)
+			margin-top: 2vh
+			background-color: transparentize(white, 0.7)
+
 			.review-author
 				margin-top: 1.5rem
 				font-weight: bold
 
 
-	.middle-section
-		position: relative
-		margin: -4vh -4vw 0
-		background-color: transparentize(black, 0.8)
-
-	.partners-forum
-		h3
-			font-weight: bold
-
-		.partners
-			.partner-name
-				color: #fff
-				@extend h4
-				line-height: 0.8
-
-
-		.partner-block a
-			display: table
-			color: white
-			text-decoration: none
-			user-select: none
-
-	.contacts-forum
-		width: 100%
-		text-align: right
-		font-weight: 500
-		+media-breakpoint-down(sm)
-			margin-top: 3rem
-
-		h4
-			font-weight: 700
-
-		.get-in-touch
-			flex-grow: 1
-			width: max-content
-			max-width: 100%
-			padding: 1rem 1.5rem
-			margin-left: auto
-			color: #000
-			background-color: transparentize(white, 0.3)
-			border-radius: $border-radius
+	.info-forum
+		> div
+			+push--auto(6vw)
 			+media-breakpoint-up(sm)
-				width: 100%
+				+push--auto
 
-			p
-				margin: 0
 
-			a
-				color: $brand-color
+		.partners-block
+			flex: auto
+			+media-breakpoint-up(sm)
+				flex: 1
 
-		div:last-child
-			color: #fff
-			margin-top: 2rem
+			.partner
+				.partner-name
+					@extend h4
+					line-height: 0.8
 
-		+media-breakpoint-up(sm)
-			max-width: 50%
-		+media-breakpoint-up(lg)
-			max-width: 40%
+				.partner-logo
+					max-width: 250px
 
-		+media-breakpoint-down(sm)
-			flex: 100% !important
+				a
+					display: table
+					text-decoration: none
+					user-select: none
+
+
+		.contacts-block
+			width: 100%
+			text-align: right
+			font-weight: 500
+			flex: 100%
+			+media-breakpoint-up(sm)
+				max-width: 55%
+				flex: auto
+			+media-breakpoint-up(md)
+				max-width: 50%
+			+media-breakpoint-up(xl)
+				max-width: 40%
+
+			h4
+				font-weight: 700
+
 			.get-in-touch
-				margin-right: 0
-				margin-top: 1em
+				flex-grow: 1
+				width: 100%
+				margin-left: auto
+
+				p
+					margin: 0
+
+				a
+					color: $brand-color
+
+			.location
+
+				font-weight: bold
+				margin-top: 2rem
 
 
 footer
-	.container
-		padding-top: 4vh
-		padding-bottom: 4vh
-
-	.partner-block
+	.partners-list
 		display: flex
-		//flex: 1
+		justify-content: center
+		width: auto
 		//max-width: 300px
 		line-height: 0
-		margin: 0 2vw
 		overflow: hidden
-
+		.partner
+			margin: 2vw
 		.partner-logo
+			position: relative
+			height: 100%
 			span
 				> span, img
 					width: auto !important
@@ -512,22 +513,6 @@ footer
 					min-width: unset !important
 					min-height: unset !important
 
-	.partners
-		&.partner-logos
-			display: flex
-			justify-content: center
-
-		.partner-logo
-			position: relative
-			height: 100%
-
-.copyright
-	border-top: 1px solid $bg-color
-	text-align: center
-	padding: 3px
-
-	a
-		color: $brand-color
 
 .registration
 	.meta-block, .questionnaire-block
@@ -536,6 +521,11 @@ footer
 
 	.questionnaire-block
 		margin-top: 2em
+
+
+.events-calendar-modal
+	.modal-body
+		padding-top: 4vh
 
 .calendar-button
 	position: fixed
@@ -553,10 +543,6 @@ footer
 	span
 		margin-left: 0.5rem
 
-
-.events-calendar-modal
-	.modal-body
-		padding-top: 4vh
 
 .forum-group
 	.forum:not(:last-child)
@@ -674,4 +660,11 @@ footer
 			&::after
 				margin: 0
 				background-color: white
+
+
+.copyright
+	border-top: 1px solid $primary-bg-color
+	text-align: center
+	padding: 3px
+
 

@@ -49,10 +49,10 @@
   @return round(strip-units($em) * strip-units($fontsize))*1px
 
 //Автоматическое центрирование
-@mixin push--auto
+@mixin push--auto($mx: auto)
   margin:
-    left: auto
-    right: auto
+    left: $mx
+    right: $mx
 
 //Абсолютное позиционирование в размер родителя
 @mixin push--absolute($t: 0, $r: none, $b: none, $l: none)
@@ -249,11 +249,7 @@ $parallax-ios: true !default
 @mixin placeholder($color)
   ::-webkit-input-placeholder
     color: $color
-  :-moz-placeholder
-    color: $color
   ::-moz-placeholder
-    color: $color
-  :-ms-input-placeholder
     color: $color
 
 @function calcFluidFontSize($f-min, $f-max, $w-min, $w-max, $units: px)

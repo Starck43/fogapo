@@ -3,8 +3,11 @@
 @import "../node_modules/bootstrap/scss/mixins"
 
 $font-family-sans-serif: "exo2", Tahoma, Arial
-$bg-color: #a6a6a6
 $brand-color: #8c52ff
+
+$brand-bg-color: transparentize($brand-color, 0.7)
+$primary-bg-color: #a6a6a6 //transparentize(black, 0.7)
+$secondary-bg-color: transparentize(white, 0.3)
 
 $header-title-color: white
 $link-color: $brand-color
@@ -16,6 +19,6 @@ $countdown-number-offset: 0.5em
 $border-radius: 8px
 $icon-size: 1.2rem
 $border-width: 3px
-$modal-dialog-bg: lighten($bg-color, 30%)
+$modal-dialog-bg: lighten($primary-bg-color, 30%)
 $event-avatar-size: 320px
 $event-avatar-size-sm: 180px

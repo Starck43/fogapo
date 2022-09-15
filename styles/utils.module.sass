@@ -46,9 +46,6 @@
 	@extend .py-2vh
 
 
-.bg-white
-	background-color: #fff !important
-
 .flex-wrap
 	display: flex
 	flex-wrap: wrap
@@ -105,6 +102,14 @@
 
 .rounded
 	border-radius: 50rem !important
+
+.bordered
+	border: solid $border-width $brand-color
+	overflow: hidden
+	&.white-border-color
+		border-color: white
+	&.primary-border-color
+		border-color: $border-color
 
 .no-decoration
 	text-decoration: none !important
@@ -182,18 +187,49 @@
 	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, .07), 0 4px 6px -2px rgba(0, 0, 0, .05)
 
 .link
+	color: $brand-color
 	user-select: none
 	cursor: pointer
-	color: $brand-color
+	&:hover
+		color: darken($brand-color, 20%)
 
 .highlight, strong
 	color: $brand-color !important
 
+.bg-color
+	&-white
+		background-color: white !important
+	&-secondary
+		background-color: $secondary-bg-color !important
+	&-primary
+		background-color: $primary-bg-color !important
+	&-brand
+		background-color: $brand-bg-color !important
+
+.frame
+	padding: 1.5rem
+	color: #000
+	background-color: transparentize(white, 0.1)
+	border-radius: $border-radius !important
+	&:not(.no-border)
+		@extend .bordered
+
+.bg-image
+	background-size: cover
+	background-attachment: scroll
+	background-repeat: no-repeat
+	background-blend-mode: color
+	background-position: center
+	@media (max-width: 576px) and (orientation: portrait)
+		background-size: contain
+		background-position: center bottom
+
+
 blockquote
-	border-left: 4px solid white
+	//border-left: 4px solid white
 	padding: 2px 1rem
 	font-family: initial
-
+	margin: 0
 	p
 		text-align: left
 
@@ -243,8 +279,7 @@ blockquote
 	display: none
 	width: 100%
 	height: 100%
-	overflow-x: hidden
-	overflow-y: auto
+	overflow: hidden
 	outline: 0
 
 	&.fade
@@ -282,13 +317,13 @@ blockquote
 
 .modal-dialog
 	position: relative
-	width: auto
+	width: 100%
 	max-width: 100%
 	margin: auto
 	pointer-events: none
 	+media-breakpoint-up(sm)
-		max-width: 90%
-		margin: 1.75rem auto
+		width: 90%
+		margin: auto
 
 	form
 		width: 100%
@@ -329,7 +364,7 @@ blockquote
 	border-top-left-radius: $border-radius - 1px
 	border-top-right-radius: $border-radius - 1px
 	//border-bottom: $border-width solid white
-	box-shadow: 0 0 2vh 3vh lighten($bg-color, 30%)
+	box-shadow: 0 0 2vh 3vh $modal-dialog-bg
 	z-index: 1
 
 	.modal-title
@@ -364,6 +399,7 @@ blockquote
 			height: auto
 
 	+media-breakpoint-up(md)
+		margin: 1.75rem auto
 		height: calc(100% - 3.5rem)
 
 .form-control:focus
