@@ -1,13 +1,14 @@
+import Container from "../UI/container"
 import {tripQuotes} from "../../core/utils"
 
 
 export default function Reviews({reviews, ...props}) {
 	const reviewAuthor = (name) => <span className="review-author">{name}</span>
 	return (
-		<ul {...props}>
-			<h3 className="title">Отзывы</h3>
+		<Container {...props}>
+			<h3 className="title review-title">Отзывы</h3>
 			{reviews.map(review =>
-				<li className="review" key={review.id}>
+				<div className="review frame no-border" key={review.id}>
 					{review.content && <blockquote className="review-content">
 						&ldquo;
 						<i>{tripQuotes(review.content)}</i>
@@ -20,8 +21,8 @@ export default function Reviews({reviews, ...props}) {
 							: reviewAuthor(review.visitor?.name || review.author)
 						}
 					</blockquote>}
-				</li>
+				</div>
 			)}
-		</ul>
+		</Container>
 	)
 }
