@@ -15,9 +15,11 @@ const Items = ({selected, items, closeHandler}) => {
 						year: "numeric",
 						hour12: false,
 					})}
+
 					{daysToTarget(item.date_forum)}
 				</div>
-				<Link href={`/${item.id}`} replace>
+
+				<Link href={`/${item.id}`}>
 					<a className={`forum-body shadow4`} onClick={closeHandler}>
 						<div className="forum-title">
 							<h4 className="title">{item.title}</h4>

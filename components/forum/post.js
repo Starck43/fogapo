@@ -1,4 +1,4 @@
-import {useEffect} from "react"
+//import {useEffect} from "react"
 import Head from "next/head"
 
 import PostHeader from "./post-header"
@@ -10,10 +10,12 @@ import DATA, {SITE_NAME} from "../../core/constants"
 
 export default function Post({post, posts}) {
 
+/*
 	useEffect( () => {
 		let background = post?.page_background || DATA.background
 		document.body.style.background = `url(${background}) bottom right scroll no-repeat`
 	},[post])
+*/
 
 	return (
 		<>
@@ -32,7 +34,7 @@ export default function Post({post, posts}) {
 
 			<PostHeader posts={posts} post={post}/>
 			<PostBody post={post}/>
-			<PostFooter partners={post.partners} contacts={post.contacts}/>
+			<PostFooter post={post}/>
 		</>
 	)
 }

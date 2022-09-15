@@ -1,9 +1,9 @@
 import {Fragment, useState} from "react"
 import {AiFillCalendar as CalendarIcon} from "react-icons/ai"
+import {Accordion} from "react-bootstrap"
 
 import Items from "./items"
 import {AlertDialog} from "../UI/dialogs"
-import {Accordion} from "react-bootstrap"
 
 
 const Calendar = ({selected, posts}) => {
@@ -15,9 +15,12 @@ const Calendar = ({selected, posts}) => {
 
 	return (
 		<Fragment>
+
 			<div className="calendar-button centered" onClick={handleCalendarModal}>
 				<CalendarIcon/><span>Календарь мероприятий</span>
 			</div>
+
+			{show &&
 			<AlertDialog
 				title="Календарь мероприятий"
 				show={show}
@@ -38,9 +41,11 @@ const Calendar = ({selected, posts}) => {
 				</div>
 
 				<div className={`forum-group prev`}>
-					<Accordion className="prev-forums-accordion">
+					<Accordion className="prev-forums-accordion" alwaysOpen>
 						<Accordion.Item eventKey="1">
-							<Accordion.Header><div className="title">Архив мероприятий</div></Accordion.Header>
+							<Accordion.Header>
+								<div className="title">Архив мероприятий</div>
+							</Accordion.Header>
 							<Accordion.Body>
 								<ul className="prev-forums">
 									<Items
@@ -55,6 +60,8 @@ const Calendar = ({selected, posts}) => {
 
 				</div>
 			</AlertDialog>
+			}
+
 		</Fragment>
 	)
 }

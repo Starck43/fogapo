@@ -1,13 +1,10 @@
 import Partners from "./partners"
-import Container from '../UI/container'
 
 
-export default function PostFooter({partners}) {
+export default function PostFooter({post}) {
 	return (
-		<footer className="post-footer bg-white">
-			<Container>
-				<Partners className="partner-logos" partners={partners} fields={['logo']}/>
-			</Container>
+		<footer className={`post-footer ${post.reviews?.length > 0 ? "bg-color-white" : "bg-color-primary"} p-2`}>
+			<Partners partners={post.partners} className="partners-block mx-auto"/>
 		</footer>
 	)
 }

@@ -12,7 +12,7 @@ import DATA, {HOME_TITLE} from "../../core/constants"
 
 export default function PostHeader({posts, post}) {
 	return (
-		<header className="post-header flex-column">
+		<header className="post-header bg-color-primary flex-column p-4">
 			<Container className="pt-5 pb-4">
 
 				<Calendar selected={post.id} posts={posts}/>
