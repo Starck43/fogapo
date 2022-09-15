@@ -1,10 +1,5 @@
 // import getConfig from 'next/config'
 
-export const isSafari = () => {
-	var userAgent = navigator.userAgent.toLowerCase()
-	return /^((?!chrome|android).)*safari/i.test(userAgent)
-}
-
 export const getNaturalImageSizes = (img) => {
 	return {
 		width: img?.naturalWidth,
@@ -41,11 +36,12 @@ export const getCountdown = (target) => {
 
 export const daysToTarget = (target) => {
 	let {days} = getCountdown(new Date(target))
-	if (!days) return null
 
 	switch (days) {
+		case "undefined":
+			return null
 		case 0:
-			return <span>Сегодня</span>
+			return <span>сегодня</span>
 		case 1:
 			return <span>остался 1 день</span>
 		default:
@@ -63,6 +59,22 @@ export const createThumbUrl = (src, width) => {
 	return src
 }
 
+export const smoothScroll = (target, offset, parent = null) => {
+	if (typeof window === "undefined") return null
+	let parentOffset
+	if (!parent) {
+		parent = window
+		parentOffset = window.pageYOffset
+	} else {
+		parentOffset = parent.offsetTop
+	}
+
+	let childOffset = target.getBoundingClientRect().top
+	parent.scrollTo({
+		top: childOffset + parentOffset + offset,
+		behavior: "smooth"
+	})
+}
 
 export const absoluteUrl = (url) => {
 	if (url && url.indexOf("http", 0) === -1) return process.env.SERVER + url
