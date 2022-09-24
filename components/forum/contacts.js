@@ -1,8 +1,8 @@
 import {HtmlContent} from "../UI/html-content"
 
 
-export default function Contacts({info, location, ...props}) {
-	if (!location && !info) return
+export default function Contacts({info, location, isActive, ...props}) {
+	if (!isActive || !location && !info) return
 
 	return (
 		<div {...props}>

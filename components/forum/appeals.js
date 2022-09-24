@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react"
+import {Fragment, useEffect, useState} from "react"
 import {useRouter} from "next/router"
 
 import OnlineRegistration from "../forms/main"
@@ -9,17 +9,15 @@ import Container from "../UI/container"
 import DATA from "../../core/constants"
 
 
-const Appeals = ({id, content, cost, date_forum, reg_is_active, reg_form, ...props}) => {
+const Appeals = ({id, content, cost, reg_form, events, isActive}) => {
 	const [showForm, setShowForm] = useState(false)
 	const [isRegOpen, setRegOpen] = useState(true)
 	const router = useRouter()
 
 	useEffect(() => {
-		let curDate = new Date()
-		let forumDate = new Date(date_forum)
-		let available = reg_is_active && curDate < forumDate
+
 		//console.log(reg_is_active, forumDate)
-		setRegOpen(available)
+		setRegOpen(isActive)
 
 		if (router.asPath.endsWith(`?registration`)) {
 			setShowForm(true)
@@ -36,7 +34,7 @@ const Appeals = ({id, content, cost, date_forum, reg_is_active, reg_form, ...pro
 			return () => link.removeEventListener("click", openRegistration)
 		}
 
-	}, [date_forum, reg_is_active, router.asPath])
+	}, [isActive, router.asPath])
 
 
 	const handleRegistrationClick = () => {
@@ -44,27 +42,32 @@ const Appeals = ({id, content, cost, date_forum, reg_is_active, reg_form, ...pro
 	}
 
 	return (
-		<Container {...props}>
-			<HtmlContent className="appeal-body">
+		<Fragment>
+			<HtmlContent className="appeal-body container p-4 mx-auto">
 				{content}
 			</HtmlContent>
 
 			{isRegOpen &&
-			<div className="appeal-footer mt-4 mx-auto">
-				<div className="appeal-reg-info">
-					<HtmlContent>{DATA.reg_content}</HtmlContent>
-					<b>
-						** Участие в мероприятии <span
-						className="highlight">{`${cost ? "платное" : "бесплатное"}!`}</span>
-					</b>
-				</div>
-				<div className="button" onClick={handleRegistrationClick}>Зарегистрироваться online</div>
+			<div
+				className={`appeal-footer ${events.length === 0 ? "bg-white shadow4 p-4 mt-4vh" : "mt-4 mx-auto"}`}>
+				<Container>
+					<div className="appeal-reg-info">
+						<HtmlContent>{DATA.reg_content}</HtmlContent>
+						<b>
+							** Участие в мероприятии <span
+							className="highlight">{`${cost ? "платное" : "бесплатное"}!`}</span>
+						</b>
+					</div>
+					<div className="button" onClick={handleRegistrationClick}>Зарегистрироваться online</div>
+				</Container>
+				<div className={`overlay ${events.length === 0 ? "bg-color-brand" : ""}`}/>
 			</div>
 			}
 
 			{showForm
 				? isRegOpen
-					? <OnlineRegistration id={id} show={showForm} handler={handleRegistrationClick} regForm={reg_form}/>
+					? <OnlineRegistration id={id} show={showForm} handler={handleRegistrationClick}
+					                      regForm={reg_form}/>
 					: <AlertDialog
 						title="Регистрация на мероприятие"
 						show={showForm}
@@ -79,7 +82,9 @@ const Appeals = ({id, content, cost, date_forum, reg_is_active, reg_form, ...pro
 					</AlertDialog>
 				: null
 			}
-		</Container>
+
+		</Fragment>
+
 	)
 }
 
