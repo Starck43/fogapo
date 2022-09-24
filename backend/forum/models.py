@@ -216,7 +216,7 @@ class Invitation(models.Model):
 
 
 class Review(models.Model):
-	forum = models.ForeignKey(Forum, on_delete=models.CASCADE, null=True, related_name='review', verbose_name = 'Форум', help_text='')
+	forum = models.ManyToManyField(Forum, related_name='review_forums', verbose_name = 'Форум', help_text='')
 	visitor = models.ForeignKey(Visitor, related_name='review_visitor', null=True, blank=True, on_delete=models.CASCADE, verbose_name='Посетитель форума')
 	author = models.CharField('Имя автора', max_length=150, null=True, blank=True, help_text='')
 	link = models.URLField('Ссылка на сайт', null=True, blank=True, help_text='Внешняя ссылка на сайт автора')
@@ -227,7 +227,7 @@ class Review(models.Model):
 		verbose_name = "отзыв"
 		verbose_name_plural = "Отзывы посетителей"
 		ordering = ['-forum__date_forum']
-		unique_together = ('visitor', 'forum',)
+		#unique_together = ('visitor', 'forum',)
 		db_table = 'reviews'
 
 	def __str__(self):

@@ -50,6 +50,7 @@ class PartnerSerializer(serializers.ModelSerializer):
 
 class HostSerializer(serializers.ModelSerializer):
 	avatar = serializers.ImageField(max_length=None, use_url=True)
+	excerpt = FixCharCaretSerializer()
 
 	class Meta:
 		model = Host
@@ -72,7 +73,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 	visitor = VisitorSerializer(many=False)
 	class Meta:
 		model = Review
-		fields = '__all__' #( 'id', 'content', 'author', 'link',  'visitor', )
+		fields = ( 'id', 'content', 'visitor', 'author', 'link', )
 
 
 
@@ -90,7 +91,7 @@ class PostDetailSerializer(serializers.ModelSerializer):
 	content = FixAbsolutePathSerializer()
 	events = EventSerializer(source='event', many=True)
 	partners = PartnerSerializer(many=True)
-	reviews = ReviewSerializer(source='review', many=True)
+	reviews = ReviewSerializer(source='review_forums', many=True)
 	subtitle = FixCharCaretSerializer()
 	location = FixCharCaretSerializer()
 	info = FixRichCaretSerializer()

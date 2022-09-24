@@ -56,7 +56,7 @@ class ForumAdmin(admin.ModelAdmin):
 	list_display = ('title', 'date_forum',)
 	list_display_links = ('title',)
 	list_filter = ('date_forum',)
-	inlines = [EventInlineAdmin, ReviewInlineAdmin]
+	inlines = [EventInlineAdmin]
 
 
 
@@ -85,8 +85,8 @@ class PartnerAdmin(admin.ModelAdmin):
 
 @admin.register(Visitor)
 class VisitorAdmin(admin.ModelAdmin):
-	list_display = ('forum', 'name', 'email', 'status', 'reg_id')
-	list_display_links = ('forum', 'name',)
+	list_display = ('name', 'email', 'status', 'reg_id', 'forum_list', )
+	list_display_links = ('name',)
 	search_fields = ('name', 'email', 'forum__title', )
 	list_filter = ('forum', 'occupation', 'status', )
 	date_hierarchy = 'forum__date_forum'
@@ -98,6 +98,10 @@ class VisitorAdmin(admin.ModelAdmin):
 		return get_visitor_reg_num(obj)
 	reg_id.short_description = 'Рег №'
 
+	def forum_list(self, obj):
+		return ', \n'.join(obj.forum.all().distinct().values_list('title', flat=True))
+
+	forum_list.short_description = 'Форумы'
 
 	def save_model(self, request, obj, form, change):
 		super().save_model(request, obj, form, change)
@@ -136,8 +140,15 @@ class InvitationAdmin(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
-	list_display = ('visitor', 'author', 'forum',)
-	list_display_links = ('forum', 'visitor', 'author', )
+	list_display = ('visitor', 'author', 'forum_list',)
+	list_display_links = ('visitor', 'author', )
 	search_fields = ('content', 'author', 'visitor__name', 'forum__title', )
 	list_filter = ('forum', 'visitor', )
+
+	def forum_list(self, obj):
+		return ', '.join(obj.forum.all().distinct().values_list('title', flat=True))
+
+	forum_list.short_description = 'Форумы'
+
+
 
