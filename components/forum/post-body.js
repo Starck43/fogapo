@@ -36,7 +36,7 @@ export default function PostBody({post}) {
 		<main className="post post-body">
 
 			{date_forum &&
-			<section className="appeals-forum bg-image bg-color-secondary pt-4vh"
+			<section className={`appeals-forum bg-image bg-color-secondary ${events?.length === 0 ? "pt-4vh" : "py-4vh"}`}
 			         style={{
 				         backgroundImage: `url(${background})`,
 				         backgroundPosition: "right bottom",
