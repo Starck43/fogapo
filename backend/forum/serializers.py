@@ -69,7 +69,7 @@ class EventSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
-	content = FixRichCaretSerializer()
+	content = FixCharCaretSerializer()
 	visitor = VisitorSerializer(many=False)
 	class Meta:
 		model = Review
