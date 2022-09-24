@@ -15,7 +15,7 @@ export default function PostHeader({posts, post}) {
 		<header className="post-header bg-color-primary flex-column p-4">
 			<Container className="pt-5 pb-4">
 
-				<Calendar selected={post.id} posts={posts}/>
+				<Calendar selected={post?.id} posts={posts}/>
 
 				<div className="header-logos flex-wrap">
 					<Link href="/">
@@ -40,7 +40,7 @@ export default function PostHeader({posts, post}) {
 					</HtmlContent>
 					}
 				</div>
-				<ForumDate datetime={new Date(post.date_forum)}/>
+				{post?.date_forum && <ForumDate datetime={new Date(post.date_forum)}/>}
 			</Container>
 		</header>
 	)

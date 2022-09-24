@@ -22,7 +22,7 @@ export default function Events({events, ...props}) {
 									? hostTitle(event.host.name)
 									: null
 							}
-							{event.host?.excerpt && <p className="host-excerpt">{event.host.excerpt}</p>}
+							{event.host?.excerpt && <HtmlContent className="host-excerpt">{event.host.excerpt}</HtmlContent>}
 						</div>
 
 						{event.host?.avatar &&
