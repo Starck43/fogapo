@@ -258,8 +258,8 @@ main
 	.appeals-forum
 		width: 100%
 		flex: auto
-		display: flex
-		align-items: center
+		//display: flex
+		//align-items: center
 
 		.appeal-body
 			img
@@ -317,10 +317,18 @@ main
 					margin-top: 1.5rem
 
 		.appeal-footer
-			display: flex
-			align-items: self-end
+			position: relative
+			.overlay
+				content: ''
+				+push--absolute()
+
+			.container
+				display: flex
+				align-items: self-end
+				z-index: 1
 
 			.appeal-reg-info
+				margin-right: 1.5rem
 				> div
 					margin-bottom: .75rem
 
@@ -329,8 +337,8 @@ main
 
 			.button
 				max-width: 300px
-				max-height: 75px
-				margin-left: 1em
+				max-height: 90px
+				margin-left: auto
 
 		+media-breakpoint-down(md)
 			.appeal-body
@@ -345,7 +353,8 @@ main
 						margin-top: 1rem
 
 			.appeal-footer
-				flex-direction: column
+				.container
+					flex-direction: column
 
 				.button
 					align-items: center
@@ -434,16 +443,20 @@ main
 
 
 	.info-forum
-		> div
-			+push--auto(6vw)
+		.container
+			justify-content: space-between
+		.partners-block, .partners-list
 			+media-breakpoint-up(sm)
 				+push--auto
-
+			+media-breakpoint-up(xxl)
+				padding: 0 !important
 
 		.partners-block
 			flex: auto
+			margin-right: 0
 			+media-breakpoint-up(sm)
 				flex: 1
+				margin-right: 4vw
 
 			.partner
 				.partner-name
@@ -479,6 +492,7 @@ main
 				flex-grow: 1
 				width: 100%
 				margin-left: auto
+				margin-bottom: 2rem
 
 				p
 					margin: 0
@@ -487,9 +501,7 @@ main
 					color: $brand-color
 
 			.location
-
 				font-weight: bold
-				margin-top: 2rem
 
 
 footer
