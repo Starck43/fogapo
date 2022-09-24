@@ -6,7 +6,7 @@ import Items from "./items"
 import {AlertDialog} from "../UI/dialogs"
 
 
-const Calendar = ({selected, posts}) => {
+const Calendar = ({selected=0, posts}) => {
 	const [show, setShow] = useState(false)
 
 	const handleCalendarModal = () => {
@@ -41,8 +41,8 @@ const Calendar = ({selected, posts}) => {
 				</div>
 
 				<div className={`forum-group prev`}>
-					<Accordion className="prev-forums-accordion" alwaysOpen>
-						<Accordion.Item eventKey="1">
+					<Accordion className="prev-forums-accordion" defaultActiveKey={selected.toString()} alwaysOpen>
+						<Accordion.Item eventKey="0">
 							<Accordion.Header>
 								<div className="title">Архив мероприятий</div>
 							</Accordion.Header>
