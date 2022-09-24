@@ -9,15 +9,11 @@ import Container from "../UI/container"
 import DATA from "../../core/constants"
 
 
-const Appeals = ({id, content, cost, reg_form, events, isActive}) => {
+const Appeals = ({id, content, cost, reg_form, reg_is_active, events, isActive}) => {
 	const [showForm, setShowForm] = useState(false)
-	const [isRegOpen, setRegOpen] = useState(true)
 	const router = useRouter()
 
 	useEffect(() => {
-
-		//console.log(reg_is_active, forumDate)
-		setRegOpen(isActive)
 
 		if (router.asPath.endsWith(`?registration`)) {
 			setShowForm(true)
@@ -34,7 +30,7 @@ const Appeals = ({id, content, cost, reg_form, events, isActive}) => {
 			return () => link.removeEventListener("click", openRegistration)
 		}
 
-	}, [isActive, router.asPath])
+	}, [router.asPath])
 
 
 	const handleRegistrationClick = () => {
@@ -47,10 +43,10 @@ const Appeals = ({id, content, cost, reg_form, events, isActive}) => {
 				{content}
 			</HtmlContent>
 
-			{isRegOpen &&
+			{isActive &&
 			<div
-				className={`appeal-footer ${events.length === 0 ? "bg-white shadow4 p-4 mt-4vh" : "mt-4 mx-auto"}`}>
-				<Container>
+				className={`appeal-footer mt-4vh ${events.length === 0 ? "bg-white shadow4" : "mx-auto"}`}>
+				<Container className="p-4">
 					<div className="appeal-reg-info">
 						<HtmlContent>{DATA.reg_content}</HtmlContent>
 						<b>
@@ -60,14 +56,18 @@ const Appeals = ({id, content, cost, reg_form, events, isActive}) => {
 					</div>
 					<div className="button" onClick={handleRegistrationClick}>Зарегистрироваться online</div>
 				</Container>
-				<div className={`overlay ${events.length === 0 ? "bg-color-brand" : ""}`}/>
+				{events.length === 0 && <div className="overlay bg-color-brand"/>}
 			</div>
 			}
 
 			{showForm
-				? isRegOpen
-					? <OnlineRegistration id={id} show={showForm} handler={handleRegistrationClick}
-					                      regForm={reg_form}/>
+				? isActive
+					? <OnlineRegistration
+						id={id} show={showForm}
+						regForm={reg_form}
+						handler={handleRegistrationClick}
+					/>
+
 					: <AlertDialog
 						title="Регистрация на мероприятие"
 						show={showForm}
@@ -77,7 +77,7 @@ const Appeals = ({id, content, cost, reg_form, events, isActive}) => {
 						<h4 className="title">Регистрация не доступна</h4>
 						{reg_is_active
 							? <p>Мероприятие уже завершилось!</p>
-							: <p>Ожидайте открытия регистрации!</p>
+							: <p>Ожидайте начала регистрации!</p>
 						}
 					</AlertDialog>
 				: null
