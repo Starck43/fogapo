@@ -59,7 +59,7 @@ class Forum(models.Model):
 	date_forum = models.DateTimeField('Дата события')
 	partners = models.ManyToManyField(Partner, blank=True, related_name='partners', verbose_name = 'Партнеры мероприятия', help_text='')
 	location = models.TextField('Место проведения', blank=True, help_text='')
-	info = RichTextField('Дополнительная информация', blank=True, help_text='Дополнительный блок, расположенный под местом проведения')
+	info = RichTextUploadingField('Дополнительная информация', blank=True, help_text='Дополнительный блок, расположенный под местом проведения')
 	reg_is_active = models.BooleanField('Отображать блок регистрации до начала мероприятия', null=True, default=True)
 	cost = models.BooleanField('Платное участие', null=True, default=False)
 	reg_form = models.PositiveSmallIntegerField('Форма регистрации', null=True, choices=CHOICES, default=0, help_text='' )
