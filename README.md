@@ -1,6 +1,6 @@
 # fogapo.ru
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with CSR fetching JSON data from server via API.
+This is a [Next.js](https://nextjs.org/) commercial project with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) + CSR fetching JSON data from server via API.
 
 
 
