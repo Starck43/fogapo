@@ -1,6 +1,6 @@
 import {memo, useCallback, useState} from "react"
 
-import {RegistrationForm} from "./registrationForm"
+import RegistrationForm from "./registrationForm"
 import ResponseContent from "./responseContent"
 import {FORM_DATA, FORM_DATA_EXT} from "../../core/constants"
 import {AlertDialog, ModalDialog} from "../UI/dialogs"
