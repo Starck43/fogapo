@@ -1,4 +1,4 @@
-import {memo, useMemo} from "react"
+import {memo} from "react"
 
 import {HtmlContent} from "../UI/html-content"
 import {Avatar} from "../UI/avatar"
@@ -6,9 +6,6 @@ import Container from "../UI/container"
 
 
 function Events({events, ...props}) {
-
-	const hostTitle = useMemo(() => (name) => (<h3 className="host-title">{name}</h3>), [])
-
 	return (
 		<Container {...props}>
 			{events.map(event =>
@@ -21,10 +18,10 @@ function Events({events, ...props}) {
 							{event.host?.pre_name && <span>{event.host.pre_name}</span>}
 							{event.host?.name && event.host?.link
 								? <a href={event.host?.link} className="no-decoration">
-									{hostTitle(event.host.name)}
+									<h3 className="host-title">{event.host.name}</h3>
 								</a>
 								: event.host?.name
-									? hostTitle(event.host.name)
+									? <h3 className="host-title">{event.host.name}</h3>
 									: null
 							}
 							{event.host?.excerpt &&

@@ -5,7 +5,7 @@ import SubTitle from "../UI/subtitle"
 
 import style from "/styles/form.module.sass"
 
-export const RegistrationForm = memo(({id, data, submitHandler, closeHandler, validated}) => {
+const RegistrationForm = ({id, data, submitHandler, closeHandler, validated}) => {
 	return (
 		<Form className={`flex-column my-2vh ${style.form}`} onSubmit={submitHandler} validated={validated}>
 			<input type="hidden" name="id" value={id}/>
@@ -28,4 +28,6 @@ export const RegistrationForm = memo(({id, data, submitHandler, closeHandler, va
 			</div>
 		</Form>
 	)
-})
+}
+
+export default memo(RegistrationForm)

@@ -45,7 +45,7 @@ const Appeals = (props) => {
 			return () => link.removeEventListener("click", onOpenRegistration)
 		}
 
-	}, [router.asPath])
+	}, [onOpenRegistration, router.asPath])
 
 
 	return (
