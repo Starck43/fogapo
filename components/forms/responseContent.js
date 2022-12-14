@@ -1,5 +1,6 @@
+import {memo} from "react"
 
-export default function ResponseContent ({data, className=""}) {
+function ResponseContent ({data, className=""}) {
 	const date = new Date(data['date'])
 	return (
 		<div className={`container ${className}`}>
@@ -32,3 +33,5 @@ export default function ResponseContent ({data, className=""}) {
 		</div>
 	)
 }
+
+export default memo(ResponseContent)

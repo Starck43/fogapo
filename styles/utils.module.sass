@@ -237,8 +237,10 @@
 blockquote
 	//border-left: 4px solid white
 	padding: 2px 1rem
-	font-family: initial
 	margin: 0
+	font-family: initial
+	font-size: 0.8rem
+
 	p
 		text-align: left
 
@@ -344,6 +346,7 @@ blockquote
 	width: 100%
 	background-color: $modal-dialog-bg
 	background-clip: padding-box
+	overflow: hidden
 	pointer-events: auto
 	outline: 0
 	@extend .shadow3
@@ -450,5 +453,3 @@ input ~ label
 		&:valid, &.is-valid
 			& ~ .form-check-label
 				color: $brand-color
-
-

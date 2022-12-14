@@ -1,9 +1,11 @@
 import Container from "../UI/container"
 import {tripQuotes} from "../../core/utils"
+import {memo} from "react"
 
 
-export default function Reviews({reviews, ...props}) {
+function Reviews({reviews, ...props}) {
 	const reviewAuthor = (name) => <span className="review-author">{name}</span>
+
 	return (
 		<Container {...props}>
 			<h3 className="title review-title">Отзывы</h3>
@@ -26,3 +28,5 @@ export default function Reviews({reviews, ...props}) {
 		</Container>
 	)
 }
+
+export default memo(Reviews)

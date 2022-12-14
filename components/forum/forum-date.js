@@ -1,8 +1,9 @@
+import {memo} from "react"
 import DateFormatter from "../UI/date-formatter"
 import Countdown from "../UI/countdown"
 
 
-export default function ForumDate({datetime}) {
+function ForumDate({datetime}) {
 	return (
 		<div className="date-forum flex-column end">
 			<div className="date-block">
@@ -18,3 +19,5 @@ export default function ForumDate({datetime}) {
 		</div>
 	)
 }
+
+export default memo(ForumDate)

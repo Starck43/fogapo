@@ -13,8 +13,6 @@
 html
 	font-size: 14px
 	+media-breakpoint-up(md)
-		font-size: 16px
-	+media-breakpoint-up(lg)
 		font-size: 18px
 	background-color: $secondary-bg-color
 
@@ -98,14 +96,11 @@ header
 
 
 	.header-logos
-		flex: 1
-		justify-content: center
 		margin-bottom: 1rem
 
 	.logo-link
 		max-width: 4rem
 		min-width: 80px
-		margin-right: 2vw
 		user-select: none
 
 	.header-title
@@ -208,6 +203,7 @@ header
 		.container
 			flex-wrap: wrap
 			justify-content: center
+			gap: 1rem
 			min-height: 100%
 			align-items: flex-start
 
@@ -217,7 +213,6 @@ header
 		.date-forum
 			flex: 100%
 			flex-direction: row
-			margin-top: 1rem
 
 	+media-breakpoint-down(md)
 		.date-forum

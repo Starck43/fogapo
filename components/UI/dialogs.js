@@ -1,15 +1,16 @@
 import {Modal} from "react-bootstrap"
 
 
-export const AlertDialog = ({children, show, handleClose, title, footer, className, size="md", ...props}) => {
+export const AlertDialog = (props) => {
+	const {children, show, closeHandler, title, footer, className, size="md", ...other} = props
 	return (
 		<Modal
 			className={`alert-container ${className}`}
 			show={show}
-			onHide={handleClose}
+			onHide={closeHandler}
 			size={size}
 			centered
-			{...props}
+			{...other}
 			aria-labelledby="alertDialogId"
 		>
 			<Modal.Header closeButton>
@@ -26,17 +27,27 @@ export const AlertDialog = ({children, show, handleClose, title, footer, classNa
 }
 
 
-export const ModalDialog = ({children, show, closeHandler, title, footer, className, size="xl"}) => (
-	<Modal className={`${className}`} show={show} onHide={closeHandler} size={size} fullscreen="sm-down" scrollable={true} centered>
-		<Modal.Header closeButton>
-			<Modal.Title>{title}</Modal.Title>
-		</Modal.Header>
+export const ModalDialog = (props) => {
+	const {children, show, closeHandler, title, footer, className, size="xl"} = props
+	return (
+		<Modal
+			className={`${className}`}
+			show={show}
+			onHide={closeHandler}
+			size={size}
+			fullscreen="sm-down"
+			scrollable={true}
+			centered
+		>
+			<Modal.Header closeButton>
+				<Modal.Title>{title}</Modal.Title>
+			</Modal.Header>
 
-		<Modal.Body className="flex-column center">
-			{children}
-		</Modal.Body>
+			<Modal.Body className="flex-column center">
+				{children}
+			</Modal.Body>
 
-		{footer}
-	</Modal>
-)
-
+			{footer}
+		</Modal>
+	)
+}

@@ -1,4 +1,4 @@
-import {Fragment, useState} from "react"
+import {Fragment, memo, useCallback, useState} from "react"
 import {AiFillCalendar as CalendarIcon} from "react-icons/ai"
 import {Accordion} from "react-bootstrap"
 
@@ -9,9 +9,9 @@ import {AlertDialog} from "../UI/dialogs"
 const Calendar = ({selected=0, posts}) => {
 	const [show, setShow] = useState(false)
 
-	const handleCalendarModal = () => {
+	const handleCalendarModal = useCallback(() => {
 		setShow(!show)
-	}
+	},[show])
 
 	return (
 		<Fragment>
@@ -24,7 +24,7 @@ const Calendar = ({selected=0, posts}) => {
 			<AlertDialog
 				title="Календарь мероприятий"
 				show={show}
-				handleClose={handleCalendarModal}
+				closeHandler={handleCalendarModal}
 				className="events-calendar-modal"
 				size="md"
 				scrollable
@@ -66,4 +66,4 @@ const Calendar = ({selected=0, posts}) => {
 	)
 }
 
-export default Calendar
+export default memo(Calendar)

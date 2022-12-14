@@ -1,18 +1,19 @@
+import {memo, useEffect, useState} from "react"
+
 import Appeals from "./appeals"
 import Events from "./events"
 import Partners from "./partners"
 import Contacts from "./contacts"
 import Reviews from "./reviews"
-import DATA from "../../core/constants"
 import Container from "../UI/container"
-import {useEffect, useState} from "react"
+import DATA from "../../core/constants"
 
 
-export default function PostBody({post}) {
+function PostBody({post}) {
 	const {date_forum, reg_is_active, events, partners, reviews, location, info} = post
 	const [isActive, setActive] = useState(false)
 
-	let background = post?.page_background || DATA.background
+	const background = post?.page_background || DATA.background
 
 	useEffect(() => {
 		if (date_forum) {
@@ -36,12 +37,14 @@ export default function PostBody({post}) {
 		<main className="post post-body">
 
 			{date_forum &&
-			<section className={`appeals-forum bg-image bg-color-secondary ${events?.length === 0 ? "pt-4vh" : "py-4vh"}`}
-			         style={{
-				         backgroundImage: `url(${background})`,
-				         backgroundPosition: "right bottom",
-				         //backgroundSize: "contain"
-			         }}
+			<section
+				className={`appeals-forum bg-color-secondary ${events?.length === 0 ? "pt-4vh" : "py-4vh"}`}
+				style={{
+					backgroundImage: `url(${background})`,
+					backgroundPosition: "right bottom",
+					backgroundRepeat: "no-repeat",
+					//backgroundSize: "contain"
+				}}
 			>
 				<Appeals isActive={isActive} {...post}/>
 			</section>
@@ -61,7 +64,8 @@ export default function PostBody({post}) {
 			>
 				<Container className="info-container px-4vw flex-wrap">
 					<Partners partners={partners} showTitle defaultType="name" className="partners-block my-4"/>
-					<Contacts location={location} info={info} isActive={isActive} className="contacts-block flex-column my-4"/>
+					<Contacts location={location} info={info} isActive={isActive}
+					          className="contacts-block flex-column my-4"/>
 				</Container>
 			</section>
 			}
@@ -75,3 +79,5 @@ export default function PostBody({post}) {
 		</main>
 	)
 }
+
+export default memo(PostBody)

@@ -1,4 +1,4 @@
-import {Fragment, useEffect, useState} from "react"
+import {Fragment, memo, useCallback, useEffect, useState} from "react"
 import {useRouter} from "next/router"
 
 import OnlineRegistration from "../forms/main"
@@ -9,33 +9,44 @@ import Container from "../UI/container"
 import DATA from "../../core/constants"
 
 
-const Appeals = ({id, content, cost, reg_form, reg_is_active, events, isActive}) => {
+const Appeals = (props) => {
+	const {
+		id,
+		content,
+		cost,
+		reg_form,
+		reg_is_active,
+		events,
+		isActive
+	} = props
 	const [showForm, setShowForm] = useState(false)
 	const router = useRouter()
+
+	const onCloseRegistration = useCallback(() => {
+		setShowForm(false)
+	}, [])
+
+
+	const onOpenRegistration = useCallback(() => {
+		setShowForm(true)
+	}, [])
+
 
 	useEffect(() => {
 
 		if (router.asPath.endsWith(`?registration`)) {
-			setShowForm(true)
+			onOpenRegistration()
 		}
 
-		// for external links pressed
-		let openRegistration = () => {
-			setShowForm(true)
-		}
 
 		const link = document.getElementById("regLink")
 		if (link) {
-			link.addEventListener("click", openRegistration)
-			return () => link.removeEventListener("click", openRegistration)
+			link.addEventListener("click", onOpenRegistration)
+			return () => link.removeEventListener("click", onOpenRegistration)
 		}
 
 	}, [router.asPath])
 
-
-	const handleRegistrationClick = () => {
-		setShowForm(!showForm)
-	}
 
 	return (
 		<Fragment>
@@ -54,7 +65,12 @@ const Appeals = ({id, content, cost, reg_form, reg_is_active, events, isActive})
 							className="highlight">{`${cost ? "платное" : "бесплатное"}!`}</span>
 						</b>
 					</div>
-					<div className="button" onClick={handleRegistrationClick}>Зарегистрироваться online</div>
+					<div
+						className="button"
+						onClick={onOpenRegistration}
+					>
+						Зарегистрироваться online
+					</div>
 				</Container>
 				{events.length === 0 && <div className="overlay bg-color-brand"/>}
 			</div>
@@ -63,15 +79,16 @@ const Appeals = ({id, content, cost, reg_form, reg_is_active, events, isActive})
 			{showForm
 				? isActive
 					? <OnlineRegistration
-						id={id} show={showForm}
+						id={id}
+						show={showForm}
 						regForm={reg_form}
-						handler={handleRegistrationClick}
+						onClose={onCloseRegistration}
 					/>
 
 					: <AlertDialog
 						title="Регистрация на мероприятие"
 						show={showForm}
-						handleClose={handleRegistrationClick}
+						closeHandler={onCloseRegistration}
 						className="registration-finished"
 					>
 						<h4 className="title">Регистрация не доступна</h4>
@@ -88,4 +105,4 @@ const Appeals = ({id, content, cost, reg_form, reg_is_active, events, isActive})
 	)
 }
 
-export default Appeals
+export default memo(Appeals)

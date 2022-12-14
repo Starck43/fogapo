@@ -1,28 +1,29 @@
-import {useEffect, useState} from "react"
+import {useEffect, useRef, useState} from "react"
 import {getCountdown, getNaturalImageSizes} from "./utils"
 
 
 export const useTimeCounter = (datetime) => {
 	const [countdown, setCountdown] = useState({})
+	const timer = useRef(0)
 
 	useEffect(() => {
-		let count = getCountdown(datetime)
+		const count = getCountdown(datetime)
 		setCountdown(count)
 		if (Object.keys(count).length) {
 			// Update the count down every 1 second
-			const interval = setInterval(() => {
+			timer.current = setInterval(() => {
 
 				// Get current date and time estimate
 				let currentCountdown = getCountdown(datetime)
 				if (currentCountdown) {
 					setCountdown(currentCountdown)
 				} else {
-					clearInterval(interval)
+					clearInterval(timer.current)
 				}
 
 			}, 1000)
 
-			return () => clearInterval(interval)
+			return () => clearInterval(timer.current)
 		}
 
 	}, [datetime])

@@ -1,7 +1,8 @@
+import {memo} from "react"
 import {Logo} from "../UI/avatar"
 
 
-export default function Partners({partners, showTitle = false, defaultType="logo", ...props}) {
+function Partners({partners, showTitle = false, defaultType="logo", ...props}) {
 	if (!partners?.length) return null
 
 	return (
@@ -24,3 +25,5 @@ export default function Partners({partners, showTitle = false, defaultType="logo
 		</div>
 	)
 }
+
+export default memo(Partners)

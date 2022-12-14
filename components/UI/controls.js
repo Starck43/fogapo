@@ -1,11 +1,13 @@
-import {Form, InputGroup, FloatingLabel} from "react-bootstrap"
+import {memo} from "react"
+import {Form} from "react-bootstrap"
 
 import InputControl from "./controls/text"
 import SelectControl from "./controls/select"
 import CheckControl from "./controls/check"
 
 
-const Control = ({
+const Control = (props) => {
+	const {
 		title,
 		type='text',
 		choices,
@@ -16,7 +18,7 @@ const Control = ({
 		placeholder='',
 		autocomplete='false',
 		name,
-	}) => {
+	} = props
 
 	return (
 		<Form.Group className="form-group mb-3" controlId={name}>
@@ -73,6 +75,4 @@ const Control = ({
 	)
 }
 
-export default Control
-
-
+export default memo(Control)

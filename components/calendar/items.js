@@ -1,3 +1,4 @@
+import {memo} from "react"
 import Link from "next/link"
 
 import {daysToTarget} from "../../core/utils"
@@ -47,4 +48,4 @@ const Items = ({selected, items, closeHandler}) => {
 			</li>
 		))
 }
-export default Items
+export default memo(Items)

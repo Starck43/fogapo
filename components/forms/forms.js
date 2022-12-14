@@ -1,11 +1,11 @@
-import {Fragment} from "react"
+import {Fragment, memo} from "react"
 import {Form, Button} from "react-bootstrap"
 import Control from "../UI/controls"
 import SubTitle from "../UI/subtitle"
 
 import style from "/styles/form.module.sass"
 
-export const RegistrationForm = ({id, data, submitHandler, closeHandler, validated}) => {
+export const RegistrationForm = memo(({id, data, submitHandler, closeHandler, validated}) => {
 	return (
 		<Form className={`flex-column my-2vh ${style.form}`} onSubmit={submitHandler} validated={validated}>
 			<input type="hidden" name="id" value={id}/>
@@ -28,4 +28,4 @@ export const RegistrationForm = ({id, data, submitHandler, closeHandler, validat
 			</div>
 		</Form>
 	)
-}
+})

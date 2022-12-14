@@ -1,4 +1,4 @@
-//import {useEffect} from "react"
+import {memo} from "react"
 import Head from "next/head"
 
 import PostHeader from "./post-header"
@@ -8,7 +8,7 @@ import PostFooter from "./post-footer"
 import DATA, {SITE_NAME} from "../../core/constants"
 
 
-export default function Post({post, posts}) {
+function Post({post, posts}) {
 
 /*
 	useEffect( () => {
@@ -38,3 +38,5 @@ export default function Post({post, posts}) {
 		</>
 	)
 }
+
+export default memo(Post)

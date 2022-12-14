@@ -1,116 +1,61 @@
-import {useState} from "react"
+import {memo, useCallback, useState} from "react"
 
 import {RegistrationForm} from "./forms"
 import ResponseContent from "./responseContent"
 import {FORM_DATA, FORM_DATA_EXT} from "../../core/constants"
-import {Fetch} from "../../core/Fetch"
 import {AlertDialog, ModalDialog} from "../UI/dialogs"
 import {Button, Modal} from "react-bootstrap"
+import {fetchFormData} from "./helpers/fetchFormData"
 
 //import style from "~/styles/reg.module.sass"
 
-
-const OnlineRegistration = ({id, show, handler, regForm}) => {
+const OnlineRegistration = ({id, show, onClose, regForm}) => {
 	const [respondedData, setRespondedData] = useState(null)
 	const [validated, setValidated] = useState(false)
 
-	const formData2Json = (form) => {
-		let formData = new FormData(form)
-		let data = Object.fromEntries(formData)
-		let json = {}, text = "", num = 1, curQuestion, prevQuestion = null
-		const REGEX = /questions[0-9]*/
+/*
+	const setResponse = useCallback(() => (response) => {
+		setRespondedData(response)
+	},[])
+*/
 
-		//console.log('form data:', data)
-
-		Object.keys(data).forEach(key => {
-			if (key.startsWith("questions")) {
-				curQuestion = key.match(REGEX) // извлечем вопрос из названия вопроса или подвопроса
-				let type = form.querySelector(`input[name="${key}"]`)?.type //определим тип input
-				let subQuestionLabel = form.querySelector(`label[for="${key}"]`)?.innerText || ""
-
-				if (!prevQuestion || curQuestion[0] !== prevQuestion[0]) {
-					let questionLabel = form.querySelector(`label[for="${curQuestion}"]`)?.innerText || ""
-					text += prevQuestion ? "\n\n" : ""
-					text += `Вопрос ${num}: ${questionLabel}\nОтвет: `
-					if (questionLabel === subQuestionLabel) {
-						text += `${data[key]}\n`
-					} else if (data[key]) {
-						text += (type === "checkbox") ? `\n✅ ${data[key]}` : `[${subQuestionLabel}] - ${data[key]}`
-						num--
-					}
-				} else {
-					text += (data[key]) ? (type === "checkbox" ? `\n\n✅ ${data[key]}` : `, [${subQuestionLabel}] - ${data[key]}`) : ""
-				}
-
-				num++
-				prevQuestion = curQuestion // сохраним ключ-вопрос
-			} else {
-				json[key] = data[key]
-			}
-		})
-		json["questionnaire"] = text
-
-		return json
-	}
-
-
-	const uploadData = async (form) => {
-		let data = formData2Json(form) // конвертируем данные формы в json
-		//console.log(data)
-		const res = await Fetch(process.env.API_SERVER, process.env.API_ENDPOINTS.saveUser, {}, {
-			method: "post",
-			headers: {
-				//'Content-Type': 'application/x-www-form-urlencoded',
-				//'Content-Type': 'multipart/form-data',
-				"Origin": process.env.SERVER,
-				"Content-Type": "application/json",
-				"Accept": "application/json, application/xml, text/plain, text/html",
-			},
-			body: JSON.stringify(data),
-			//credentials: 'include',
-		})
-
-		setRespondedData(res)
-		//console.log('result:',res)
-		return res
-	}
-
-
-	const handleSubmit = (e) => {
-		let form = e.target.parentNode.parentNode.querySelector("form")
+	const handleSubmit = useCallback( async (e) => {
+		const form = e.target.parentNode.parentNode.querySelector("form")
+		e.preventDefault()
+		e.stopPropagation()
 
 		if (form.checkValidity() === false) {
-			e.preventDefault()
-			e.stopPropagation()
 			setValidated(true)
-			let invalid = form.querySelector(":invalid")
+			const invalid = form.querySelector(":invalid")
 			if (invalid) {
 				invalid.scrollIntoView({behavior: "smooth"})
 				invalid.focus()
 			}
 		} else {
-			setRespondedData(uploadData(form))
+			const data = await fetchFormData(form)
+			setRespondedData(data)
 		}
-	}
+	}, [])
 
 
-	const handleClose = () => handler(false)
+	//const closeHandler = useCallback(() => onClose?.(false), [onClose])
 
+	console.log("res:", respondedData)
 
-	if (respondedData instanceof Promise) return (
-		<AlertDialog title="Регистрация на мероприятие" show={show} closeHandler={handler}>
-			<h4 className="title">Связь с сервером...</h4>
-		</AlertDialog>
-	)
-
-	else if (respondedData && respondedData?.data.status !== -1 && !respondedData?.error) return (
+	if (respondedData instanceof Promise) {
+		return (
+			<AlertDialog title="Регистрация на мероприятие" show={show} closeHandler={onClose}>
+				<h4 className="title">Связь с сервером...</h4>
+			</AlertDialog>
+		)
+	} else if (respondedData && respondedData?.data.status !== -1 && !respondedData?.error) return (
 		<AlertDialog
 			title={`Заявка ${respondedData.data?.status === 0 ? "успешно отправлена" : "уже существует"}!`}
 			show={show}
-			closeHandler={handler}
+			closeHandler={onClose}
 			footer={
 				<Modal.Footer className="centered">
-					<Button variant="secondary" type="button" onClick={handleClose}>Закрыть</Button>
+					<Button variant="secondary" type="button" onClick={onClose}>Закрыть</Button>
 				</Modal.Footer>
 			}
 			className="registration"
@@ -121,12 +66,12 @@ const OnlineRegistration = ({id, show, handler, regForm}) => {
 
 	else if (typeof respondedData === "undefined") return (
 		<AlertDialog
-			title={`Заявка отправлена!`}
+			title={`Заявка отправлена с ошибкой!`}
 			show={show}
-			closeHandler={handler}
+			closeHandler={onClose}
 			footer={
 				<Modal.Footer className="centered">
-					<Button variant="secondary" type="button" onClick={handleClose}>Закрыть</Button>
+					<Button variant="secondary" type="button" onClick={onClose}>Закрыть</Button>
 					<span
 						className="message status-error"> Ответ сервера: undefined<br/>Internal server error 500</span>
 				</Modal.Footer>
@@ -142,7 +87,7 @@ const OnlineRegistration = ({id, show, handler, regForm}) => {
 		<AlertDialog
 			title="Ошибка регистрации"
 			show={show}
-			closeHandler={handler}
+			closeHandler={onClose}
 			footer={
 				<Modal.Footer>
 					<span className="status-message error centered">
@@ -161,16 +106,19 @@ const OnlineRegistration = ({id, show, handler, regForm}) => {
 			<ModalDialog
 				title="Регистрация на мероприятие"
 				show={show}
-				closeHandler={handleClose}
+				closeHandler={onClose}
 				className="registration"
 				size="md"
 			>
-				<RegistrationForm id={id} data={regForm === 1 ? FORM_DATA_EXT : FORM_DATA} submitHandler={handleSubmit}
-				                  closeHandler={handleClose} validated={validated}/>
+				<RegistrationForm
+					id={id}
+					data={regForm === 1 ? FORM_DATA_EXT : FORM_DATA}
+					submitHandler={handleSubmit}
+					closeHandler={onClose}
+					validated={validated}
+				/>
 			</ModalDialog>
 		)
 }
 
-export default OnlineRegistration
-
-
+export default memo(OnlineRegistration)

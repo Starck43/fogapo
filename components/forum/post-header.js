@@ -1,3 +1,4 @@
+import {memo} from "react"
 import Link from "next/link"
 
 import ForumDate from "./forum-date"
@@ -10,7 +11,7 @@ import {Logo} from "../UI/avatar"
 import DATA, {HOME_TITLE} from "../../core/constants"
 
 
-export default function PostHeader({posts, post}) {
+function PostHeader({posts, post}) {
 	return (
 		<header className="post-header bg-color-primary flex-column p-4">
 			<Container className="pt-5 pb-4">
@@ -18,7 +19,7 @@ export default function PostHeader({posts, post}) {
 				<Calendar selected={post?.id} posts={posts}/>
 
 				<div className="header-logos flex-wrap">
-					<Link href="/">
+					<Link href="/" passHref>
 						<a className="logo-link">
 							<Logo src={DATA.logo} alt={post.title} width={150} height={150}/>
 						</a>
@@ -45,3 +46,5 @@ export default function PostHeader({posts, post}) {
 		</header>
 	)
 }
+
+export default memo(PostHeader)
