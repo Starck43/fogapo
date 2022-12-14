@@ -13,7 +13,7 @@ export default function Partners({partners, showTitle = false, defaultType="logo
 					<li key={partner.id} className="partner">
 						<a href={partner.link} className="partner-link link">
 							{partners.length === 1 || defaultType === 'logo'
-								? <Logo className={`partner-logo centered`} name={partner.name} src={partner.logo}/>
+								? <Logo className={`partner-logo`} name={partner.name} src={partner.logo}/>
 								: <div className={`partner-name`}>{partner.name}</div>
 							}
 						</a>

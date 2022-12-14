@@ -23,9 +23,8 @@ export const Logo = ({className = "logo", name = "", src}) => {
 				src={src}
 				alt={name}
 				loader={remoteLoader}
-				//layout="responsive"
+				layout="responsive"
 				blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer("#a6a6a6", imageSize.naturalWidth, imageSize.naturalHeight))}`}
-				placeholder="fill"
 				width={imageSize.naturalWidth}
 				height={imageSize.naturalHeight}
 				unoptimized

@@ -508,23 +508,17 @@ footer
 	.partners-list
 		display: flex
 		justify-content: center
-		width: auto
-		//max-width: 300px
+		align-items: center
+		gap: 4vw
+		width: 100%
 		line-height: 0
 		overflow: hidden
 		.partner
-			margin: 2vw
+			flex: 1
 		.partner-logo
 			position: relative
 			height: 100%
-			span
-				> span, img
-					width: auto !important
-					max-height: 3rem !important
-					height: auto !important
-					min-width: unset !important
-					min-height: unset !important
-
+			max-width: 300px
 
 .registration
 	.meta-block, .questionnaire-block
@@ -678,5 +672,3 @@ footer
 	border-top: 1px solid $primary-bg-color
 	text-align: center
 	padding: 3px
-
-
