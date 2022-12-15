@@ -34,7 +34,7 @@ function Events({events, ...props}) {
 					</div>
 					}
 					{event.content &&
-					<HtmlContent className="event-content flex-wrap large-text">{event.content}</HtmlContent>}
+					<HtmlContent className="event-content flex-wrap">{event.content}</HtmlContent>}
 
 					{event.event_time && <small className="event-time">Начало в: {event.event_time}</small>}
 

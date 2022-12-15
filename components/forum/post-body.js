@@ -40,9 +40,9 @@ function PostBody({post}) {
 			<section
 				className={`appeals-forum bg-color-secondary ${events?.length === 0 ? "pt-4vh" : "py-4vh"}`}
 				style={{
-					backgroundImage: `url(${background})`,
-					backgroundPosition: "right bottom",
-					backgroundRepeat: "no-repeat",
+					//backgroundImage: `url(${background})`,
+					//backgroundPosition: "right bottom",
+					//backgroundRepeat: "no-repeat",
 					//backgroundSize: "contain"
 				}}
 			>
@@ -57,10 +57,9 @@ function PostBody({post}) {
 			}
 
 			{(partners?.length > 0 || location || info) &&
-			<section className="info-forum bg-color-secondary bg-image py-4vh"
-			         style={{
-				         backgroundImage: `url(${background})`
-			         }}
+			<section
+				className="info-forum bg-color-secondary bg-image py-4vh"
+				style={{backgroundImage: `url(${background})`}}
 			>
 				<Container className="info-container px-4vw flex-wrap">
 					<Partners partners={partners} showTitle defaultType="name" className="partners-block my-4"/>

@@ -1,6 +1,7 @@
 import Container from "../UI/container"
 import {tripQuotes} from "../../core/utils"
 import {memo} from "react"
+import {HtmlContent} from "../UI/html-content"
 
 
 function Reviews({reviews, ...props}) {
@@ -13,7 +14,9 @@ function Reviews({reviews, ...props}) {
 				<div className="review frame no-border" key={review.id}>
 					{review.content && <blockquote className="review-content">
 						&ldquo;
-						<i>{tripQuotes(review.content)}</i>
+						<HtmlContent>
+							<i>{tripQuotes(review.content)}</i>
+						</HtmlContent>
 						&rdquo;
 						<br/>
 						{review.link
