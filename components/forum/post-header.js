@@ -19,15 +19,15 @@ function PostHeader({posts, post}) {
 				<Calendar selected={post?.id} posts={posts}/>
 
 				<div className="header-logos flex-wrap">
-					<Link href="/" passHref>
-						<a className="logo-link">
-							<Logo src={DATA.logo} alt={post.title} width={150} height={150}/>
-						</a>
+					<Link href="/" className="logo-link">
+						<Logo src={DATA.logo} alt={post.title} width={150} height={150}/>
 					</Link>
 
 					{post.add_logo &&
-					<Link href={post.add_link || "#"} passHref>
-						<a className="logo-link extra"><Logo name="" src={post.add_logo}/></a>
+					<Link href={post.add_link || "#"}>
+						<a className="logo-link extra">
+							<Logo name="" src={post.add_logo}/>
+						</a>
 					</Link>
 					}
 				</div>
