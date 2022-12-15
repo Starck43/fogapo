@@ -1,9 +1,10 @@
-import {useRouter} from 'next/router'
-import ErrorPage from 'next/error'
+import {useRouter} from "next/router"
+import ErrorPage from "next/error"
 import {AiOutlineLoading3Quarters as Loader} from "react-icons/ai"
-import Layout from '../components/layout'
+
+import Layout from "../components/layout"
 import Post from "../components/forum/post"
-import {getPost, getAllPosts} from '../core/api'
+import {getPost, getAllPosts} from "../core/api"
 
 
 export default function Page({post, posts, preview}) {
@@ -13,10 +14,13 @@ export default function Page({post, posts, preview}) {
 	}
 	return (
 		<Layout preview={preview}>
-			{router.isFallback ? (
-				<div className="centered"><Loader/></div>
-			) : (
-				<Post post={post} posts={posts}/>
+			{router.isFallback
+				? (
+					<div className="centered">
+						<Loader/>
+					</div>
+				) : (
+					<Post post={post} posts={posts}/>
 				)
 			}
 		</Layout>
@@ -30,24 +34,24 @@ export async function getStaticProps({params}) {
 	if (!post) {
 		return {
 			redirect: {
-				destination: '/',
+				destination: "/",
 				permanent: false,
 			},
 		}
 	}
 	return {
 		props: {
-			post: post || null,
-			posts: posts || null,
+			post,
+			posts,
 		},
-		// revalidate: 60 * 60 * 24,
+		revalidate: 60 * 60,
 
 	}
 }
 
 export async function getStaticPaths() {
 	// fetching all posts only with a 'id' field
-	const posts = await getAllPosts(['id']) || []
+	const posts = await getAllPosts(["id"]) || []
 
 	return {
 		paths: posts.map((post) => {

@@ -30,11 +30,12 @@ function PostHeader({posts, post}) {
 					/>
 
 					{post.add_logo &&
-					<Link href={post.add_link || "#"}>
-						<a className="logo-link extra">
-							<Logo name="" src={post.add_logo}/>
-						</a>
-					</Link>
+					<Logo
+						as={Link}
+						href={post.add_link || "#"}
+						className="logo-link extra"
+						src={post.add_logo}
+					/>
 					}
 				</div>
 

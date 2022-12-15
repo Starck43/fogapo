@@ -44,7 +44,7 @@ export const Logo = memo((props) => {
 
 	return (
 		href
-			? <Tag href={href}><a className={className}>{content}</a></Tag>
+			? <Tag href={href} passHref><a href={href} className={className}>{content}</a></Tag>
 			: <Tag className={className}>{content}</Tag>
 	)
 })
@@ -82,7 +82,7 @@ export const Avatar = memo((props) => {
 
 	return (
 		href
-			? <Tag href={href}><a className={`avatar centered vertical ${rounded} ${className}`}>{content}</a></Tag>
+			? <Tag href={href} passHref><a href={href} className={`avatar centered vertical ${rounded} ${className}`}>{content}</a></Tag>
 			: <Tag className={`avatar centered vertical ${rounded} ${className}`}>{content}</Tag>
 	)
 })
