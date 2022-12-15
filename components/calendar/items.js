@@ -20,8 +20,8 @@ const Items = ({selected, items, closeHandler}) => {
 					{daysToTarget(item.date_forum)}
 				</div>
 
-				<Link href={`/${item.id}`} passHref>
-					<a href={`/${item.id}`} className={`forum-body shadow4`} onClick={closeHandler}>
+				<Link href={`/${item.id}`} legacyBehavior>
+					<a className={`forum-body shadow4`} onClick={closeHandler}>
 						<div className="forum-title">
 							<h4 className="title">{item.title}</h4>
 							{item.subtitle && <div className="subtitle">{item.subtitle}</div>}
