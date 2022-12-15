@@ -1,13 +1,14 @@
-import {useState} from "react"
+import {memo, useState} from "react"
 import Image from "next/image"
 import {shimmer, toBase64} from "../../core/utils"
-
-
-export const Logo = ({className = "logo", name = "", src}) => {
 
 	const remoteLoader = ({src}) => {
 		return src
 	}
+
+// eslint-disable-next-line react/display-name
+export const Logo = memo(({className = "logo", name = "", src}) => {
+
 	const [imageSize, setImageSize] = useState({
 		naturalWidth: 100,
 		naturalHeight: 100
@@ -33,9 +34,10 @@ export const Logo = ({className = "logo", name = "", src}) => {
 			/>
 		</div>
 	)
-}
+})
 
-export const Avatar = ({src, name = "", width = 160, height = null, rounded = "rounded", className}) => {
+// eslint-disable-next-line react/display-name
+export const Avatar = memo(({src, name = "", width = 160, height = null, rounded = "rounded", className}) => {
 
 	return (
 		<div className={`avatar centered vertical ${rounded} ${className}`}>
@@ -51,4 +53,4 @@ export const Avatar = ({src, name = "", width = 160, height = null, rounded = "r
 			{name && <div className="avatar-caption">{name}</div>}
 		</div>
 	)
-}
+})

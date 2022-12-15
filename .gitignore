@@ -28,7 +28,6 @@ CACHE/
 # misc
 .DS_Store
 *.pem
-package-lock.json
 yarn.lock
 datadamp.json
 .zshrc

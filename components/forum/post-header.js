@@ -26,7 +26,7 @@ function PostHeader({posts, post}) {
 					</Link>
 
 					{post.add_logo &&
-					<Link href={post.add_link || "#"}>
+					<Link href={post.add_link || "#"} passHref>
 						<a className="logo-link extra"><Logo name="" src={post.add_logo}/></a>
 					</Link>
 					}
