@@ -9,7 +9,7 @@ module.exports = {
 		[
 			"babel-plugin-root-import",
 			{
-				"ssr": false,
+				"ssr": true,
 				"displayName": true,
 				"preprocess": false
 			}
