@@ -11,7 +11,7 @@
 	border-color: $brand-color !important
 
 html
-	font-size: 14px
+	font-size: 16px
 	+media-breakpoint-up(md)
 		font-size: 18px
 	background-color: $secondary-bg-color
@@ -272,6 +272,7 @@ main
 					position: relative
 					display: flex
 					align-items: center
+					flex-direction: column
 					gap: 1rem
 					flex: 1
 					max-width: calc(33.33% - 2vw)
@@ -291,9 +292,9 @@ main
 						float: left
 
 					> span, img
-						width: 25% !important
-						max-width: 5rem !important
-						max-height: 5rem !important
+						width: 15% !important
+						max-width: 4rem !important
+						max-height: 4rem !important
 						// margin-bottom: 1.5rem
 						+push--auto()
 						text-align: center
@@ -304,10 +305,20 @@ main
 					+media-breakpoint-up(sm)
 						p
 							flex-direction: unset
+						img
+							width: 10% !important
+							margin: 0
 
 					+media-breakpoint-up(md)
+						li
+							flex-direction: row
+
 						p
 							flex-direction: column
+
+						img
+							width: 30% !important
+							+push--auto
 
 
 				& ~ p img
