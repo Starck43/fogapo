@@ -40,7 +40,7 @@ export async function getStaticProps({params}) {
 			post: post || null,
 			posts: posts || null,
 		},
-		revalidate: 60 * 60 * 24,
+		// revalidate: 60 * 60 * 24,
 
 	}
 }

@@ -261,7 +261,7 @@ main
 		.appeal-body
 			img
 				max-width: 100%
-				height: auto !important
+				height: unset !important
 
 			ul
 				display: flex
@@ -271,6 +271,8 @@ main
 				li
 					position: relative
 					display: flex
+					align-items: center
+					gap: 1rem
 					flex: 1
 					max-width: calc(33.33% - 2vw)
 					min-height: 100px
@@ -288,10 +290,10 @@ main
 						float: left
 
 					> span, img
-						width: 30% !important
+						width: 25% !important
 						max-width: 5rem !important
 						max-height: 5rem !important
-						margin-bottom: 1.5rem
+						// margin-bottom: 1.5rem
 						+push--auto()
 						text-align: center
 
@@ -301,14 +303,11 @@ main
 					+media-breakpoint-up(sm)
 						p
 							flex-direction: unset
-						> span, img
-							margin-right: 1.5rem
 
 					+media-breakpoint-up(md)
 						p
 							flex-direction: column
-						> span, img
-							margin-right: auto
+
 
 				& ~ p img
 					margin-top: 1.5rem
