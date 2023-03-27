@@ -32,7 +32,7 @@ prompt-toolkit==3.0.30
 pyparsing==3.0.9
 python-slugify==6.1.2
 pytz==2022.1
-redis==4.3.4
+redis==4.5.3
 six==1.16.0
 sqlparse==0.4.2
 text-unidecode==1.3
