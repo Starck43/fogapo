@@ -39,7 +39,7 @@ class EventInlineAdmin(admin.StackedInline):
 	model = Event
 	extra = 0 #new blank record count
 	show_change_link = True
-	fields = ('title', 'event_time', 'content', 'sort',)
+	fields = ('host', 'title', 'event_time', 'content', 'sort',)
 	#list_display = ('content', 'sort',)
 
 
@@ -145,6 +145,3 @@ class ReviewAdmin(admin.ModelAdmin):
 		return ', '.join(obj.forum.all().distinct().values_list('title', flat=True))
 
 	forum_list.short_description = 'Форумы'
-
-
-

@@ -11,7 +11,7 @@ export default function Index({post, posts}) {
 	)
 }
 
-export async function getStaticProps() {
+export async function getStaticProps(context) {
 	const post = await getLatestPost()
 	const posts = await getAllPosts()
 
@@ -20,6 +20,5 @@ export async function getStaticProps() {
 			post,
 			posts,
 		},
-		revalidate: 60 * 60 * 24,
 	}
 }

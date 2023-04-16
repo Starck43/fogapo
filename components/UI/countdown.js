@@ -8,7 +8,7 @@ export default function Countdown({datetime}) {
 	let {days, hours, minutes, seconds} = countdown
 	return (
 		Object.keys(countdown).length ? (
-			<div className="countdown-block flex-wrap end">
+			<div className="countdown-block flex-wrap center">
 				<h4 className="countdown-title col-12">До мероприятия осталось:</h4>
 				<div className="number-wrapper flex-column center"><div className="two-digit centered">{days}</div><span>Дней</span></div>
 				<div className="number-wrapper flex-column center"><div className="two-digit centered">{hours}</div><span>Часов</span></div>

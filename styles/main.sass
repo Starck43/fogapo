@@ -53,7 +53,7 @@ ul
 
 h1
 	color: $title-color
-	font-size: 2.4em
+	font-size: 2.2rem
 	letter-spacing: 1px
 	line-height: 1
 	text-transform: uppercase
@@ -65,18 +65,17 @@ h2
 	font-weight: 500
 
 h3
-	margin-bottom: 1.5rem
+	margin-bottom: 1.4rem
 	color: $title-color
-	font-size: 1.8rem
+	font-size: 1.4rem
 	font-weight: 500
 	//letter-spacing: 1px
 	text-transform: uppercase
 
 h4
-	margin-bottom: 1.2rem
 	font-size: 1.2rem
 	// color: $brand-color
-	text-transform: uppercase
+	// text-transform: uppercase
 	font-weight: 700
 
 article
@@ -89,35 +88,30 @@ article
 		font-weight: bold
 
 header
+	background-color: $primary-bg-color
 	min-height: 100vh
-	+media-breakpoint-up(sm)
-		min-height: unset
+	user-select: none
 
 	.container
 		display: flex
 		gap: 1rem
 
-	.header-logos
-		margin-bottom: 1rem
 
-	.logo-link
-		max-width: 4rem
-		min-width: 80px
-		user-select: none
+	.logo-svg
+		width: 5rem
+		height: 5rem
+		fill: $brand-color
 
-	.header-title
+
+	.brand-title
 		flex: 0 1 40%
 		text-transform: uppercase
 		line-height: 1.2
 
-		h1
-			word-spacing: 100vw
-			color: $header-title-color
-
 		.subtitle
 			margin-top: auto
 			text-transform: lowercase
-			@extend h2
+			@extend h3
 
 			p
 				margin-bottom: 0
@@ -125,17 +119,21 @@ header
 		+media-breakpoint-down(md)
 			font-size: 0.8em
 
-	.date-forum
-		justify-content: space-between
-		flex: 1 1 42%
+	.header-info
+		max-width: 900px
+		border-radius: 8px
+		text-align: center
+
+	.contacts-block
+		font-weight: bold
 
 	.date-block
-		font-size: 4em
-		line-height: 1
+		@extend h1
 		font-weight: bold
-		color: #000
 		text-align: right
 
+		time
+			color: $brand-color
 		.at-time
 			margin-top: 0.25rem
 			// margin-bottom: 1rem
@@ -147,11 +145,6 @@ header
 		color: white
 
 	.countdown-block
-		display: inline-flex
-		margin-top: 6rem
-		+media-breakpoint-down(md)
-			margin-top: 0
-
 		.two-digit
 			position: relative
 			width: 2.4em
@@ -194,53 +187,6 @@ header
 				text-transform: uppercase
 				color: $brand-color
 				font-weight: bold
-
-	+media-breakpoint-down(xl)
-		.date-forum
-			.date-block
-				margin-top: -0.5rem
-				font-size: 2.8em
-
-	+media-breakpoint-down(lg)
-		.container
-			flex-wrap: wrap
-			justify-content: center
-			gap: 1rem
-			min-height: 100%
-			align-items: flex-start
-
-		.header-title
-			flex: 1 1 75%
-
-		.date-forum
-			flex: 100%
-			flex-direction: row
-
-	+media-breakpoint-down(md)
-		.date-forum
-			flex-direction: column
-			align-items: center !important
-			height: min-content
-			//margin-top: auto
-			.date-block
-				margin-bottom: 4vh
-
-			.countdown-block
-				justify-content: center
-				text-align: center
-
-	+media-breakpoint-down(sm)
-		.header-logos
-			flex: initial
-		.header-title
-			margin-left: 0
-			font-size: 0.8em
-
-		.date-forum
-			width: 100%
-
-			.date-block
-				font-size: 2.8em
 
 
 main
@@ -437,14 +383,12 @@ main
 
 	.reviews-forum
 		.title
-			color: white
+			text-align: center
 
 		.review
 			width: 100%
 			max-width: 800px
-			margin-top: 2vh
-			background-color: transparentize(white, 0.7)
-
+			margin: auto
 			.review-author
 				margin-top: 1.5rem
 				font-weight: bold
@@ -469,7 +413,6 @@ main
 			.partner
 				.partner-name
 					@extend h4
-					line-height: 0.8
 
 				.partner-logo
 					max-width: 250px
@@ -522,8 +465,8 @@ footer
 		line-height: 0
 		overflow: hidden
 		.partner
-			flex: 1
-			max-width: 200px
+			flex: 0 1 auto
+			max-width: 100px
 		.partner-logo
 			position: relative
 			height: 100%

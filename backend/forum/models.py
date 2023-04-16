@@ -56,7 +56,7 @@ class Forum(models.Model):
 	title = models.CharField('Название мероприятия', max_length=250, help_text='')
 	subtitle = models.TextField('Подзаголовок', blank=True, help_text='Текст в шапке сайта')
 	content = RichTextUploadingField('Контент', null=True, blank=True, help_text='Секция описания мероприятия')
-	date_forum = models.DateTimeField('Дата события')
+	date_forum = models.DateTimeField('Дата события', null=True)
 	partners = models.ManyToManyField(Partner, blank=True, related_name='partners', verbose_name = 'Партнеры мероприятия', help_text='')
 	location = models.TextField('Место проведения', blank=True, help_text='')
 	info = RichTextUploadingField('Дополнительная информация', blank=True, help_text='Дополнительный блок, расположенный под местом проведения')

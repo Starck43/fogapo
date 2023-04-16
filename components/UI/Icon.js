@@ -1,17 +1,14 @@
-import Image from 'next/image'
-
-export default function Icon({src, height, width}) {
+export function Icon({ name, color="currentColor", fill="transparent", size="100%", className }) {
 	return (
-		<Image
-			src={src}
-			//loader={remoteLoader}
-			//placeholder={blur}
-			alt=""
-			className="icon"
-			layout="fixed"
-			objectFit="contain"
-			width={width}
-			height={height}
-		/>
+		<svg
+			className={`icon icon-${name} ${className}`}
+			color={color}
+			fill={fill}
+			stroke={color}
+			width={size}
+			height={size}
+		>
+			<use xlinkHref={`#icon-${name}`} />
+		</svg>
 	)
 }

@@ -21,7 +21,7 @@ export const getCountdown = (target) => {
 
 	// If the count down is finished
 	if (distance < 0) {
-		return {}
+		return -1
 	}
 
 	// Time calculations for days, hours, minutes and seconds
@@ -36,9 +36,9 @@ export const getCountdown = (target) => {
 
 export const daysToTarget = (target) => {
 	let {days} = getCountdown(new Date(target))
-
+	console.log(days)
 	switch (days) {
-		case "undefined":
+		case undefined:
 			return null
 		case 0:
 			return <span>сегодня</span>

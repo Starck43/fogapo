@@ -1,5 +1,7 @@
-import {memo, useState} from "react"
+import {memo, useMemo, useState} from "react"
+import Link from "next/link"
 import Image from "next/image"
+
 import {shimmer, toBase64} from "../../core/utils"
 
 const remoteLoader = ({src}) => {
@@ -9,10 +11,10 @@ const remoteLoader = ({src}) => {
 // eslint-disable-next-line react/display-name
 export const Logo = memo((props) => {
 	const {
-		as = "div",
-		src,
+		as:Tag = "div",
+		src = undefined,
 		href = undefined,
-		name = "",
+		title = "",
 		className = "logo",
 	} = props
 
@@ -21,30 +23,29 @@ export const Logo = memo((props) => {
 		naturalHeight: 100
 	})
 
-	const loadComplete = function (imageDimension) {
+	const loadComplete = useMemo((imageDimension) => {
 		setImageSize(imageDimension)
-	}
-
-	const Tag = as
+	},[])
 
 	const content = (
+		(src) ?
 		<Image
 			src={src}
-			alt={name}
+			alt={title}
 			loader={remoteLoader}
+			width={imageSize?.naturalWidth || 100}
+			height={imageSize?.naturalHeight || 100}
 			layout="intrinsic"
-			blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer("#a6a6a6", imageSize.naturalWidth, imageSize.naturalHeight))}`}
-			width={imageSize.naturalWidth}
-			height={imageSize.naturalHeight}
 			unoptimized
+			blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer("#a6a6a6", imageSize?.naturalWidth, imageSize?.naturalHeight))}`}
 			onLoadingComplete={loadComplete}
-			priority
 		/>
+			: title
 	)
 
 	return (
 		href
-			? <Tag href={href} legacyBehavior><a className={className}>{content}</a></Tag>
+			? <Tag className={className}><Link href={href}>{content}</Link></Tag>
 			: <Tag className={className}>{content}</Tag>
 	)
 })
@@ -52,7 +53,7 @@ export const Logo = memo((props) => {
 // eslint-disable-next-line react/display-name
 export const Avatar = memo((props) => {
 	const {
-		as = "div",
+		as:Tag = "div",
 		src,
 		href = undefined,
 		name = "",
@@ -61,8 +62,6 @@ export const Avatar = memo((props) => {
 		rounded = "rounded",
 		className = undefined,
 	} = props
-
-	const Tag = as
 
 
 	const content = (

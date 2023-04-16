@@ -16,7 +16,7 @@ This is a [Next.js](https://nextjs.org/) commercial project with [`create-next-a
 Site was written on React/Next.js with Python/Django backend. Pages are pre-rendered at build time
 
  - `next-config.js` -  API settings
- - `babel.config.js` Babel settings
+ - `babel.config.j` Babel settings
  - `core/` - folder with api, hooks, utils and an additional personal data
  - `pages/*.js` - base pages (index, [id])
  - `components/*.js` - all component's folder

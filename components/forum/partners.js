@@ -2,7 +2,7 @@ import {memo} from "react"
 import {Logo} from "../UI/avatar"
 
 
-function Partners({partners, showTitle = false, defaultType="logo", ...props}) {
+function Partners({partners, showTitle = false, defaultType = "logo", ...props}) {
 	if (!partners?.length) return null
 
 	return (
@@ -12,12 +12,12 @@ function Partners({partners, showTitle = false, defaultType="logo", ...props}) {
 			<ul className={`partners-list ${partners.length === 1 ? "logos" : "names"}-list`}>
 				{partners.map(partner =>
 					<li key={partner.id} className="partner">
-						<a href={partner.link} className="partner-link link">
-							{partners.length === 1 || defaultType === 'logo'
-								? <Logo className={`partner-logo`} name={partner.name} src={partner.logo}/>
-								: <div className={`partner-name`}>{partner.name}</div>
-							}
-						</a>
+						<Logo
+							title={partner.name}
+							href={partner.link}
+							src={partners.length === 1 || defaultType === "logo" ? partner?.logo : undefined}
+							className={`partner-${defaultType}`}
+						/>
 					</li>
 				)}
 			</ul>
