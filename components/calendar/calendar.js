@@ -1,69 +1,37 @@
-import {Fragment, memo, useCallback, useState} from "react"
-import {AiFillCalendar as CalendarIcon} from "react-icons/ai"
-import {Accordion} from "react-bootstrap"
+import { Fragment, memo, useCallback, useState } from "react"
 
-import Items from "./items"
-import {AlertDialog} from "../UI/dialogs"
+import { AiFillCalendar as CalendarIcon } from "react-icons/ai"
+import { TbLoader3 as Loader } from "react-icons/tb"
+import { Accordion } from "react-bootstrap"
 
+import Items from "./group-items"
+import { AlertDialog } from "../UI/dialogs"
+import { Fetch, useFetch } from "../../core/Fetch"
+import SubTitle from "../UI/subtitle"
+import { CalendarDialog } from "./calendar-dialog"
 
-const Calendar = ({selected=0, posts}) => {
-	const [show, setShow] = useState(false)
+const Calendar = ({ selectedId = 0 }) => {
+    const [show, setShow] = useState(false)
+    const handleCloseDialog = useCallback(() => {
+        setShow(!show)
+    }, [show])
 
-	const handleCalendarModal = useCallback(() => {
-		setShow(!show)
-	},[show])
+    return (
+        <Fragment>
+            <div className="calendar-button centered" onClick={handleCloseDialog}>
+                <CalendarIcon />
+                <span>Календарь мероприятий</span>
+            </div>
 
-	return (
-		<Fragment>
-
-			<div className="calendar-button centered" onClick={handleCalendarModal}>
-				<CalendarIcon/><span>Календарь мероприятий</span>
-			</div>
-
-			{show &&
-			<AlertDialog
-				title="Календарь мероприятий"
-				show={show}
-				closeHandler={handleCalendarModal}
-				className="events-calendar-modal"
-				size="md"
-				scrollable
-			>
-				<div className={`forum-group next`}>
-					{/*<h4 className="title">Предстоящие мероприятия</h4>*/}
-					<ul className="next-forums">
-						<Items
-							selected={selected}
-							items={posts.next_forums}
-							closeHandler={handleCalendarModal}
-						/>
-					</ul>
-				</div>
-
-				<div className={`forum-group prev`}>
-					<Accordion className="prev-forums-accordion" defaultActiveKey={selected.toString()} alwaysOpen>
-						<Accordion.Item eventKey="0">
-							<Accordion.Header>
-								<div className="title">Архив мероприятий</div>
-							</Accordion.Header>
-							<Accordion.Body>
-								<ul className="prev-forums">
-									<Items
-										selected={selected}
-										items={posts.prev_forums}
-										closeHandler={handleCalendarModal}
-									/>
-								</ul>
-							</Accordion.Body>
-						</Accordion.Item>
-					</Accordion>
-
-				</div>
-			</AlertDialog>
-			}
-
-		</Fragment>
-	)
+            {show && (
+                <CalendarDialog
+                    expandedId={selectedId}
+                    show={show}
+                    closeHandler={handleCloseDialog}
+                />
+            )}
+        </Fragment>
+    )
 }
 
 export default memo(Calendar)

@@ -1,0 +1,6 @@
+# Ignore artifacts:
+.next
+node_modules
+*.html
+*.sass
+*.scss

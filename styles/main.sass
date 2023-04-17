@@ -10,6 +10,10 @@
 	box-shadow: none !important
 	border-color: $brand-color !important
 
+@supports (font: -apple-system-body) and (-webkit-appearance: none)
+	img[loading="lazy"]
+		clip-path: inset(0.6px)
+
 html
 	font-size: 16px
 	+media-breakpoint-up(md)
@@ -452,11 +456,13 @@ footer
 		line-height: 0
 		overflow: hidden
 		.partner
-			flex: 0 1 auto
-			max-width: 100px
+			flex: 1 1 auto
+			max-width: 120px
 		.partner-logo
 			position: relative
-			height: 100%
+			height: 40px
+			+media-breakpoint-down(sm)
+				height: 25px
 
 .registration
 	.meta-block, .questionnaire-block
