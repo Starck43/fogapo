@@ -1,20 +1,29 @@
-import {useTimeCounter} from "../../core/hooks"
+import { useTimeCounter } from "../../core/hooks";
 
+export default function Countdown({ datetime }) {
+  //useEffect( () => {},[datetime])
+  let countdown = useTimeCounter(datetime);
 
-export default function Countdown({datetime}) {
-	//useEffect( () => {},[datetime])
-	let countdown = useTimeCounter(datetime)
-
-	let {days, hours, minutes, seconds} = countdown
-	return (
-		Object.keys(countdown).length ? (
-			<div className="countdown-block flex-wrap center">
-				<h4 className="countdown-title col-12">До мероприятия осталось:</h4>
-				<div className="number-wrapper flex-column center"><div className="two-digit centered">{days}</div><span>Дней</span></div>
-				<div className="number-wrapper flex-column center"><div className="two-digit centered">{hours}</div><span>Часов</span></div>
-				<div className="number-wrapper flex-column center"><div className="two-digit centered">{minutes}</div><span>Минут</span></div>
-				<div className="number-wrapper flex-column center"><div className="two-digit centered">{seconds}</div><span>Секунд</span></div>
-			</div>
-		) : null
-	)
+  let { days, hours, minutes, seconds } = countdown;
+  return Object.keys(countdown).length ? (
+    <div className="countdown-block flex-wrap center">
+      <h4 className="countdown-title col-12">До мероприятия осталось:</h4>
+      <div className="number-wrapper flex-column center gap-1">
+        <div className="two-digit with-divider centered">{days}</div>
+        <span className="number-text">Дней</span>
+      </div>
+      <div className="number-wrapper flex-column center gap-1">
+        <div className="two-digit with-divider centered">{hours}</div>
+        <span className="number-text">Часов</span>
+      </div>
+      <div className="number-wrapper flex-column center gap-1">
+        <div className="two-digit with-divider centered">{minutes}</div>
+        <span className="number-text">Минут</span>
+      </div>
+      <div className="number-wrapper flex-column center gap-1">
+        <div className="two-digit centered">{seconds}</div>
+        <span className="number-text">Секунд</span>
+      </div>
+    </div>
+  ) : null;
 }

@@ -42,7 +42,7 @@ Based on Django framework API with Python code
  All python packages saved in `backend/requirements.txt` file
 
 ### Tables relationships in models
-![](fogapo_sql_scheme.pdf)
+![](resources/fogapo_sql_scheme.pdf)
 
 
 ```bash
