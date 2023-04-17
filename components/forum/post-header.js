@@ -13,7 +13,7 @@ import Contacts from "./contacts"
 import IconForum from "/public/logo.svg"
 
 function PostHeader(props) {
-    const { id, title, subtitle, date_forum, add_logo, add_link } = props
+    const { id, title, subtitle, location, date_forum, add_logo, add_link } = props
     const datetime = date_forum && new Date(date_forum)
 
     return (
