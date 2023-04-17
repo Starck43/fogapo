@@ -55,9 +55,13 @@ class PostGroupedView(viewsets.ModelViewSet):
 class PostLatestView(generics.RetrieveAPIView):
 	serializer_class = PostDetailSerializer
 	queryset = Forum.objects.filter(date_forum__gte=datetime.datetime.now()).order_by('date_forum')
+
 	def get_object(self):
 		queryset = self.get_queryset()
-		post = queryset[0] if queryset else None
+		post = queryset.latest() if queryset else None
+		if post == None:
+			queryset = Forum.objects.filter(date_forum__isnull=True)
+			post = queryset.latest() if queryset else None
 		return post
 
 

@@ -56,7 +56,7 @@ class Forum(models.Model):
 	title = models.CharField('Название мероприятия', max_length=250, help_text='')
 	subtitle = models.TextField('Подзаголовок', blank=True, help_text='Текст в шапке сайта')
 	content = RichTextUploadingField('Контент', null=True, blank=True, help_text='Секция описания мероприятия')
-	date_forum = models.DateTimeField('Дата события', null=True)
+	date_forum = models.DateTimeField('Дата события', blank=True, null=True)
 	partners = models.ManyToManyField(Partner, blank=True, related_name='partners', verbose_name = 'Партнеры мероприятия', help_text='')
 	location = models.TextField('Место проведения', blank=True, help_text='')
 	info = RichTextUploadingField('Дополнительная информация', blank=True, help_text='Дополнительный блок, расположенный под местом проведения')
@@ -156,7 +156,7 @@ class Host(models.Model):
 
 class Event(models.Model):
 	forum = models.ForeignKey(Forum, on_delete=models.SET_NULL, null=True, related_name='event', verbose_name = 'Форум', help_text='')
-	host = models.ForeignKey(Host, on_delete=models.SET_NULL, null=True, blank=True, related_name='host', verbose_name = 'Ведущий события', help_text='')
+	host = models.ForeignKey(Host, on_delete=models.SET_NULL, null=True, related_name='host', verbose_name = 'Ведущий мероприятия', help_text='')
 	title = models.CharField('Заголовок события', max_length=150, null=True, blank=True, help_text='Можно указать короткое название события')
 	content = RichTextUploadingField('Описание события', null=True, blank=True, help_text='')
 	event_time = models.TimeField('Время выступления', null=True, blank=True, help_text='')
@@ -170,7 +170,7 @@ class Event(models.Model):
 
 
 	def __str__(self):
-		return self.title if self.title else 'Событие от '+self.forum.date_forum.strftime('%d-%m-%y')
+		return self.title if self.title else 'Мероприятие с участием '+self.host.name if self.host else "Новое мероприятие"
 
 
 
