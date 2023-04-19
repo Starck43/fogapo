@@ -8,6 +8,7 @@ import CheckControl from "./controls/check"
 const Control = (props) => {
     const {
         title,
+        name,
         type = "text",
         choices,
         selected = "",
@@ -16,7 +17,7 @@ const Control = (props) => {
         compact = true,
         placeholder = "",
         autocomplete = "false",
-        name,
+        className = "",
     } = props
 
     return (
@@ -27,10 +28,11 @@ const Control = (props) => {
                     <Form.Control
                         as={type}
                         name={name}
-                        rows={3}
+                        rows={4}
                         placeholder={placeholder}
                         autoComplete={autocomplete.toString()}
                         required={required}
+                        className={className}
                     />
                 </>
             ) : type === "text" || type === "number" || type === "tel" || type === "email" ? (
@@ -44,6 +46,7 @@ const Control = (props) => {
                     inline={inline}
                     required={required}
                     compact={compact}
+                    className={className}
                 />
             ) : type === "select" ? (
                 <SelectControl
@@ -54,6 +57,7 @@ const Control = (props) => {
                     placeholder={placeholder}
                     required={required}
                     compact={compact}
+                    className={className}
                 />
             ) : type === "radio" || type === "checkbox" ? (
                 <CheckControl
@@ -63,6 +67,7 @@ const Control = (props) => {
                     name={name}
                     inline={inline}
                     required={required}
+                    className={className}
                 />
             ) : null}
         </Form.Group>
