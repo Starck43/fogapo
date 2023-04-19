@@ -8,11 +8,14 @@ import Container from "../UI/container"
 
 import DATA from "../../core/constants"
 import Title from "../UI/title"
+import { isActiveDate } from "../../core/utils"
 
 const Appeals = (props) => {
-    const { id, content, date_forum, cost, reg_form, reg_is_active, events, isActive } = props
+    const { id, content, date_forum, cost, reg_form, reg_is_active, events } = props
     const [showForm, setShowForm] = useState(false)
     const router = useRouter()
+
+    const isActive = reg_is_active && isActiveDate(date_forum)
 
     const onCloseRegistration = useCallback(() => {
         setShowForm(false)
@@ -23,7 +26,7 @@ const Appeals = (props) => {
     }, [])
 
     useEffect(() => {
-        if (!date_forum || !reg_is_active) return
+        if (!date_forum || !isActive) return
 
         if (router.asPath.endsWith(`?registration`)) {
             onOpenRegistration()
@@ -34,7 +37,7 @@ const Appeals = (props) => {
             link.addEventListener("click", onOpenRegistration)
             return () => link.removeEventListener("click", onOpenRegistration)
         }
-    }, [date_forum, onOpenRegistration, reg_is_active, router.asPath])
+    }, [date_forum, onOpenRegistration, isActive, router.asPath])
 
     if (!date_forum) {
         return (
@@ -48,29 +51,28 @@ const Appeals = (props) => {
     }
 
     return (
-        <Fragment>
-            <HtmlContent className="appeal-body container p-4 mx-auto">{content}</HtmlContent>
+        <Container>
+            <HtmlContent className="appeal-content p-4">{content}</HtmlContent>
 
             {isActive && (
                 <div
-                    className={`appeal-footer mt-4vh ${
-                        !events.length ? "bg-white shadow4" : "mx-auto"
+                    className={`registration-block flex-wrap gap p-4 ${
+                        !events.length ? "bg-white shadow4" : ""
                     }`}
                 >
-                    <Container className="p-4">
-                        <div className="appeal-reg-info">
-                            <HtmlContent>{DATA.reg_content}</HtmlContent>
-                            <b>
-                                ** Участие в мероприятии{" "}
-                                <span className="highlight">{`${
-                                    cost ? "платное" : "бесплатное"
-                                }!`}</span>
-                            </b>
-                        </div>
-                        <div className="button" onClick={onOpenRegistration}>
-                            Зарегистрироваться online
-                        </div>
-                    </Container>
+                    <div className="appeal-reg-info">
+                        <HtmlContent>{DATA.reg_content}</HtmlContent>
+                        <b>
+                            ** Участие в мероприятии{" "}
+                            <span className="highlight">{`${
+                                cost ? "платное" : "бесплатное"
+                            }!`}</span>
+                        </b>
+                    </div>
+                    <div className="button" onClick={onOpenRegistration}>
+                        Зарегистрироваться online
+                    </div>
+
                     {!events.length ? <div className="overlay bg-color-brand" /> : null}
                 </div>
             )}
@@ -99,7 +101,7 @@ const Appeals = (props) => {
                     </AlertDialog>
                 )
             ) : null}
-        </Fragment>
+        </Container>
     )
 }
 

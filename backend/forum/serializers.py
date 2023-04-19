@@ -61,6 +61,7 @@ class HostSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
 	host = HostSerializer(many=False)
 	content = FixRichCaretSerializer()
+	event_time = serializers.DateTimeField(format="%H:%M")
 
 	class Meta:
 		model = Event

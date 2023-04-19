@@ -1,47 +1,52 @@
-import {memo} from "react"
+import { memo } from "react"
 
-import {HtmlContent} from "../UI/html-content"
-import {Avatar} from "../UI/avatar"
+import { HtmlContent } from "../UI/html-content"
+import { Avatar } from "../UI/avatar"
 import Container from "../UI/container"
+import Title from "../UI/title"
 
+function Events({ events, className }) {
+    return (
+        <Container className={className}>
+            {events.map((event) => (
+                <article className="event my-4vh flex-column" key={event.id}>
+                    {event?.host && (
+                        <div className="event-host flex-wrap">
+                            <Title
+                                as="h3"
+                                href={event.host?.link}
+                                title={event.host?.name}
+                                subTitle={event.host?.pre_name}
+                                className="host-title reverse"
+                            />
 
-function Events({events, ...props}) {
-	return (
-		<Container {...props}>
-			{events.map(event =>
-				<article className="event" key={event.id}>
-					{event.title && <h2 className="title event-title">{event.title}</h2>}
+                            <Avatar
+                                src={event.host?.avatar}
+                                width={150}
+                                alt={event.host?.name}
+                                title={
+                                    <HtmlContent className="host-excerpt">
+                                        {event.host?.excerpt}
+                                    </HtmlContent>
+                                }
+                                className="host-avatar gap"
+                            />
+                        </div>
+                    )}
 
-					{event.host &&
-					<div className="event-host">
-						<div className="meta cell-auto">
-							{event.host?.pre_name && <span>{event.host.pre_name}</span>}
-							{event.host?.name && event.host?.link
-								? <a href={event.host?.link} className="no-decoration">
-									<h3 className="host-title">{event.host.name}</h3>
-								</a>
-								: event.host?.name
-									? <h3 className="host-title">{event.host.name}</h3>
-									: null
-							}
-							{event.host?.excerpt &&
-							<HtmlContent className="host-excerpt">{event.host.excerpt}</HtmlContent>}
-						</div>
-
-						{event.host?.avatar &&
-						<Avatar src={event.host.avatar} width={320} className="cell-4 shadow4"/>
-						}
-					</div>
-					}
-					{event.content &&
-					<HtmlContent className="event-content flex-wrap">{event.content}</HtmlContent>}
-
-					{event.event_time && <small className="event-time">Начало в: {event.event_time}</small>}
-
-				</article>
-			)}
-		</Container>
-	)
+                    <div className="event-description flex-column">
+                        <Title as="h2" title={event.title} className="event-title" />
+                        <HtmlContent className="event-content">{event.content}</HtmlContent>
+                        {event.event_time ? (
+                            <small className="event-time mx-auto bg-color-white">
+                                Начало в: {event.event_time}
+                            </small>
+                        ) : null}
+                    </div>
+                </article>
+            ))}
+        </Container>
+    )
 }
 
 export default memo(Events)

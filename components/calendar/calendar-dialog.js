@@ -12,8 +12,6 @@ export function CalendarDialog({ expandedId, show, closeHandler }) {
         return <SubTitle>Ошибка загрузки мероприятий. Попробуйте позже!</SubTitle>
     }
 
-    if (!data) return <Loader />
-
     const { prev_forums, next_forums } = data
 
     return (
@@ -25,47 +23,53 @@ export function CalendarDialog({ expandedId, show, closeHandler }) {
             size="md"
             scrollable
         >
-            <div className={`forum-group next`}>
-                {/*<h4 className="title">Предстоящие мероприятия</h4>*/}
-                <ul className="next-forums">
-                    {next_forums?.map((item, index) => (
-                        <GroupItems
-                            key={item.id}
-                            currentIndex={index}
-                            selected={expandedId}
-                            closeHandler={closeHandler}
-                            {...item}
-                        />
-                    ))}
-                </ul>
-            </div>
+            {data ? (
+                <>
+                    <div className={`forum-group next`}>
+                        {/*<h4 className="title">Предстоящие мероприятия</h4>*/}
+                        <ul className="next-forums">
+                            {next_forums?.map((item, index) => (
+                                <GroupItems
+                                    key={item.id}
+                                    currentIndex={index}
+                                    selected={expandedId}
+                                    closeHandler={closeHandler}
+                                    {...item}
+                                />
+                            ))}
+                        </ul>
+                    </div>
 
-            <div className={`forum-group prev`}>
-                <Accordion
-                    className="prev-forums-accordion"
-                    defaultActiveKey={expandedId.toString()}
-                    alwaysOpen
-                >
-                    <Accordion.Item eventKey="0">
-                        <Accordion.Header>
-                            <div className="title">Архив мероприятий</div>
-                        </Accordion.Header>
-                        <Accordion.Body>
-                            <ul className="prev-forums">
-                                {prev_forums?.map((item, index) => (
-                                    <GroupItems
-                                        key={item.id}
-                                        currentIndex={index}
-                                        selected={expandedId}
-                                        closeHandler={closeHandler}
-                                        {...item}
-                                    />
-                                ))}
-                            </ul>
-                        </Accordion.Body>
-                    </Accordion.Item>
-                </Accordion>
-            </div>
+                    <div className={`forum-group prev`}>
+                        <Accordion
+                            className="prev-forums-accordion"
+                            defaultActiveKey={expandedId.toString()}
+                            alwaysOpen
+                        >
+                            <Accordion.Item eventKey="0">
+                                <Accordion.Header>
+                                    <div className="title">Архив мероприятий</div>
+                                </Accordion.Header>
+                                <Accordion.Body>
+                                    <ul className="prev-forums">
+                                        {prev_forums?.map((item, index) => (
+                                            <GroupItems
+                                                key={item.id}
+                                                currentIndex={index}
+                                                selected={expandedId}
+                                                closeHandler={closeHandler}
+                                                {...item}
+                                            />
+                                        ))}
+                                    </ul>
+                                </Accordion.Body>
+                            </Accordion.Item>
+                        </Accordion>
+                    </div>
+                </>
+            ) : (
+                <Loader className="loader-icon" />
+            )}
         </AlertDialog>
     )
 }

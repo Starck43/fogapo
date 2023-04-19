@@ -1,4 +1,4 @@
-import { memo } from "react"
+import { memo, useEffect, useState } from "react"
 import Link from "next/link"
 
 import ForumDate from "./forum-date"
@@ -7,26 +7,28 @@ import { HtmlContent } from "../UI/html-content"
 import { Logo } from "../UI/avatar"
 import Countdown from "../UI/countdown"
 
-import { HOME_TITLE } from "../../core/constants"
-import Contacts from "./contacts"
+import DATA, { HOME_TITLE } from "/core/constants"
 
 import IconForum from "/public/logo.svg"
+import Appeals from "./appeals"
 
 function PostHeader(props) {
-    const { id, title, subtitle, location, date_forum, add_logo, add_link } = props
+    const { id, subtitle, date_forum, add_logo, add_link, page_background } = props
+
     const datetime = date_forum && new Date(date_forum)
+    const background = page_background || DATA.background
 
     return (
-        <header className="post-header flex-wrap space-between align-items-center flex-column gap-4 p-4">
+        <header className="post-header space-between bg-color-primary gap-4">
             <Calendar selectedId={id} />
 
-            <div className="brand-header flex-wrap gap mt-4">
+            <div className="brand-header flex-wrap px-4vw gap">
                 <IconForum className="logo-svg" />
 
                 <div className="brand-title">
                     <h1>{HOME_TITLE}</h1>
                     {subtitle && (
-                        <HtmlContent as="h3" className="subtitle highlight">
+                        <HtmlContent as="span" className="subtitle highlight">
                             {subtitle}
                         </HtmlContent>
                     )}
@@ -42,13 +44,24 @@ function PostHeader(props) {
                 )}
             </div>
 
-            <div className="header-info flex-column space-between center gap my-auto p-4">
-                <h2>{title}</h2>
+            {datetime && (
+                <div className="header-info flex-column px-4vw gap">
+                    <ForumDate datetime={datetime} />
+                    <Countdown datetime={datetime} />
+                </div>
+            )}
 
-                {datetime && <ForumDate datetime={datetime} />}
-                <Contacts location={location} isActive className="contacts-block flex-column" />
-            </div>
-            <Countdown datetime={datetime} />
+            <section
+                className="appeals-section bg-color-white"
+                style={{
+                    backgroundImage: `url(${background})`,
+                    backgroundPosition: "right bottom",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
+                }}
+            >
+                <Appeals {...props} />
+            </section>
         </header>
     )
 }

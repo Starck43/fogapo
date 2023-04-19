@@ -1,25 +1,25 @@
-import {memo} from "react"
-import {HtmlContent} from "../UI/html-content"
+import { memo } from "react"
+import { HtmlContent } from "../UI/html-content"
+import Title from "../UI/title"
+import { isActiveDate } from "../../core/utils"
 
+function Contacts({ info, location, date_forum, className }) {
+    const isActive = isActiveDate(date_forum)
 
-function Contacts({info, location, isActive, ...props}) {
-	if (!isActive || !location && !info) return
+    if (!isActive || (!location && !info)) return
 
-	return (
-		<div {...props}>
-			{info &&
-			<HtmlContent className="get-in-touch frame shadow4">
-				{info}
-			</HtmlContent>
-			}
+    return (
+        <div className={className}>
+            {info && <HtmlContent className="get-in-touch frame shadow4">{info}</HtmlContent>}
 
-			{location &&
-			<HtmlContent className="location large-text">
-				{location}
-			</HtmlContent>
-			}
-		</div>
-	)
+            {location && (
+                <div className="location flex-column end gap">
+                    <Title title="Место проведения:" />
+                    <HtmlContent className="location-content">{location}</HtmlContent>
+                </div>
+            )}
+        </div>
+    )
 }
 
-export default  memo(Contacts)
+export default memo(Contacts)

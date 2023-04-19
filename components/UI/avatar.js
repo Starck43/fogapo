@@ -60,38 +60,46 @@ export const Logo = memo((props) => {
 // eslint-disable-next-line react/display-name
 export const Avatar = memo((props) => {
     const {
-        as: Tag = "div",
+        as: Tag = href ? "a" : "div",
         src,
         href = undefined,
-        name = "",
+        alt = "",
+        title = "",
         width = 160,
         height = null,
-        rounded = "rounded",
-        className = undefined,
+        rounded = true,
+        shadowed = true,
+        bordered = true,
+        className = "flex-column center",
     } = props
 
-    const content = (
-        <>
-            <Image
-                src={src}
-                alt={name}
-                width={width}
-                height={height ? height : width}
-                placeholder="blur"
-                blurDataURL={`data:image/svg+xml;base64,${toBase64(
-                    shimmer("#a6a6a6", width, height),
-                )}`}
-                unoptimized
-            />
-            {name && <div className="avatar-caption">{name}</div>}
-        </>
-    )
+    if (!src) return null
 
-    return href ? (
-        <Tag href={href} legacyBehavior>
-            <a className={`avatar centered vertical ${rounded} ${className}`}>{content}</a>
+    let content = title
+    if (typeof title === "string") {
+        content = <figcaption className="avatar-title">{title}</figcaption>
+    }
+
+    return (
+        <Tag href={href} target="_blank" className={`avatar ${className}`}>
+            <figure
+                className={`avatar-wrapper ${rounded ? "rounded" : ""} ${
+                    shadowed ? "shadow" : ""
+                } ${bordered ? "bordered" : ""}`}
+            >
+                <Image
+                    src={src}
+                    alt={alt}
+                    width={width}
+                    height={height ? height : width}
+                    placeholder="blur"
+                    blurDataURL={`data:image/svg+xml;base64,${toBase64(
+                        shimmer("#a6a6a6", width, height),
+                    )}`}
+                    unoptimized
+                />
+            </figure>
+            {content}
         </Tag>
-    ) : (
-        <Tag className={`avatar centered vertical ${rounded} ${className}`}>{content}</Tag>
     )
 })
