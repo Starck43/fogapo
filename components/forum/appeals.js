@@ -1,7 +1,7 @@
 import { Fragment, memo, useCallback, useEffect, useState } from "react"
 import { useRouter } from "next/router"
 
-import OnlineRegistration from "../forms/main"
+import RegistrationForm from "../forms/registration"
 import { HtmlContent } from "../UI/html-content"
 import { AlertDialog } from "../UI/dialogs"
 import Container from "../UI/container"
@@ -79,7 +79,7 @@ const Appeals = (props) => {
 
             {showForm ? (
                 isActive ? (
-                    <OnlineRegistration
+                    <RegistrationForm
                         id={id}
                         show={showForm}
                         regForm={reg_form}

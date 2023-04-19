@@ -63,7 +63,7 @@ ul
 
 h1
 	color: $title-color
-	font-size: 1.6rem
+	font-size: calc( 1.6em + 0.5vw )
 	letter-spacing: 1px
 	line-height: 1.05
 	text-transform: uppercase
@@ -140,16 +140,24 @@ article
 		width: 4.8rem
 		height: 4.8rem
 		fill: $brand-color
+		+media-breakpoint-down(sm)
+			width: 4.4rem
+			height: 4.4rem
 
 
 	.brand-header
-		flex: 0 1 60%
+		flex: 0 1 55%
+
+		padding-left: 4vw
 
 	.brand-title
 		flex: 0 1 40%
+		+media-breakpoint-down(sm)
+			flex: 1 1 0
+			font-size: 0.8rem
 
 		.subtitle
-			font-size: 1.2rem
+			font-size: 1.4em
 			line-height: 1
 			text-transform: lowercase
 
@@ -177,6 +185,12 @@ article
 			font-size: 0.5em
 			font-weight: normal
 
+
+	@media (orientation: landscape)
+		flex-direction: row
+		.brand-title
+			font-size: 0.8rem
+
 	.countdown-block
 		gap: 0.9em
 		+media-breakpoint-down(sm)
@@ -197,7 +211,7 @@ article
 			font-size: 1.4em
 			font-weight: 500
 			color: $brand-color
-			border-radius: 50rem
+			border-radius: $border-radius
 			border-color: $brand-color
 			background: white
 			user-select: none
@@ -224,10 +238,6 @@ article
 		//align-items: center
 
 		.appeal-content
-			img
-				max-width: 100%
-				height: unset !important
-
 			ul
 				display: inline-flex
 				justify-content: space-between
@@ -275,7 +285,6 @@ article
 					li, li > *
 						gap: 1rem
 						flex-direction: row
-
 
 
 				& ~ p img
@@ -372,6 +381,8 @@ article
 
 		.host-avatar
 			display: inline-flex
+			align-items: center
+
 			figure
 				max-width: $event-avatar-size
 				max-height: $event-avatar-size
@@ -379,7 +390,9 @@ article
 		.host-title
 			flex: 100%
 			@extend h2
-			font-weight: bold
+			> *:first-child
+				@extend .highlight
+				font-weight: bold
 
 		.host-excerpt
 			color: $text-color

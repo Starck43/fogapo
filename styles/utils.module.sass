@@ -154,9 +154,7 @@
 	display: block
 	width: $icon-size
 	height: $icon-size
-	max-width: 1.4rem
-	max-height: 1.4rem
-	transition: all 150ms ease
+	transition: all 180ms ease
 	opacity: .7
 	user-select: none
 	box-sizing: content-box
@@ -167,28 +165,6 @@
 	&:hover
 		transform: rotate(90deg)
 		opacity: 1
-
-	&::before,
-	&::after
-		content: ''
-		position: absolute
-		width: 100%
-		height: $border-width
-		left: 0
-		top: 50%
-		margin-top: math.div(-$border-width, 2)
-		border-radius: $border-radius
-		background-color: black
-
-	&::before
-		transform: rotate(45deg)
-
-	&::after
-		transform: rotate(-45deg)
-
-	+media-breakpoint-down(sm)
-		width: $icon-size * 0.8
-		height: $icon-size * 0.8
 
 .shadow3
 	box-shadow: 0 10px 20px 0 rgba(0, 0, 0, .21)
@@ -266,6 +242,8 @@ blockquote
 
 .avatar-wrapper
 	display: block
+	margin-bottom: 0
+
 	img
 		width: 100%
 		height: 100%
@@ -364,7 +342,7 @@ blockquote
 	position: relative
 	width: 100%
 	flex: 1 1 auto
-	padding: 1rem 1.5rem
+	padding: 0.75rem 1.5rem
 	+push--auto
 
 .modal-header
@@ -373,7 +351,7 @@ blockquote
 	flex-shrink: 0
 	align-items: center
 	justify-content: space-between
-	padding: 1rem 1.5rem
+	padding: 0.75rem 1.5rem
 	border-top-left-radius: $border-radius - 1px
 	border-top-right-radius: $border-radius - 1px
 	//border-bottom: $border-width solid white
@@ -425,8 +403,6 @@ blockquote
 	display: block
 	font-weight: bold
 
-input ~ label
-	color: $brand-color
 
 .form-check-input
 	width: 1.2rem

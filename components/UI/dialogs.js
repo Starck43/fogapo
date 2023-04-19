@@ -1,4 +1,5 @@
 import { Modal } from "react-bootstrap"
+import { MdClose as CloseIcon } from "react-icons/md"
 
 export const AlertDialog = (props) => {
     const {
@@ -21,8 +22,9 @@ export const AlertDialog = (props) => {
             {...other}
             aria-labelledby="alertDialogId"
         >
-            <Modal.Header closeButton>
+            <Modal.Header>
                 <Modal.Title>{title}</Modal.Title>
+                <CloseIcon className="btn-close highlight" onClick={closeHandler} />
             </Modal.Header>
 
             <Modal.Body className="flex-column">{children}</Modal.Body>
@@ -44,8 +46,9 @@ export const ModalDialog = (props) => {
             scrollable={true}
             centered
         >
-            <Modal.Header closeButton>
+            <Modal.Header>
                 <Modal.Title>{title}</Modal.Title>
+                <CloseIcon className="btn-close highlight" onClick={closeHandler} />
             </Modal.Header>
 
             <Modal.Body className="flex-column center">{children}</Modal.Body>

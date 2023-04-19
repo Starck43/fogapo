@@ -1,15 +1,16 @@
 import { memo, useCallback, useState } from "react"
-
-import RegistrationForm from "./registrationForm"
-import ResponseContent from "./responseContent"
-import { FORM_DATA, FORM_DATA_EXT } from "../../core/constants"
-import { AlertDialog, ModalDialog } from "../UI/dialogs"
 import { Button, Modal } from "react-bootstrap"
+
+import RegistrationForm from "./registration-form"
+import ResponseContent from "./responseContent"
 import { fetchFormData } from "./libs/fetchFormData"
+
+import { AlertDialog, ModalDialog } from "../UI/dialogs"
+import { FORM_DATA, FORM_DATA_EXT } from "/core/constants"
 
 //import style from "~/styles/reg.module.sass"
 
-const OnlineRegistration = ({ id, show, onClose, regForm }) => {
+const Registration = ({ id, show, onClose, regForm }) => {
     const [respondedData, setRespondedData] = useState(null)
     const [validated, setValidated] = useState(false)
 
@@ -35,7 +36,7 @@ const OnlineRegistration = ({ id, show, onClose, regForm }) => {
 
     if (respondedData instanceof Promise) {
         return (
-            <AlertDialog title="Регистрация на мероприятие" show={show} closeHandler={onClose}>
+            <AlertDialog title="Регистрация" show={show} closeHandler={onClose}>
                 <h4 className="title">Связь с сервером...</h4>
             </AlertDialog>
         )
@@ -71,16 +72,15 @@ const OnlineRegistration = ({ id, show, onClose, regForm }) => {
                             Закрыть
                         </Button>
                         <span className="message status-error">
-                            {" "}
-                            Ответ сервера: undefined
+                            Ошибка на сервере!
                             <br />
-                            Internal server error 500
+                            (code: 500)
                         </span>
                     </Modal.Footer>
                 }
                 className="registration"
             >
-                <h4>Регистрация прошла с ошибками на сервере</h4>
+                <h4>Регистрация прошла с ошибками</h4>
                 <p>
                     Рекомендуем сообщить об этом{" "}
                     <a href="mailto:webmaster@istarck.ru">администратору сайта</a>
@@ -106,12 +106,16 @@ const OnlineRegistration = ({ id, show, onClose, regForm }) => {
             >
                 <h4 className="title">Возникла ошибка на сервере!</h4>
                 <p>{respondedData?.response?.text}</p>
+                <p>
+                    Рекомендуем сообщить об этом{" "}
+                    <a href="mailto:webmaster@istarck.ru">администратору сайта</a>
+                </p>
             </AlertDialog>
         )
     else
         return (
             <ModalDialog
-                title="Регистрация на мероприятие"
+                title="Регистрация участника"
                 show={show}
                 closeHandler={onClose}
                 className="registration"
@@ -119,7 +123,7 @@ const OnlineRegistration = ({ id, show, onClose, regForm }) => {
             >
                 <RegistrationForm
                     id={id}
-                    data={regForm === 1 ? FORM_DATA_EXT : FORM_DATA}
+                    data={regForm === 0 ? FORM_DATA_EXT : FORM_DATA}
                     submitHandler={handleSubmit}
                     closeHandler={onClose}
                     validated={validated}
@@ -128,4 +132,4 @@ const OnlineRegistration = ({ id, show, onClose, regForm }) => {
         )
 }
 
-export default memo(OnlineRegistration)
+export default memo(Registration)

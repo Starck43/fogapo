@@ -22,7 +22,7 @@ function PostHeader(props) {
         <header className="post-header space-between bg-color-primary gap-4">
             <Calendar selectedId={id} />
 
-            <div className="brand-header flex-wrap px-4vw gap">
+            <div className="brand-header flex-wrap gap">
                 <IconForum className="logo-svg" />
 
                 <div className="brand-title">

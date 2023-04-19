@@ -1,0 +1,15 @@
+@use "sass:math"
+
+@import styles/vars.module
+@import styles/mixins
+
+.form
+	height: 100%
+
+.float__control
+	min-height: calc(3.5rem + 2px)
+	& ~ label
+		color: $brand-color
+
+.controls
+	margin-top: auto
