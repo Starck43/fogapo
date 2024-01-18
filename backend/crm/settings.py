@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'ckeditor',
     'ckeditor_uploader',
-    'debug_toolbar',
+    # 'debug_toolbar',
     'forum',
 ]
 
@@ -122,13 +122,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'crm.wsgi.application'
 
-
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+     ]
 }
 
 # Database
