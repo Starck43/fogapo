@@ -26,7 +26,7 @@ humanize==4.3.0
 kombu==5.2.4
 packaging==21.3
 pilkit==2.0
-Pillow==10.2.0
+Pillow==10.3.0
 prometheus-client==0.14.1
 prompt-toolkit==3.0.30
 pyparsing==3.0.9
