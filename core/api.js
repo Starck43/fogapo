@@ -1,15 +1,22 @@
 //import DATA from "./constants"
 //import {apiDataFetch} from "./apiDataFetch"
 
+export const API_ENDPOINTS = {
+    posts: "/posts",
+    postsGrouped: "/posts/grouped",
+    latest: "/posts/latest",
+    saveUser: "/user/add",
+}
+
 export async function getPost(id) {
 	//const post = DATA.posts[0]
-	const res = await fetch(process.env.API_SERVER+process.env.API_ENDPOINTS.posts+`/${id}/`)
+	const res = await fetch(process.env.API_SERVER+API_ENDPOINTS.posts+`/${id}/`)
 	return await res.json()
 }
 
 export async function getLatestPost() {
 	//const post = DATA.posts[0]
-	const res = await fetch(process.env.API_SERVER+process.env.API_ENDPOINTS.latest+'/')
+	const res = await fetch(process.env.API_SERVER+API_ENDPOINTS.latest+'/')
 	return await res.json()
 }
 
@@ -24,11 +31,11 @@ export async function getAllPosts(fields = []) {
 
 	if (fields.length > 0) {
 		//fetching data from server via api
-		const res = await fetch(process.env.API_SERVER+process.env.API_ENDPOINTS.posts+`${params}/`)
+		const res = await fetch(process.env.API_SERVER+API_ENDPOINTS.posts+`${params}/`)
 		return await res.json() || []
 	}
 	else {
-		const res = await fetch(process.env.API_SERVER+process.env.API_ENDPOINTS.posts+'/grouped/')
+		const res = await fetch(process.env.API_SERVER+API_ENDPOINTS.posts+'/grouped/')
 		return await res.json() || []
 	}
 }
