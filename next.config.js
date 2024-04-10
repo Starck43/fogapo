@@ -7,12 +7,6 @@ module.exports = {
     productionBrowserSourceMaps: !isProduction,
     env: {
         API_SERVER: process.env.NEXT_PUBLIC_SERVER + "/api",
-        API_ENDPOINTS: {
-            posts: "/posts",
-            postsGrouped: "/posts/grouped",
-            latest: "/posts/latest",
-            saveUser: "/user/add",
-        },
     },
     publicRuntimeConfig: {},
     serverRuntimeConfig: {
@@ -23,6 +17,7 @@ module.exports = {
     images: {
         domains: ["localhost", process.env.NEXT_PUBLIC_SERVER_HOST],
     },
+    swcMinify: true,
     compiler: {
         // ssr and displayName are configured by default
         styledComponents: {
