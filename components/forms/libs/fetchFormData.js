@@ -1,11 +1,12 @@
-import {Fetch} from "../../../core/Fetch"
+import {Fetch} from "/core/Fetch"
+import { API_ENDPOINTS } from "/core/api"
 import {formData2Json} from "./formData2Json"
 
 
 export const fetchFormData = async (form, callback = undefined) => {
 	let data = formData2Json(form) // конвертируем данные формы в json
 	//console.log(data)
-	const res = await Fetch(process.env.API_SERVER, process.env.API_ENDPOINTS.saveUser, {}, {
+	const res = await Fetch(process.env.API_SERVER, API_ENDPOINTS.saveUser, {}, {
 		method: "post",
 		headers: {
 			"Origin": process.env.SERVER,

@@ -1,12 +1,14 @@
 import { AlertDialog } from "../UI/dialogs"
 import { GroupItems } from "./group-items"
 import { Accordion } from "react-bootstrap"
-import { useFetch } from "../../core/Fetch"
+import { useFetch } from "/core/Fetch"
+import { API_ENDPOINTS } from "/core/api"
+
 import { TbLoader3 as Loader } from "react-icons/tb"
 import Title from "../UI/title"
 
 export function CalendarDialog({ expandedId, show, closeHandler }) {
-    const { data, error } = useFetch(process.env.API_SERVER, process.env.API_ENDPOINTS.postsGrouped)
+    const { data, error } = useFetch(process.env.API_SERVER, API_ENDPOINTS.postsGrouped)
 
     if (error) {
         return <Title title="Ошибка загрузки мероприятий." subTitle="Попробуйте позже" />
