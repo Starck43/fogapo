@@ -2,7 +2,7 @@ import { memo, useMemo, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 
-import { shimmer, toBase64 } from "../../core/utils"
+import { shimmer, toBase64 } from "/core/utils"
 
 const remoteLoader = ({ src }) => {
     return src
@@ -60,7 +60,7 @@ export const Logo = memo((props) => {
 // eslint-disable-next-line react/display-name
 export const Avatar = memo((props) => {
     const {
-        as: Tag = href ? "a" : "div",
+        as = "div",
         src,
         href = undefined,
         alt = "",
@@ -75,6 +75,7 @@ export const Avatar = memo((props) => {
 
     if (!src) return null
 
+    let Tag = href ? "a" : as
     let content = title
     if (typeof title === "string") {
         content = <figcaption className="avatar-title">{title}</figcaption>
