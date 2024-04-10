@@ -35,7 +35,7 @@ function Post({ post }) {
             <PostBody {...post} />
             <PostFooter
                 partners={post?.partners}
-                className={post?.reviews.length ? "bg-color-white" : "bg-color-primary"}
+                className={post?.reviews?.length ? "bg-color-white" : "bg-color-primary"}
             />
         </>
     )
