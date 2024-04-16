@@ -57,7 +57,7 @@ const Appeals = (props) => {
             {isActive && (
                 <div
                     className={`registration-block flex-wrap gap p-4 ${
-                        !events.length ? "bg-white shadow4" : ""
+                        !events.length ? "bg-color-brand shadow4" : ""
                     }`}
                 >
                     <div className="appeal-reg-info">
@@ -72,8 +72,6 @@ const Appeals = (props) => {
                     <div className="button" onClick={onOpenRegistration}>
                         Зарегистрироваться online
                     </div>
-
-                    {!events.length ? <div className="overlay bg-color-brand" /> : null}
                 </div>
             )}
 
