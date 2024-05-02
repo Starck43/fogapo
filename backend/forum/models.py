@@ -183,13 +183,12 @@ class Event(models.Model):
 class Visitor(models.Model):
     CHOICES = ((0, 'не подтвержден'), (1, 'ожидание подтверждения'), (2, 'подтвержден'),)
 
-    forum = models.ForeignKey(Forum, on_delete=models.SET_NULL, null=True, related_name='visitor', verbose_name='Форум',
-                              help_text='')
-    name = models.CharField('Имя посетителя', max_length=100, null=True, help_text='')
-    organization = models.CharField('Место работы', max_length=250, blank=True, help_text='')
-    occupation = models.CharField('Род деятельности', max_length=250, blank=True, help_text='')
+    forum = models.ForeignKey(Forum, on_delete=models.SET_NULL, null=True, related_name='visitor', verbose_name='Форум')
+    name = models.CharField('Имя посетителя', max_length=100)
+    organization = models.CharField('Место работы', max_length=250, null=True, blank=True, help_text='')
+    occupation = models.CharField('Род деятельности', max_length=250, null=True, blank=True, help_text='')
     phone = models.CharField('Контактный телефон', max_length=18, null=True)
-    email = models.EmailField('E-mail', max_length=75, null=True)
+    email = models.EmailField('E-mail', max_length=75, blank=True, null=True)
     questionnaire = models.TextField('Анкета', null=True, blank=True)
     status = models.PositiveIntegerField('Статус участия', null=True, choices=CHOICES, default=1)
 
