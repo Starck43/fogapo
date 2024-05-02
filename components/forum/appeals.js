@@ -60,15 +60,12 @@ const Appeals = (props) => {
                         !events.length ? "bg-color-brand shadow4" : ""
                     }`}
                 >
-                    <div className="appeal-reg-info">
-                        <HtmlContent>{DATA.reg_content}</HtmlContent>
-                        <b>
-                            ** Участие в мероприятии{" "}
-                            <span className="highlight">{`${
-                                cost ? "платное" : "бесплатное"
-                            }!`}</span>
-                        </b>
-                    </div>
+                    {cost
+                        ? <div className="appeal-reg-info">
+                            <b>Участие в мероприятии <span className="highlight">платное</span></b>
+                        </div>
+                        : null
+                    }
                     <div className="button" onClick={onOpenRegistration}>
                         Зарегистрироваться online
                     </div>
