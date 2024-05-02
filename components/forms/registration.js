@@ -6,7 +6,7 @@ import ResponseContent from "./responseContent"
 import { fetchFormData } from "./libs/fetchFormData"
 
 import { AlertDialog, ModalDialog } from "../UI/dialogs"
-import { FORM_DATA, FORM_DATA_EXT } from "/core/constants"
+import { QUESTIONS_FORM_DATA } from "/core/constants"
 
 //import style from "~/styles/reg.module.sass"
 
@@ -123,7 +123,7 @@ const Registration = ({ id, show, onClose, regForm }) => {
             >
                 <RegistrationForm
                     id={id}
-                    data={regForm === 0 ? FORM_DATA_EXT : FORM_DATA}
+                    data={QUESTIONS_FORM_DATA[regForm]}
                     submitHandler={handleSubmit}
                     closeHandler={onClose}
                     validated={validated}

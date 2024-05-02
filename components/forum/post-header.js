@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from "react"
+import { memo } from "react"
 import Link from "next/link"
 
 import ForumDate from "./forum-date"
