@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.db.models import F
@@ -86,12 +88,13 @@ class Forum(models.Model):
                                    help_text='Текст попадает в мета описание сайта для поисковиков. 80-100 символов')
     keywords = models.CharField('Ключевые слова', max_length=250, blank=True,
                                 help_text='Главные поисковые словосочетания. Перечисление через запятую')
+    general_status = models.BooleanField('Отображать на главной', null=True, default=False)
 
     class Meta:
         verbose_name = 'форум'
         verbose_name_plural = 'Форумы'
-        ordering = [Coalesce("sort", 100000), '-date_forum']
-        get_latest_by = [Coalesce("sort", 100000), '-date_forum']
+        ordering = ['-date_forum']
+        get_latest_by = ['-date_forum']
         db_table = 'forums'
 
     def __init__(self, *args, **kwargs):
@@ -103,6 +106,12 @@ class Forum(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
+
+        if self.general_status:
+            for obj in Forum.objects.filter(date_forum__gte=datetime.now()):
+                if obj.general_status:
+                    obj.general_status = False
+                    obj.save()
 
         # delete an old image before saving a new one
         if self.original_logo and self.logo != self.original_logo:

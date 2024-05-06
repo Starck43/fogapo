@@ -1,27 +1,16 @@
-from urllib import parse
 import datetime
 
-from django.conf import settings
-from django.utils import timezone
-from django.utils.decorators import method_decorator
-
-from django.db.models import Q, F
-from django.shortcuts import render, redirect
-from django.template.loader import render_to_string
-from django.http import JsonResponse, HttpResponse
 from django.forms.models import model_to_dict
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.response import Response
-from rest_framework import views, viewsets, generics, permissions  # , filters
-from rest_framework.decorators import api_view, permission_classes
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+from django.utils import timezone
 from rest_framework import permissions
+from rest_framework import viewsets, generics  # , filters
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
 
-from django.contrib.admin.views.decorators import staff_member_required
-
-from .models import *
+from .logic import send_email_async, get_visitor_reg_num, get_admin_site_url, get_site_url
 from .serializers import *
-
-from .logic import send_email, send_email_async, get_visitor_reg_num, get_admin_site_url, get_site_url
 
 
 class PostView(viewsets.ModelViewSet):
@@ -41,30 +30,24 @@ class PostGroupedView(viewsets.ModelViewSet):
     # serializer_class = PostSerializer
     def list(self, request, *args, **kwargs):
         request.session['django_timezone'] = str(timezone.utc)
-        today = datetime.datetime.now()
-        # today = datetime.datetime.now(tz=timezone.utc)
+        today = datetime.now()
+        # today = datetime.now(tz=timezone.utc)
         queryset = self.queryset.filter(date_forum__lt=today).order_by('-date_forum')
         prev_forums = PostSerializer(queryset, many=True, context={'request': request}).data
+
         queryset = self.queryset.filter(date_forum__gte=today).order_by('date_forum')
         next_forums = PostSerializer(queryset, many=True, context={'request': request}).data
-        # print(next_forums, prev_forums)
-        data = {}
-        data['prev_forums'] = prev_forums
-        data['next_forums'] = next_forums
+
+        data = {'prev_forums': prev_forums, 'next_forums': next_forums}
         return Response(data)
 
 
 class PostLatestView(generics.RetrieveAPIView):
     serializer_class = PostDetailSerializer
-    queryset = Forum.objects.filter(date_forum__gte=datetime.datetime.now()).order_by('date_forum')
+    queryset = Forum.objects.filter(general_status=True)
 
     def get_object(self):
-        queryset = self.get_queryset()
-        post = queryset.latest() if queryset else None
-        if post == None:
-            queryset = Forum.objects.filter(date_forum__isnull=True)
-            post = queryset.latest() if queryset else None
-        return post
+        return self.queryset.first()
 
 
 # @method_decorator(csrf_exempt, name='dispatch')
